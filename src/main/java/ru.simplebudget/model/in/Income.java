@@ -4,16 +4,52 @@ package ru.simplebudget.model.in;
 
 import ru.simplebudget.model.Purse;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-
-/**
- * Created by Noutbook on 23.01.2017.
- */
+@Entity
+@Table(name="Income")
 public class Income {
 
     Long incomeId;
     LocalDateTime incomeDateTime;
     Long value;
     Purse purse;
+
+    public Long getIncomeId() {
+        return incomeId;
+    }
+
+    public void setIncomeId(Long incomeId) {
+        this.incomeId = incomeId;
+    }
+
+    public LocalDateTime getIncomeDateTime() {
+        return incomeDateTime;
+    }
+
+    public void setIncomeDateTime(LocalDateTime incomeDateTime) {
+        this.incomeDateTime = incomeDateTime;
+    }
+
+    public Long getValue() {
+        return value;
+    }
+
+    public void setValue(Long value) {
+        this.value = value;
+    }
+
+    public Purse getPurse() {
+        return purse;
+    }
+
+    public void setPurse(Purse purse) {
+        this.purse = purse;
+    }
+
+    public Income() {
+
+    }
 }
