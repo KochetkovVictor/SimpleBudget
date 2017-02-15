@@ -1,17 +1,21 @@
 package ru.simplebudget.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Noutbook on 23.01.2017.
  */
 @Entity
-@Table(name="Purse")
+@Table(name="purse")
 public class Purse {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     Long purseId;
+    @Column(name="description")
     String description;
+    @Column(name="amount")
     Long amount;
 
     public Purse() {

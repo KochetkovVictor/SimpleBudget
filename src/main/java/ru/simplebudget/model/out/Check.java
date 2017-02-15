@@ -5,30 +5,27 @@ package ru.simplebudget.model.out;
 
 import ru.simplebudget.model.Product;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Noutbook on 23.01.2017.
- */
+
 @Entity
-@Table(name="Check")
+@Table(name="check")
 
 public class Check {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long checkId;
-    @Column(name="Amount")
+    @Column(name="amount")
     Long amount;
-    @Column(name="DateTime", columnDefinition = "timestamp default now()")
+    @Column(name="datetime", columnDefinition = "timestamp default now()")
     LocalDateTime dateTime;
 
-    @Column(name="Products")
-    ArrayList<Product> products;
+    @OneToMany
+    @Column(name="products")
+    List<Product> products;
 
     public Check() {
     }
@@ -58,11 +55,11 @@ public class Check {
         this.dateTime = dateTime;
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }
