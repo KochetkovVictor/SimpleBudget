@@ -1,31 +1,28 @@
 package ru.simplebudget.model.out;
 
 
-
-
 import ru.simplebudget.model.Product;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 @Entity
-@Table(name="check")
-
+@Table(name = "check")
 public class Check {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "check_id_seq", sequenceName = "check_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "check_id_seq")
+    @Column(name = "id")
     Long checkId;
-    @Column(name="amount")
+    @Column(name = "amount")
     Long amount;
-    @Column(name="datetime", columnDefinition = "timestamp default now()")
+    @Column(name = "datetime", columnDefinition = "timestamp default now()")
     LocalDateTime dateTime;
-
-    @OneToMany
-    @Column(name="products")
-    List<Product> products;
+    /*@OneToMany
+    @Column(name = "products")
+    List<Product> products;*/
 
     public Check() {
     }
@@ -55,11 +52,11 @@ public class Check {
         this.dateTime = dateTime;
     }
 
-    public List<Product> getProducts() {
+    /*public List<Product> getProducts() {
         return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
+    }*/
 }

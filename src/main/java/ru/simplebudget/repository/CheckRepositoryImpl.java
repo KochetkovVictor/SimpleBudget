@@ -12,76 +12,36 @@ import java.util.List;
 
 
 @Repository
-@Transactional
+@Transactional(readOnly = true)
 public class CheckRepositoryImpl implements CheckRepository {
 
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public Check save(Check check) {
         if (check.getCheckId() == null) {
             em.persist(check);
-            System.out.println("CrI-1");
             return check;
         } else {
-            System.out.println("cri-2");
-            return em.merge(check);}
+            return em.merge(check);
+        }
 
     }
 
+    @Override
     public boolean delete(int id) {
         return false;
     }
 
+    @Override
     public Check get(int id) {
         return null;
     }
 
+    @Override
     public List<Check> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return null;
     }
 
-    public Object save(Object o) {
-        return null;
-    }
-
-    public Iterable save(Iterable iterable) {
-        return null;
-    }
-
-    public Object findOne(Serializable serializable) {
-        return null;
-    }
-
-    public boolean exists(Serializable serializable) {
-        return false;
-    }
-
-    public Iterable findAll() {
-        return null;
-    }
-
-    public Iterable findAll(Iterable iterable) {
-        return null;
-    }
-
-    public long count() {
-        return 0;
-    }
-
-    public void delete(Serializable serializable) {
-
-    }
-
-    public void delete(Object o) {
-
-    }
-
-    public void delete(Iterable iterable) {
-
-    }
-
-    public void deleteAll() {
-
-    }
 }

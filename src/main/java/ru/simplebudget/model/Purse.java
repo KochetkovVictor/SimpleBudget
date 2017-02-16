@@ -6,16 +6,17 @@ import javax.persistence.*;
  * Created by Noutbook on 23.01.2017.
  */
 @Entity
-@Table(name="purse")
+@Table(name = "purse")
 public class Purse {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @SequenceGenerator(name = "purse_id_seq", sequenceName = "purse_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purse_id_seq")
+    @Column(name = "id")
     Long purseId;
-    @Column(name="description")
+    @Column(name = "description")
     String description;
-    @Column(name="amount")
+    @Column(name = "amount")
     Long amount;
 
     public Purse() {
