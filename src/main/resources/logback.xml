@@ -9,7 +9,7 @@
     <jmxConfigurator/>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>claspass:/log/simoplebudget.log</file>
+        <file>C:/Users/Noutbook/IdeaProjects/SimpleBudget/log/simplebudget.log</file>
 
         <encoder>
             <charset>UTF-8</charset>

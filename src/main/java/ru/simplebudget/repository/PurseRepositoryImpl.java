@@ -25,18 +25,17 @@ public class PurseRepositoryImpl implements PurseRepository {
         if (purse.getPurseId() == null) {
             em.persist(purse);
             em.flush();
-            System.out.println("pri-1");
             return purse;
 
         } else {
-            System.out.println("pri-2");
+
             return em.merge(purse);}
     }
 
     @Override
     public Long getPurseAmount(Long id) {
         Purse purse = em.find(Purse.class, id);
-        System.out.println(purse!=null);
+
         return purse.getAmount();
     }
 

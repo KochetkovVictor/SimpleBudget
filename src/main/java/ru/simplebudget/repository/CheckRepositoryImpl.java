@@ -2,11 +2,10 @@ package ru.simplebudget.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.simplebudget.model.out.Check;
+import ru.simplebudget.model.out.Receipt;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,12 +18,12 @@ public class CheckRepositoryImpl implements CheckRepository {
     private EntityManager em;
 
     @Transactional
-    public Check save(Check check) {
-        if (check.getCheckId() == null) {
-            em.persist(check);
-            return check;
+    public Receipt save(Receipt receipt) {
+        if (receipt.getCheckId() == null) {
+            em.persist(receipt);
+            return receipt;
         } else {
-            return em.merge(check);
+            return em.merge(receipt);
         }
 
     }
@@ -35,12 +34,12 @@ public class CheckRepositoryImpl implements CheckRepository {
     }
 
     @Override
-    public Check get(int id) {
+    public Receipt get(int id) {
         return null;
     }
 
     @Override
-    public List<Check> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public List<Receipt> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return null;
     }
 

@@ -2,29 +2,43 @@ package ru.simplebudget.model.out;
 
 
 import ru.simplebudget.model.Product;
+import ru.simplebudget.model.Shop;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 @Entity
-@Table(name = "check")
-public class Check {
+@Table(name = "receipt")
+public class Receipt {
 
     @Id
-    @SequenceGenerator(name = "check_id_seq", sequenceName = "check_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "check_id_seq")
+    @SequenceGenerator(name = "receipt_id_seq", sequenceName = "receipt_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receipt_id_seq")
     @Column(name = "id")
     Long checkId;
     @Column(name = "amount")
     Long amount;
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
     LocalDateTime dateTime;
-    /*@OneToMany
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    @OneToOne
+    Shop shop;
+   /* @OneToMany
     @Column(name = "products")
     List<Product> products;*/
 
-    public Check() {
+
+    public Receipt() {
     }
 
 

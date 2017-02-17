@@ -1,8 +1,7 @@
 package ru.simplebudget.repository;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.simplebudget.model.out.Check;
+import ru.simplebudget.model.out.Receipt;
 
 
 import java.time.LocalDateTime;
@@ -11,9 +10,9 @@ import java.util.List;
 @Repository
 public interface CheckRepository{
 
-    Check save(Check check);
+    Receipt save(Receipt receipt);
     boolean delete(int id);
-    Check get(int id);
-    List<Check> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Receipt get(int id);
+    List<Receipt> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime);
 
 }

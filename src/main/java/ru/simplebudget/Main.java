@@ -4,12 +4,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.simplebudget.model.Product;
 import ru.simplebudget.model.Purse;
-import ru.simplebudget.model.out.Check;
+import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.repository.CheckRepository;
 import ru.simplebudget.repository.PurseRepository;
 
-import java.sql.BatchUpdateException;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +18,14 @@ public class Main {
         System.out.println("Main class");
         ConfigurableApplicationContext configurableApplicationContext =
                 new ClassPathXmlApplicationContext("spring/spring-app.xml");
-        Check bean = configurableApplicationContext.getBean(Check.class);
+        Receipt bean = configurableApplicationContext.getBean(Receipt.class);
         //bean.setCheckId(1L);
         bean.setAmount(300L);
         bean.setDateTime(LocalDateTime.now());
         List<Product> products = new ArrayList<>();
         products.add(new Product("Chocolate", 300L));
         products.add(new Product("Milk", 60L));
-        // bean.setProducts(products);
+      //  bean.setProducts(products);
         CheckRepository cp = (CheckRepository) configurableApplicationContext.getBeanFactory().getBean("checkRepository");
         cp.save(bean);
 
