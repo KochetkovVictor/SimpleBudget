@@ -7,7 +7,6 @@ import ru.simplebudget.model.out.Receipt;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
 public interface CheckRepository{
 
     Receipt save(Receipt receipt);
