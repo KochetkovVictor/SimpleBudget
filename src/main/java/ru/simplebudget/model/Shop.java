@@ -9,14 +9,19 @@ public class Shop {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shop_id_seq")
+    @SequenceGenerator(name = "shops_id_seq", sequenceName = "shops_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shops_id_seq")
+    private
     Long shopId;
     @Column(name="adress")
+    private
     String adress;
     @Column (name = "name")
+    private
     String name;
 
-    @OneToOne
+    @ManyToOne
+    private
     ShopNet netName;
 
     public Shop() {

@@ -1,10 +1,10 @@
 package ru.simplebudget.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 
-/**
- * Created by Noutbook on 23.01.2017.
- */
+
 @Entity
 @Table(name = "purse")
 public class Purse {
@@ -13,10 +13,14 @@ public class Purse {
     @SequenceGenerator(name = "purse_id_seq", sequenceName = "purse_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purse_id_seq")
     @Column(name = "id")
+    private
     Long purseId;
-    @Column(name = "description")
+    @Column(name = "description", unique = true)
+    @NotEmpty
+    private
     String description;
     @Column(name = "amount")
+    private
     Long amount;
 
     public Purse() {

@@ -17,11 +17,18 @@ public class Receipt {
     @SequenceGenerator(name = "receipt_id_seq", sequenceName = "receipt_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receipt_id_seq")
     @Column(name = "id")
+    private
     Long checkId;
     @Column(name = "amount")
+    private
     Long amount;
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
+    private
     LocalDateTime dateTime;
+    @ManyToOne
+    @JoinColumn(name="shop_id")
+    private
+    Shop shop;
 
     public Shop getShop() {
         return shop;
@@ -31,8 +38,7 @@ public class Receipt {
         this.shop = shop;
     }
 
-    @OneToOne
-    Shop shop;
+
    /* @OneToMany
     @Column(name = "products")
     List<Product> products;*/
