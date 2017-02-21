@@ -8,10 +8,18 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
+                query = "SELECT r FROM Receipt r WHERE r.dateTime BETWEEN :startDateTime " +
+                        "AND :endDateTime ORDER BY r.dateTime DESC ")
+})
+
 
 @Entity
 @Table(name = "receipt")
 public class Receipt {
+
+    public static  final String GET_BETWEEN_DATETIME = "Receipt.getBetweenDateTime";
 
     @Id
     @SequenceGenerator(name = "receipt_id_seq", sequenceName = "receipt_id_seq", allocationSize = 1)
@@ -29,6 +37,17 @@ public class Receipt {
     @JoinColumn(name="shop_id")
     private
     Shop shop;
+    @Column(name= "active")
+    private
+    boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public Shop getShop() {
         return shop;

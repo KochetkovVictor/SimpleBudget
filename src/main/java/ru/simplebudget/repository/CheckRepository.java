@@ -1,6 +1,7 @@
 package ru.simplebudget.repository;
 
-import org.springframework.stereotype.Repository;
+import ru.simplebudget.model.Shop;
+import ru.simplebudget.model.ShopNet;
 import ru.simplebudget.model.out.Receipt;
 
 
@@ -13,5 +14,7 @@ public interface CheckRepository{
     boolean delete(int id);
     Receipt get(int id);
     List<Receipt> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Receipt getAllByShop(Shop shop);
+    Receipt getAllByShopNet(ShopNet shopNet);
 
 }

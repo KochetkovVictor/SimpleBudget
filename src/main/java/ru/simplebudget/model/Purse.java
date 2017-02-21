@@ -23,6 +23,18 @@ public class Purse {
     private
     Long amount;
 
+    @Column(name = "active")
+    private
+    boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Purse() {
     }
 
