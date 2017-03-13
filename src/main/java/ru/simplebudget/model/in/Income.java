@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="Income")
+@StaticMetamodel(Income.class)
 public class Income {
 
     @Id

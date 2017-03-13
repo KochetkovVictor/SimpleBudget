@@ -8,6 +8,11 @@ import ru.simplebudget.model.out.Receipt;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -44,7 +49,15 @@ public class CheckRepositoryImpl implements CheckRepository {
 
     @Override
     public Receipt get(int id) {
-        return em.find(Receipt.class, id);
+
+        CriteriaBuilder cb=em.getCriteriaBuilder();
+        CriteriaQuery<Receipt> criteriaQuery=cb.createQuery(Receipt.class);
+        Root<Receipt> root=criteriaQuery.from(Receipt.class);
+        Predicate condition = cb.equal(root.get(Receipt_.id),id);
+        criteriaQuery.where(condition);
+        TypedQuery<Receipt> q=em.createQuery(criteriaQuery);
+        return q.getSingleResult();
+        //return em.find(Receipt.class, id);
     }
 
     @Override

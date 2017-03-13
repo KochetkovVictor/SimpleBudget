@@ -5,6 +5,7 @@ import ru.simplebudget.model.Product;
 import ru.simplebudget.model.Shop;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "receipt")
+@StaticMetamodel(Receipt.class)
 public class Receipt {
 
     public static  final String GET_BETWEEN_DATETIME = "Receipt.getBetweenDateTime";
@@ -98,4 +100,15 @@ public class Receipt {
     public void setProducts(List<Product> products) {
         this.products = products;
     }*/
+
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "checkId=" + checkId +
+                ", amount=" + amount +
+                ", dateTime=" + dateTime +
+                ", shop=" + shop +
+                ", active=" + active +
+                '}';
+    }
 }

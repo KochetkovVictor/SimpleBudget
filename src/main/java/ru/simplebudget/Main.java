@@ -44,6 +44,8 @@ public class Main {
              ) {
             System.out.println(r.getAmount()+ "    " +r.getDateTime());
         }
+        System.out.println("*********************");
+        System.out.println(cp.get(16));
         configurableApplicationContext.close();
     }
 }
