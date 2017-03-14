@@ -2,6 +2,7 @@ package ru.simplebudget.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.simplebudget.generated.model.out.Receipt_;
 import ru.simplebudget.model.Shop;
 import ru.simplebudget.model.ShopNet;
 import ru.simplebudget.model.out.Receipt;
@@ -26,7 +27,7 @@ public class CheckRepositoryImpl implements CheckRepository {
 
     @Transactional
     public Receipt save(Receipt receipt) {
-        if (receipt.getCheckId() == null) {
+        if (receipt.getId() == null) {
             em.persist(receipt);
             return receipt;
         } else {

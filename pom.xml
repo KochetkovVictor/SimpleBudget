@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.simplebudget</groupId>
     <artifactId>SimpleBudget</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>SimpleBudget</name>
     <url>http://maven.apache.org</url>
@@ -151,6 +151,13 @@
 
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.2.8.Final</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>SimpleBudget</finalName>

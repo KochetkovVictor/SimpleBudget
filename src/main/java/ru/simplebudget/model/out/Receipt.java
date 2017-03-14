@@ -1,13 +1,11 @@
 package ru.simplebudget.model.out;
 
 
-import ru.simplebudget.model.Product;
 import ru.simplebudget.model.Shop;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
@@ -28,7 +26,7 @@ public class Receipt {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receipt_id_seq")
     @Column(name = "id")
     private
-    Long checkId;
+    Long id;
     @Column(name = "amount")
     private
     Long amount;
@@ -69,12 +67,12 @@ public class Receipt {
     }
 
 
-    public Long getCheckId() {
-        return checkId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCheckId(Long checkId) {
-        this.checkId = checkId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getAmount() {
@@ -104,7 +102,7 @@ public class Receipt {
     @Override
     public String toString() {
         return "Receipt{" +
-                "checkId=" + checkId +
+                "id=" + id +
                 ", amount=" + amount +
                 ", dateTime=" + dateTime +
                 ", shop=" + shop +

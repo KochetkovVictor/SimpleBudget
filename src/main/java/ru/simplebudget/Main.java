@@ -21,7 +21,7 @@ public class Main {
         ConfigurableApplicationContext configurableApplicationContext =
                 new ClassPathXmlApplicationContext("spring/spring-app.xml");
        /* Receipt bean = configurableApplicationContext.getBean(Receipt.class);
-        //bean.setCheckId(1L);
+        //bean.setId(1L);
         bean.setAmount(300L);
         bean.setDateTime(LocalDateTime.now());
         List<Product> products = new ArrayList<>();
