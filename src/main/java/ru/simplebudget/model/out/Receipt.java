@@ -2,6 +2,7 @@ package ru.simplebudget.model.out;
 
 
 import ru.simplebudget.model.common.Product;
+import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Shop;
 
 import javax.persistence.*;
@@ -25,8 +26,7 @@ public class Receipt {
     public static  final String GET_BETWEEN_DATETIME = "Receipt.getBetweenDateTime";
 
     @Id
-    @SequenceGenerator(name = "receipt_id_seq", sequenceName = "receipt_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receipt_id_seq")
+    @SequenceGenerator(name = "global_seq")
     @Column(name = "id")
     private
     Long id;
@@ -37,12 +37,24 @@ public class Receipt {
     private
     LocalDateTime dateTime;
     @ManyToOne
-    @JoinColumn(name="shop_id")
+    @JoinColumn(name="shopid")
     private
     Shop shop;
     @Column(name= "active")
     private
     boolean active;
+
+    public Purse getPurse() {
+        return purse;
+    }
+
+    public void setPurse(Purse purse) {
+        this.purse = purse;
+    }
+
+    @ManyToOne
+    private
+    Purse purse;
     /*@Column(name="product")
     @OneToMany(mappedBy = "id", fetch=FetchType.EAGER)
     @JoinColumn(name="product")

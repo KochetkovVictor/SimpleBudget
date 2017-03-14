@@ -10,8 +10,7 @@ import javax.persistence.*;
 public class Purse {
 
     @Id
-    @SequenceGenerator(name = "purse_id_seq", sequenceName = "purse_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "purse_id_seq")
+    @SequenceGenerator(name = "global_seq")
     @Column(name = "id")
     private
     Long purseId;
