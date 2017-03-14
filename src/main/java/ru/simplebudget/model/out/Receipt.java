@@ -1,15 +1,12 @@
 package ru.simplebudget.model.out;
 
-
-import ru.simplebudget.model.common.Product;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Shop;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+
 
 @NamedQueries({
         @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
@@ -44,6 +41,10 @@ public class Receipt {
     private
     boolean active;
 
+    @JoinColumn(name="purseId")
+    @ManyToOne
+    private
+    Purse purse;
     public Purse getPurse() {
         return purse;
     }
@@ -52,9 +53,7 @@ public class Receipt {
         this.purse = purse;
     }
 
-    @ManyToOne
-    private
-    Purse purse;
+
     /*@Column(name="product")
     @OneToMany(mappedBy = "id", fetch=FetchType.EAGER)
     @JoinColumn(name="product")

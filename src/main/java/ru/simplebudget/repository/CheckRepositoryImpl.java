@@ -60,7 +60,6 @@ public class CheckRepositoryImpl implements CheckRepository {
         criteriaQuery.where(condition);
         TypedQuery<Receipt> q=em.createQuery(criteriaQuery);
         return q.getSingleResult();
-        //return em.find(Receipt.class, id);
     }
 
     @Override

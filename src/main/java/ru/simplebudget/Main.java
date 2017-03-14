@@ -34,11 +34,11 @@ public class Main {
         System.out.println((purseRepository.save(purse)));
 */
        CheckRepository cp = (CheckRepository) configurableApplicationContext.getBeanFactory().getBean("checkRepository");
-       List<Receipt> receiptList=cp.getByPeriod(LocalDateTime.of(2017, Month.FEBRUARY,1,11,0), LocalDateTime.now());
+       /*List<Receipt> receiptList=cp.getByPeriod(LocalDateTime.of(2017, Month.FEBRUARY,1,11,0), LocalDateTime.now());
         for (Receipt r:receiptList
              ) {
             System.out.println(r.getAmount()+ "    " +r.getDateTime());
-        }
+        }*/
         System.out.println("*********************");
         System.out.println(cp.get(16));
         configurableApplicationContext.close();
