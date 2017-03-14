@@ -1,17 +1,12 @@
 package ru.simplebudget;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.simplebudget.model.Product;
-import ru.simplebudget.model.Purse;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.repository.CheckRepository;
-import ru.simplebudget.repository.PurseRepository;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,7 +34,7 @@ public class Main {
         System.out.println((purseRepository.save(purse)));
 */
        CheckRepository cp = (CheckRepository) configurableApplicationContext.getBeanFactory().getBean("checkRepository");
-       List<Receipt> receiptList=cp.getByPeriod(LocalDateTime.of(2017, Month.FEBRUARY,1,11,00), LocalDateTime.now());
+       List<Receipt> receiptList=cp.getByPeriod(LocalDateTime.of(2017, Month.FEBRUARY,1,11,0), LocalDateTime.now());
         for (Receipt r:receiptList
              ) {
             System.out.println(r.getAmount()+ "    " +r.getDateTime());

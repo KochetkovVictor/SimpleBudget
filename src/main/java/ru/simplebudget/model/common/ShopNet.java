@@ -1,11 +1,11 @@
-package ru.simplebudget.model;
+package ru.simplebudget.model.common;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "shopnets")
+@Table(name = "shopnet")
 public class ShopNet {
     public Long getId() {
         return id;

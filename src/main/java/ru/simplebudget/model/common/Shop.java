@@ -1,10 +1,10 @@
-package ru.simplebudget.model;
+package ru.simplebudget.model.common;
 
 import javax.persistence.*;
 
 @Entity
 
-@Table(name = "shops")
+@Table(name = "shop")
 public class Shop {
 
 

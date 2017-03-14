@@ -2,10 +2,11 @@ package ru.simplebudget.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.simplebudget.generated.model.out.Receipt_;
-import ru.simplebudget.model.Shop;
-import ru.simplebudget.model.ShopNet;
+
+import ru.simplebudget.model.common.Shop;
+import ru.simplebudget.model.common.ShopNet;
 import ru.simplebudget.model.out.Receipt;
+import ru.simplebudget.model.out.Receipt_;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -54,6 +55,7 @@ public class CheckRepositoryImpl implements CheckRepository {
         CriteriaBuilder cb=em.getCriteriaBuilder();
         CriteriaQuery<Receipt> criteriaQuery=cb.createQuery(Receipt.class);
         Root<Receipt> root=criteriaQuery.from(Receipt.class);
+
         Predicate condition = cb.equal(root.get(Receipt_.id),id);
         criteriaQuery.where(condition);
         TypedQuery<Receipt> q=em.createQuery(criteriaQuery);

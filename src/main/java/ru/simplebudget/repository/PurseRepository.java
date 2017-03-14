@@ -2,7 +2,7 @@ package ru.simplebudget.repository;
 
 
 
-import ru.simplebudget.model.Purse;
+import ru.simplebudget.model.common.Purse;
 
 import java.util.List;
 

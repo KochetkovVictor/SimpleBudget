@@ -3,7 +3,7 @@ package ru.simplebudget.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.simplebudget.model.Purse;
+import ru.simplebudget.model.common.Purse;
 
 
 import javax.persistence.EntityManager;

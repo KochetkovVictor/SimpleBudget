@@ -1,7 +1,7 @@
 package ru.simplebudget.repository;
 
-import ru.simplebudget.model.Shop;
-import ru.simplebudget.model.ShopNet;
+import ru.simplebudget.model.common.Shop;
+import ru.simplebudget.model.common.ShopNet;
 import ru.simplebudget.model.out.Receipt;
 
 

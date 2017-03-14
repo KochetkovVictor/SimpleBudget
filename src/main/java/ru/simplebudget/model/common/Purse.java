@@ -1,4 +1,4 @@
-package ru.simplebudget.model;
+package ru.simplebudget.model.common;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

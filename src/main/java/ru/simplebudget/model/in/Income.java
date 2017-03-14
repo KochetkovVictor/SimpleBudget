@@ -2,7 +2,7 @@ package ru.simplebudget.model.in;
 
 
 
-import ru.simplebudget.model.Purse;
+import ru.simplebudget.model.common.Purse;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,10 +17,12 @@ import java.time.LocalDateTime;
 public class Income {
 
     @Id
+    private
     Long incomeId;
-    LocalDateTime incomeDateTime;
-    Long value;
+    private LocalDateTime incomeDateTime;
+    private Long value;
     @ManyToOne
+    private
     Purse purse;
 
     public Long getIncomeId() {

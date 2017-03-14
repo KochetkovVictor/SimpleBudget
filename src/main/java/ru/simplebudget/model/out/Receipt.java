@@ -1,11 +1,14 @@
 package ru.simplebudget.model.out;
 
 
-import ru.simplebudget.model.Shop;
+import ru.simplebudget.model.common.Product;
+import ru.simplebudget.model.common.Shop;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
@@ -40,6 +43,10 @@ public class Receipt {
     @Column(name= "active")
     private
     boolean active;
+    /*@Column(name="product")
+    @OneToMany(mappedBy = "id", fetch=FetchType.EAGER)
+    @JoinColumn(name="product")
+    private List<Product> products;*/
 
     public boolean isActive() {
         return active;
@@ -58,14 +65,16 @@ public class Receipt {
     }
 
 
-   /* @OneToMany
-    @Column(name = "products")
-    List<Product> products;*/
-
-
     public Receipt() {
     }
 
+   /* public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }*/
 
     public Long getId() {
         return id;
@@ -91,13 +100,6 @@ public class Receipt {
         this.dateTime = dateTime;
     }
 
-    /*public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }*/
 
     @Override
     public String toString() {
