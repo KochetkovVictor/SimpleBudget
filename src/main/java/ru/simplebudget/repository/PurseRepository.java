@@ -12,6 +12,7 @@ public interface PurseRepository {
     Purse save(Purse purse);
     Purse get(Long id);
     Long getPurseAmount(Long id);
+    void addPurseAmount(Long id, Long amount);
     void setPurseAmount(Long id, Long amount);
     Long getTotalAmount(List<Purse> purseList);
     boolean deletePurse(Long id);

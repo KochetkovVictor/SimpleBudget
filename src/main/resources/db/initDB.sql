@@ -16,7 +16,7 @@ CREATE UNIQUE INDEX shopnet_unique_name_index ON shopnet(name);
 
 CREATE TABLE shop(
   id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name VARCHAR(20),
+  name VARCHAR(200),
   adress VARCHAR,
   shopnetId BIGINT,
   FOREIGN KEY (shopnetId) REFERENCES shopnet (id) ON DELETE CASCADE

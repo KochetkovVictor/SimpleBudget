@@ -43,11 +43,19 @@ public class PurseRepositoryImpl implements PurseRepository {
 
     @Override
     @Transactional
-    public void setPurseAmount(Long id, Long amount) {
+    public void addPurseAmount(Long id, Long amount) {
         Purse purse = em.find(Purse.class, id);
         purse.setAmount(purse.getAmount() + amount);
         em.merge(purse);
 
+    }
+
+    @Override
+    @Transactional
+    public void setPurseAmount(Long id, Long amount) {
+        Purse purse = em.find(Purse.class, id);
+        purse.setAmount(amount);
+        em.merge(purse);
     }
 
     @Override

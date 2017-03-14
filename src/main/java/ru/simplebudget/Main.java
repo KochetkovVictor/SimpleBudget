@@ -2,12 +2,9 @@ package ru.simplebudget;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.simplebudget.model.out.Receipt;
+import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.CheckRepository;
-
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.List;
+import ru.simplebudget.repository.PurseRepository;
 
 
 public class Main {
@@ -39,8 +36,12 @@ public class Main {
              ) {
             System.out.println(r.getAmount()+ "    " +r.getDateTime());
         }*/
+        PurseRepository pr=(PurseRepository) configurableApplicationContext.getBeanFactory().getBean("purseRepository");
+
         System.out.println("*********************");
-        System.out.println(cp.get(16));
+        pr.setPurseAmount(107L,40000L);
+        Purse purse=pr.get(107L);
+        System.out.println("Purse Amount of " +purse.getDescription() +" is "+purse .getAmount());
         configurableApplicationContext.close();
     }
 }
