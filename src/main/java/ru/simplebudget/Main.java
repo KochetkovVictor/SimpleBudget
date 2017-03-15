@@ -39,7 +39,7 @@ public class Main {
         PurseRepository pr=(PurseRepository) configurableApplicationContext.getBeanFactory().getBean("purseRepository");
 
         System.out.println("*********************");
-        pr.setPurseAmount(107L,40000L);
+        pr.addPurseAmount(107L,40000L);
         Purse purse=pr.get(107L);
         System.out.println("Purse Amount of " +purse.getDescription() +" is "+purse .getAmount());
         configurableApplicationContext.close();
