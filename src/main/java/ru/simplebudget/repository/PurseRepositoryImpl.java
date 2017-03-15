@@ -8,6 +8,9 @@ import ru.simplebudget.model.common.Purse;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -18,7 +21,7 @@ public class PurseRepositoryImpl implements PurseRepository {
     private
     EntityManager em;
 
-    @Override
+
     @Transactional
     public Purse save(Purse purse) {
         if (purse.getPurseId() == null) {
@@ -30,18 +33,18 @@ public class PurseRepositoryImpl implements PurseRepository {
         }
     }
 
-    @Override
+
     public Purse get(Long id) {
         return em.find(Purse.class, id);
     }
 
-    @Override
+
     public Long getPurseAmount(Long id) {
         Purse purse = em.find(Purse.class, id);
         return purse.getAmount();
     }
 
-    @Override
+
     @Transactional
     public void addPurseAmount(Long id, Long amount) {
         Purse purse = em.find(Purse.class, id);
@@ -50,7 +53,7 @@ public class PurseRepositoryImpl implements PurseRepository {
 
     }
 
-    @Override
+
     @Transactional
     public void setPurseAmount(Long id, Long amount) {
         Purse purse = em.find(Purse.class, id);
@@ -58,7 +61,7 @@ public class PurseRepositoryImpl implements PurseRepository {
         em.merge(purse);
     }
 
-    @Override
+
     public Long getTotalAmount(List<Purse> purseList) {
         Long amount = 0L;
         for (Purse p : purseList) {
@@ -68,7 +71,7 @@ public class PurseRepositoryImpl implements PurseRepository {
         return amount;
     }
 
-    @Override
+
     @Transactional
     public boolean deletePurse(Long id) {
         Purse purse = get(id);
@@ -83,7 +86,7 @@ public class PurseRepositoryImpl implements PurseRepository {
         return false;
     }
 
-    @Override
+
     @Transactional
     public boolean changeName(Long id, String newDescription) {
         Purse purse = get(id);
@@ -96,5 +99,14 @@ public class PurseRepositoryImpl implements PurseRepository {
             }
         }
         return false;
+    }
+
+
+    public List<Purse> getAll() {
+        CriteriaQuery<Purse> cq=em.getCriteriaBuilder().createQuery(Purse.class);
+        //Root<Purse> root = cq.from(Purse.class);
+        TypedQuery<Purse> query = em.createQuery(cq);
+
+        return query.getResultList();
     }
 }
