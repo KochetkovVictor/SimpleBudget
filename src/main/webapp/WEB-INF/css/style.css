@@ -1,0 +1,7 @@
+.enable {
+    visibility:visible;
+}
+
+.disable {
+    visibility: hidden;
+}

@@ -8,7 +8,7 @@ import ru.simplebudget.repository.PurseRepository;
 import java.util.List;
 
 @Service
-public class PurseServiceImpl {
+public class PurseServiceImpl implements PurseService{
 
     @Autowired
     private
@@ -17,5 +17,9 @@ public class PurseServiceImpl {
     public List<Purse> getAll()
     {
         return repository.getAll();
+    }
+
+    public Long getTotalAmount() {
+        return repository.getTotalAmount(getAll());
     }
 }

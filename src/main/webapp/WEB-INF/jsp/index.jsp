@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <body>
@@ -14,11 +15,13 @@
     </thead>
     <c:forEach items="${purseList}" var="purse">
         <jsp:useBean id="purse" scope="page" type="ru.simplebudget.model.common.Purse"/>
-        <tr class="${purse.active ? 'exceeded' : 'normal'}">
+        <tr class="${purse.active ? 'enable' : 'disable'}">
             <td>${purse.description}</td>
             <td>${purse.amount}</td>
         </tr>
     </c:forEach>
+    <td class="disable"/>
+    <td>${totalAmount}</td>
 </table>
 
 </body>

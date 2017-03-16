@@ -50,7 +50,6 @@ public class PurseRepositoryImpl implements PurseRepository {
         Purse purse = em.find(Purse.class, id);
         purse.setAmount(purse.getAmount() + amount);
         em.merge(purse);
-
     }
 
 
@@ -104,7 +103,7 @@ public class PurseRepositoryImpl implements PurseRepository {
 
     public List<Purse> getAll() {
         CriteriaQuery<Purse> cq=em.getCriteriaBuilder().createQuery(Purse.class);
-        //Root<Purse> root = cq.from(Purse.class);
+        Root<Purse> root = cq.from(Purse.class);
         TypedQuery<Purse> query = em.createQuery(cq);
 
         return query.getResultList();

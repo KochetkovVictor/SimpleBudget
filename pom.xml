@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.simplebudget</groupId>
     <artifactId>SimpleBudget</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>SimpleBudget</name>
     <url>http://maven.apache.org</url>
@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.version>4.3.6.RELEASE</spring.version>
         <postgresql.version>9.4.1208</postgresql.version>
-        <tomcat.version>8.0.33</tomcat.version>
+        <tomcat.version>9.0.0.M3</tomcat.version>
         <logback.version>1.1.7</logback.version>
         <slf4j.version>1.7.21</slf4j.version>
     </properties>
@@ -99,6 +99,12 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.0.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml</groupId>
+                    <artifactId>classmate</artifactId>
+                </exclusion>
+          </exclusions>
         </dependency>
 
         <dependency>
@@ -157,16 +163,33 @@
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>5.2.8.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+            <scope>compile</scope>
         </dependency>
+
+
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>2.2.5</version>
+            <version>3.0.0</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
