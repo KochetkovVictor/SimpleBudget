@@ -3,5 +3,5 @@
 }
 
 .disable {
-    visibility: hidden;
+    visibility: collapse;
 }
