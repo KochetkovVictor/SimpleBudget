@@ -73,11 +73,11 @@ public class Income {
         this.incomeDateTime=LocalDateTime.now();
     }
 
-    public Income(Double value, String description) {
+    /*public Income(Double value, String description) {
         this.incomeDateTime=LocalDateTime.now();
         this.value = value;
         this.description = description;
-    }
+    }*/
 
     @Override
     public String toString() {

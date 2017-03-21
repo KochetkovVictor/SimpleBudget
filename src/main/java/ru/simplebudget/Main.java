@@ -19,15 +19,15 @@ public class Main {
       ConfigurableApplicationContext  configurableApplicationContext =
                 new ClassPathXmlApplicationContext("spring/spring-app.xml");
 
-        Income income=new  Income();/*income=configurableApplicationContext.getBean(Income.class);*/
-        income.setDescription("First income");
+        //Income income=new  Income();/*income=configurableApplicationContext.getBean(Income.class);*/
+        //income.setDescription("First income");
         PurseRepository pr=(PurseRepository) configurableApplicationContext.
                 getBeanFactory().getBean("purseRepository");
-        income.setPurse(pr.get(107L));
-        income.setValue(456.90);
+        //income.setPurse(pr.get(107L));
+        //income.setValue(500.55);
         IncomeRepository ir=(IncomeRepository) configurableApplicationContext.
                 getBeanFactory().getBean("incomeRepository");
-        System.out.println(ir.addIncome(income));
+        //System.out.println(ir.addIncome(income));
       /*  Receipt bean = configurableApplicationContext.getBean(Receipt.class);
         //bean.setId(1L);
         bean.setAmount(300L);
@@ -58,6 +58,7 @@ public class Main {
         pr.addPurseAmount(107L,40000.55);
         Purse purse=pr.get(107L);
         System.out.println("Purse Amount of " +purse.getDescription() +" is "+purse .getAmount());*/
+        System.out.println(ir.changeIncome(116L,"Forth Income", 550.50, pr.get(107L)));
         configurableApplicationContext.close();
     }
 }

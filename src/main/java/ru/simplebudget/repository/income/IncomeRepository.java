@@ -1,5 +1,6 @@
 package ru.simplebudget.repository.income;
 
+import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
 
 import java.time.LocalDate;
@@ -11,4 +12,5 @@ public interface IncomeRepository {
     List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endTime);
     Income showIncomeDetails(Long incomeId);
     Income getIncome(Long incomeId);
+    Income changeIncome(Long incomeId, String description, Double value, Purse purse);
 }
