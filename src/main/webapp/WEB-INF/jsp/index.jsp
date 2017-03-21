@@ -4,8 +4,10 @@
     <title>Simple Budget v.0.1</title>
 </head>
 <body>
-<a href="purses">Purses</a>
-<a href="incomes">Incomes</a>
-<a href="receiptes">Reseiptes</a>
+<ul>
+    <li><a href="purses">Purses</a></li>
+    <li><a href="incomes">Incomes</a></li>
+    <li><a href="receipts">Receipts</a></li>
+</ul>
 </body>
 </html>
