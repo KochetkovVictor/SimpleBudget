@@ -1,9 +1,10 @@
 package ru.simplebudget.service.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.simplebudget.model.common.Purse;
-import ru.simplebudget.repository.PurseRepository;
+import ru.simplebudget.repository.purse.PurseRepository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class PurseServiceImpl implements PurseService{
 
     @Autowired
+    @Qualifier(value="purseRepositoryImpl")
     private
     PurseRepository repository;
 
@@ -19,7 +21,7 @@ public class PurseServiceImpl implements PurseService{
         return repository.getAll();
     }
 
-    public Long getTotalAmount() {
+    public Double getTotalAmount() {
         return repository.getTotalAmount(getAll());
     }
 }

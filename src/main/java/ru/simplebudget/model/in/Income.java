@@ -1,26 +1,30 @@
 package ru.simplebudget.model.in;
 
 
-
 import ru.simplebudget.model.common.Purse;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="Income")
+@Table(name = "Income")
 @StaticMetamodel(Income.class)
 public class Income {
 
     @Id
+    @SequenceGenerator(name = "global_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private
     Long incomeId;
+
+    @Column(name="datetime",columnDefinition = "timestamp default now()")
     private LocalDateTime incomeDateTime;
-    private Long value;
+    private Double value;
+    private String description;
+
+    @JoinColumn(name="purseId")
     @ManyToOne
     private
     Purse purse;
@@ -41,11 +45,11 @@ public class Income {
         this.incomeDateTime = incomeDateTime;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
@@ -57,7 +61,32 @@ public class Income {
         this.purse = purse;
     }
 
-    public Income() {
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Income() {
+        this.incomeDateTime=LocalDateTime.now();
+    }
+
+    public Income(Double value, String description) {
+        this.incomeDateTime=LocalDateTime.now();
+        this.value = value;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Income{" +
+                "incomeId=" + incomeId +
+                ", incomeDateTime=" + incomeDateTime +
+                ", value=" + value +
+                ", description='" + description + '\'' +
+                ", purse=" + purse +
+                '}';
     }
 }

@@ -1,4 +1,4 @@
-package ru.simplebudget.repository;
+package ru.simplebudget.repository.purse;
 
 
 
@@ -11,10 +11,10 @@ public interface PurseRepository {
 
     Purse save(Purse purse);
     Purse get(Long id);
-    Long getPurseAmount(Long id);
-    void addPurseAmount(Long id, Long amount);
-    void setPurseAmount(Long id, Long amount);
-    Long getTotalAmount(List<Purse> purseList);
+    Double getPurseAmount(Long id);
+    void addPurseAmount(Long id, Double amount);
+    void setPurseAmount(Long id, Double amount);
+    Double getTotalAmount(List<Purse> purseList);
     boolean deletePurse(Long id);
     boolean changeName(Long id, String newDescription);
     List<Purse> getAll();

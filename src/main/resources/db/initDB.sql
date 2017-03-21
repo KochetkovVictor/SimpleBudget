@@ -33,8 +33,9 @@ CREATE UNIQUE INDEX purse_unique_description_index ON purse(description);
 
 CREATE TABLE income(
   id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  amount NUMERIC(10,2) NOT NULL DEFAULT 0,
+  value NUMERIC(10,2) NOT NULL DEFAULT 0,
   dateTime TIMESTAMP DEFAULT now(),
+  description VARCHAR(30),
   purseId INTEGER NOT NULL DEFAULT 0,
   FOREIGN KEY (purseId) REFERENCES purse (id) ON DELETE CASCADE
 );

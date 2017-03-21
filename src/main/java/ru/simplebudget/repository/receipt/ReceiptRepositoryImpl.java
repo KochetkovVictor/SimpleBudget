@@ -1,4 +1,4 @@
-package ru.simplebudget.repository;
+package ru.simplebudget.repository.receipt;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public class CheckRepositoryImpl implements CheckRepository {
+public class ReceiptRepositoryImpl implements ReceiptRepository {
 
     @PersistenceContext
     private EntityManager em;

@@ -21,7 +21,7 @@ INSERT INTO shop (name, adress, shopnetid)  VALUES
   ('Пятерочка Видное Березовая 7','МО, г.Видное, ул. Березовая, д.7',201);
 
 INSERT INTO purse (description,amount, active) VALUES
-  ('Cash',0,true),
-  ('Mastercard Alfa',0,TRUE ),
+  ('Cash',134785.34,true),
+  ('Mastercard Alfa',34000.98,TRUE ),
   ('Mastercard VTB-Moscow',0,TRUE ),
   ('Pro100 Card SberBank',0,true);

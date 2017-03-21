@@ -29,7 +29,7 @@ public class Receipt {
     Long id;
     @Column(name = "amount")
     private
-    Long amount;
+    Double amount;
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
     private
     LocalDateTime dateTime;
@@ -95,11 +95,11 @@ public class Receipt {
         this.id = id;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

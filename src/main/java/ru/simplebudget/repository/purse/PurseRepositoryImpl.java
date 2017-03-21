@@ -1,9 +1,10 @@
-package ru.simplebudget.repository;
+package ru.simplebudget.repository.purse;
 
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
+import ru.simplebudget.repository.purse.PurseRepository;
 
 
 import javax.persistence.EntityManager;
@@ -39,30 +40,29 @@ public class PurseRepositoryImpl implements PurseRepository {
     }
 
 
-    public Long getPurseAmount(Long id) {
+    public Double getPurseAmount(Long id) {
         Purse purse = em.find(Purse.class, id);
         return purse.getAmount();
     }
 
 
     @Transactional
-    public void addPurseAmount(Long id, Long amount) {
+    public void addPurseAmount(Long id, Double amount) {
         Purse purse = em.find(Purse.class, id);
         purse.setAmount(purse.getAmount() + amount);
         em.merge(purse);
     }
 
-
     @Transactional
-    public void setPurseAmount(Long id, Long amount) {
+    public void setPurseAmount(Long id, Double amount) {
         Purse purse = em.find(Purse.class, id);
         purse.setAmount(amount);
         em.merge(purse);
     }
 
 
-    public Long getTotalAmount(List<Purse> purseList) {
-        Long amount = 0L;
+    public Double getTotalAmount(List<Purse> purseList) {
+        Double amount = 0.00;
         for (Purse p : purseList) {
             if (p.isActive())
                 amount += p.getAmount();
@@ -102,7 +102,7 @@ public class PurseRepositoryImpl implements PurseRepository {
 
 
     public List<Purse> getAll() {
-        CriteriaQuery<Purse> cq=em.getCriteriaBuilder().createQuery(Purse.class);
+        CriteriaQuery<Purse> cq = em.getCriteriaBuilder().createQuery(Purse.class);
         Root<Purse> root = cq.from(Purse.class);
         TypedQuery<Purse> query = em.createQuery(cq);
 

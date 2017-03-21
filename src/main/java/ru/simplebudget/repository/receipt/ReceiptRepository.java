@@ -1,4 +1,4 @@
-package ru.simplebudget.repository;
+package ru.simplebudget.repository.receipt;
 
 import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.common.ShopNet;
@@ -8,7 +8,7 @@ import ru.simplebudget.model.out.Receipt;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface CheckRepository{
+public interface ReceiptRepository {
 
     Receipt save(Receipt receipt);
     boolean delete(int id);

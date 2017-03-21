@@ -3,10 +3,12 @@ package ru.simplebudget.model.common;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.StaticMetamodel;
 
 
 @Entity
 @Table(name = "purse")
+@StaticMetamodel(Purse.class)
 public class Purse {
 
     @Id
@@ -20,7 +22,7 @@ public class Purse {
     String description;
     @Column(name = "amount")
     private
-    Long amount;
+    Double amount;
 
     @Column(name = "active")
     private
@@ -53,11 +55,11 @@ public class Purse {
         this.description = description;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }
