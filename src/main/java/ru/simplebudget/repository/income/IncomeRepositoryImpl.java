@@ -52,6 +52,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
         Predicate condition = cb.between(date,startDateTime,endDateTime);
         cq.where(condition);
+        cq.orderBy(cb.asc(date));
         TypedQuery<Income> query = em.createQuery(cq);
 
         return query.getResultList();
