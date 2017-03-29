@@ -5,11 +5,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
+import ru.simplebudget.model.in.Income_;
 import ru.simplebudget.repository.purse.PurseRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,13 +44,17 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     }
 
     @Override
-    public List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endTime) {
-        return null;
-    }
+    public List<Income> getIncomesPerAPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        CriteriaBuilder cb =em.getCriteriaBuilder();
+        CriteriaQuery<Income> cq = cb.createQuery(Income.class);
+        Root<Income> root = cq.from(Income.class);
+        Path<LocalDateTime> date=root.get(Income_.incomeDateTime);
 
-    @Override
-    public Income showIncomeDetails(Long incomeId) {
-        return null;
+        Predicate condition = cb.between(date,startDateTime,endDateTime);
+        cq.where(condition);
+        TypedQuery<Income> query = em.createQuery(cq);
+
+        return query.getResultList();
     }
 
     @Override
@@ -66,16 +74,13 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         if (!Objects.equals(oldValue, value)) {
             income.setValue(value);
             if (Objects.equals(oldPurse.getPurseId(), purse.getPurseId())) {
-                System.out.println("OldPurse==purse");
                 purseRepository.addPurseAmount(purse.getPurseId(), value - oldValue);
             } else {
-                System.out.println("OldPurse!=purse");
                 purseRepository.addPurseAmount(oldPurse.getPurseId(), -oldValue);
                 purseRepository.addPurseAmount(purse.getPurseId(), value);
                 income.setPurse(purse);
             }
         }else if (!Objects.equals(oldPurse.getPurseId(), purse.getPurseId())) {
-            System.out.println("*************************  "+Objects.equals(oldPurse, purse));
             purseRepository.addPurseAmount(oldPurse.getPurseId(), -oldValue);
             purseRepository.addPurseAmount(purse.getPurseId(), value);
             income.setPurse(purse);

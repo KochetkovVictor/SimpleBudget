@@ -10,6 +10,7 @@ import ru.simplebudget.repository.purse.PurseRepository;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 
 
 public class Main {
@@ -58,7 +59,10 @@ public class Main {
         pr.addPurseAmount(107L,40000.55);
         Purse purse=pr.get(107L);
         System.out.println("Purse Amount of " +purse.getDescription() +" is "+purse .getAmount());*/
-        System.out.println(ir.changeIncome(116L,"Forth Income", 550.50, pr.get(107L)));
+        //System.out.println(ir.changeIncome(116L,"Forth Income", 550.50, pr.get(108L)));
+        LocalDateTime start=LocalDateTime.of(2017,3,22,0,0);
+        LocalDateTime end=LocalDateTime.of(2017,3,26,23,59);
+        System.out.println(ir.getIncomesPerAPeriod(start,end));
         configurableApplicationContext.close();
     }
 }
