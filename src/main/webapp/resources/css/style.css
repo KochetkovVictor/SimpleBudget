@@ -1,0 +1,12 @@
+.enable {
+    visibility: visible;
+}
+
+.disable {
+    visibility: collapse;
+    border: hidden;
+}
+
+.hidden {
+    visibility: hidden;
+}

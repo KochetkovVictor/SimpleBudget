@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Simple Budget v.0.1</title>
-</head>
+<jsp:include page="fragments/head.jsp"/>
 <body>
 <ul>
     <li><a href="purses">Purses</a></li>
