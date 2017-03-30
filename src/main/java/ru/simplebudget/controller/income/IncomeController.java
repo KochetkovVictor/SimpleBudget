@@ -33,4 +33,10 @@ public class IncomeController {
         modelMap.put("totalAmount", totalAmount);
         return new ModelAndView("incomes", modelMap);
     }
+    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    public ModelAndView addIncome(){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("newIncome", new Income());
+        return new ModelAndView("incomeEdit", modelMap);
+    }
 }

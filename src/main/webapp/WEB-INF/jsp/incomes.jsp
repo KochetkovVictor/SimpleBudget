@@ -26,5 +26,6 @@
     <td>${totalAmount}</td>
     <td/>
 </table>
+<a href="/incomes/add">Add an Income</a>
 </body>
 </html>
