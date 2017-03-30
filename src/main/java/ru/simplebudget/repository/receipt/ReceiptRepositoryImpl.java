@@ -11,10 +11,7 @@ import ru.simplebudget.model.out.Receipt_;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         Receipt receipt=get(id);
         if (receipt!=null && receipt.isActive())
         {
@@ -50,7 +47,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public Receipt get(int id) {
+    public Receipt get(Long id) {
 
         CriteriaBuilder cb=em.getCriteriaBuilder();
         CriteriaQuery<Receipt> criteriaQuery=cb.createQuery(Receipt.class);
@@ -76,6 +73,18 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     @Override
     public Receipt getAllByShopNet(ShopNet shopNet) {
         return null;
+    }
+
+    @Override
+    public List<Receipt> getAll() {
+        CriteriaBuilder cb =em.getCriteriaBuilder();
+        CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
+        Root<Receipt> root = cq.from(Receipt.class);
+        Path<LocalDateTime> date=root.get(Receipt_.dateTime);
+        cq.orderBy(cb.asc(date));
+        TypedQuery<Receipt> query = em.createQuery(cq);
+
+        return query.getResultList();
     }
 
 }
