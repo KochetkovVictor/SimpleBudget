@@ -7,27 +7,34 @@ import ru.simplebudget.model.in.Income;
 import ru.simplebudget.repository.income.IncomeRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class IncomeServiceImpl implements IncomeService{
+public class IncomeServiceImpl implements IncomeService {
 
     @Autowired
-    @Qualifier(value="incomeRepositoryImpl")
+    @Qualifier(value = "incomeRepositoryImpl")
+    private
     IncomeRepository repository;
 
     @Override
     public Income addIncome(Income income) {
-        return income;
+        return repository.addIncome(income);
     }
 
     @Override
-    public List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate) {
-        return null;
+    public List<Income> getIncomesPerAPeriod(LocalDateTime startDate, LocalDateTime endDate) {
+        return repository.getIncomesPerAPeriod(startDate, endDate);
+    }
+
+    @Override
+    public List<Income> getAll() {
+        return repository.getAll();
     }
 
     @Override
     public Income showIncomeDetails(Long incomeId) {
-        return null;
+        return repository.getIncome(incomeId);
     }
 }

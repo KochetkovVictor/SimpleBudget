@@ -64,6 +64,18 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     }
 
     @Override
+    public List<Income> getAll() {
+        CriteriaBuilder cb =em.getCriteriaBuilder();
+        CriteriaQuery<Income> cq = cb.createQuery(Income.class);
+        Root<Income> root = cq.from(Income.class);
+        Path<LocalDateTime> date=root.get(Income_.incomeDateTime);
+        cq.orderBy(cb.asc(date));
+        TypedQuery<Income> query = em.createQuery(cq);
+
+        return query.getResultList();
+    }
+
+    @Override
     @Transactional
     public Income changeIncome(Long incomeId, String description, Double value, Purse purse) {
         Income income = em.find(Income.class, incomeId);
