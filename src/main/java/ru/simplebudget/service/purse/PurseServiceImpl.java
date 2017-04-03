@@ -7,6 +7,7 @@ import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PurseServiceImpl implements PurseService{
@@ -29,4 +30,5 @@ public class PurseServiceImpl implements PurseService{
     public Purse getById(Long id) {
         return repository.get(id);
     }
+
 }

@@ -9,7 +9,7 @@
     <hr>
     <jsp:useBean id="income" type="ru.simplebudget.model.in.Income" scope="request"/>
 
-    <form method="post" action="${pageContext.request.contextPath}/incomes/add">
+    <form method="post" action="incomes">
         <input type="hidden" name="id" value="${income.incomeId}">
         <dl>
             <dt>DateTime:</dt>
@@ -34,10 +34,11 @@
             <dt>Purse:</dt>
             <dd>
                 <label>
-                    <select required>
+                    <select required name="purse">
+                        <option disabled>Choose a Purse </option>
                         <c:forEach items="${purseList}" var="purse">
-                            <jsp:useBean id="purse" class="ru.simplebudget.model.common.Purse" scope="request"/>
-                            <option name="purse">
+                            <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
+                            <option value="${purse.purseId}">
                                 ${purse.description}
                             </option>
                         </c:forEach>
