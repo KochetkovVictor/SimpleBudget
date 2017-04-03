@@ -24,4 +24,9 @@ public class PurseServiceImpl implements PurseService{
     public Double getTotalAmount() {
         return repository.getTotalAmount(getAll());
     }
+
+    @Override
+    public Purse getById(Long id) {
+        return repository.get(id);
+    }
 }

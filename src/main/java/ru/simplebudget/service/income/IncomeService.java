@@ -12,5 +12,7 @@ public interface IncomeService {
     Income addIncome(Income income);
     List<Income> getIncomesPerAPeriod(LocalDateTime startDate, LocalDateTime endDate);
     List<Income> getAll();
-    Income showIncomeDetails(Long incomeId);
+    Income getById(Long id);
+    Income changeIncome(Income income);
+    //Income showIncomeDetails(Long incomeId);
 }

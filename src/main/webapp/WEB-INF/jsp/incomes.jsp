@@ -15,7 +15,7 @@
     <c:forEach items="${incomeList}" var="income">
         <jsp:useBean id="income" scope="page" class="ru.simplebudget.model.in.Income"/>
         <tr>
-            <td><a href="income/${income.incomeId}"> ${income.description}</a></td>
+            <td><a href="${pageContext.request.contextPath}/incomes/update/${income.incomeId}"> ${income.description}</a></td>
             <td>${income.incomeDateTime}</td>
             <td>${income.value}</td>
             <td>${income.purse.description}</td>
@@ -28,6 +28,6 @@
      <td>${totalAmount}</td>
     </tr>
 </table>
-<a href="/incomes/add">Add an Income</a>
+<a href="${pageContext.request.contextPath}/incomes/add">Add an Income</a>
 </body>
 </html>

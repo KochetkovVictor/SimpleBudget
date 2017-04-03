@@ -13,5 +13,5 @@ public interface IncomeRepository {
     List<Income> getIncomesPerAPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime);
     Income getIncome(Long incomeId);
     List<Income> getAll();
-    Income changeIncome(Long incomeId, String description, Double value, Purse purse);
+    Income changeIncome(Income income /*Long incomeId, String description, Double value, Purse purse*/);
 }

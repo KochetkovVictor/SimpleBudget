@@ -77,26 +77,26 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     @Transactional
-    public Income changeIncome(Long incomeId, String description, Double value, Purse purse) {
-        Income income = em.find(Income.class, incomeId);
+    public Income changeIncome(Income changeIncome/*Long incomeId, String description, Double value, Purse purse*/) {
+        Income income = em.find(Income.class, changeIncome.getIncomeId());
         Double oldValue = income.getValue();
         Purse oldPurse = income.getPurse();
-        if (!income.getDescription().equals(description)) {
-            income.setDescription(description);
+        if (!income.getDescription().equals(changeIncome.getDescription())) {
+            income.setDescription(changeIncome.getDescription());
         }
-        if (!Objects.equals(oldValue, value)) {
-            income.setValue(value);
-            if (Objects.equals(oldPurse.getPurseId(), purse.getPurseId())) {
-                purseRepository.addPurseAmount(purse.getPurseId(), value - oldValue);
+        if (!Objects.equals(oldValue, changeIncome.getValue())) {
+            income.setValue(changeIncome.getValue());
+            if (Objects.equals(oldPurse.getPurseId(), changeIncome.getPurse().getPurseId())) {
+                purseRepository.addPurseAmount(changeIncome.getPurse().getPurseId(), changeIncome.getValue() - oldValue);
             } else {
                 purseRepository.addPurseAmount(oldPurse.getPurseId(), -oldValue);
-                purseRepository.addPurseAmount(purse.getPurseId(), value);
-                income.setPurse(purse);
+                purseRepository.addPurseAmount(changeIncome.getPurse().getPurseId(), changeIncome.getValue());
+                income.setPurse(changeIncome.getPurse());
             }
-        }else if (!Objects.equals(oldPurse.getPurseId(), purse.getPurseId())) {
+        }else if (!Objects.equals(oldPurse.getPurseId(), changeIncome.getPurse().getPurseId())) {
             purseRepository.addPurseAmount(oldPurse.getPurseId(), -oldValue);
-            purseRepository.addPurseAmount(purse.getPurseId(), value);
-            income.setPurse(purse);
+            purseRepository.addPurseAmount(changeIncome.getPurse().getPurseId(), changeIncome.getValue());
+            income.setPurse(changeIncome.getPurse());
         }
         return em.merge(income);
     }

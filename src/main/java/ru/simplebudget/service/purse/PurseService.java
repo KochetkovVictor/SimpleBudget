@@ -9,4 +9,5 @@ public interface PurseService {
 
     List<Purse> getAll();
     Double getTotalAmount();
+    Purse getById(Long id);
 }
