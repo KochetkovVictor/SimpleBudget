@@ -21,10 +21,12 @@
             <td>${income.purse.description}</td>
         </tr>
     </c:forEach>
-    <td/>
-    <td>Сумма поступлений</td>
-    <td>${totalAmount}</td>
-    <td/>
+</table>
+<table border="0">
+    <tr>
+     <td>Сумма поступлений: </td>
+     <td>${totalAmount}</td>
+    </tr>
 </table>
 <a href="/incomes/add">Add an Income</a>
 </body>
