@@ -15,7 +15,7 @@
     <c:forEach items="${receiptList}" var="receipt">
         <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
         <tr>
-            <td><a href="/receipts/${receipt.id}">${receipt.shop}</a></td>
+            <td><a href="/receipts/${receipt.id}">${receipt.shop.name}</a></td>
             <td>${receipt.dateTime}</td>
             <td>${receipt.amount}</td>
             <td>${receipt.purse.description}</td>

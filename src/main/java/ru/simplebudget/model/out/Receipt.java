@@ -24,6 +24,7 @@ public class Receipt {
 
     @Id
     @SequenceGenerator(name = "global_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private
     Long id;
@@ -77,6 +78,7 @@ public class Receipt {
 
 
     public Receipt() {
+        this.dateTime=LocalDateTime.now();
     }
 
    /* public List<Product> getProducts() {
