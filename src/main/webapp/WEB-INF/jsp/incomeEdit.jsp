@@ -10,7 +10,7 @@
     <jsp:useBean id="income" type="ru.simplebudget.model.in.Income" scope="request"/>
 
     <form method="post" action="incomes">
-        <input type="hidden" name="id" value="${income.incomeId}">
+        <input <%--type="hidden"--%> name="id" value="${income.incomeId}">
         <dl>
             <dt>DateTime:</dt>
             <dd><label>

@@ -44,16 +44,22 @@ public class IncomeController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView addOrUpdateIncome(HttpServletRequest request) {
         Income income=new Income();
+        String id=request.getParameter("id");
+        income.setIncomeId(id.isEmpty() ? null:Long.valueOf(request.getParameter("id")));
         income.setDescription(request.getParameter("description"));
         income.setIncomeDateTime(LocalDateTime.parse(request.getParameter("dateTime")));
         income.setValue(Double.parseDouble(request.getParameter("value")));
         income.setPurse(purseService.getById(Long.valueOf(request.getParameter("purse"))));
 
-        if (request.getAttribute("action")==null)
+        if (income.getIncomeId()==null)
         {
+            System.out.println("ADD AN INCOME");
             incomeService.addIncome(income);
         }
-        else incomeService.changeIncome(income);
+        else {
+            System.out.println("CHANGE INCOME # "+income.getIncomeId());
+            incomeService.changeIncome(income);
+        }
         return new ModelAndView("redirect:/incomes");
     }
 
