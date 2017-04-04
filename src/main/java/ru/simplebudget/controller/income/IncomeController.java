@@ -53,11 +53,9 @@ public class IncomeController {
 
         if (income.getIncomeId()==null)
         {
-            System.out.println("ADD AN INCOME");
             incomeService.addIncome(income);
         }
         else {
-            System.out.println("CHANGE INCOME # "+income.getIncomeId());
             incomeService.changeIncome(income);
         }
         return new ModelAndView("redirect:/incomes");

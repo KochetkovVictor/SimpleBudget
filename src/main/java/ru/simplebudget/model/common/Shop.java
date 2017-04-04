@@ -1,16 +1,18 @@
 package ru.simplebudget.model.common;
 
 import javax.persistence.*;
+import javax.persistence.metamodel.StaticMetamodel;
 
 @Entity
-
 @Table(name = "shop")
+@StaticMetamodel(Shop.class)
 public class Shop {
 
 
     @Id
     @SequenceGenerator(name = "shops_id_seq", sequenceName = "shops_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shops_id_seq")
+    @Column(name = "id")
     private
     Long shopId;
     @Column(name="adress")
@@ -20,7 +22,8 @@ public class Shop {
     private
     String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shopnetid")
     private
     ShopNet netName;
 

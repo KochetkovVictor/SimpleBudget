@@ -17,5 +17,6 @@ public interface ReceiptRepository {
     Receipt getAllByShop(Shop shop);
     Receipt getAllByShopNet(ShopNet shopNet);
     List<Receipt> getAll();
+    Receipt changeReceipt(Receipt receipt);
 
 }

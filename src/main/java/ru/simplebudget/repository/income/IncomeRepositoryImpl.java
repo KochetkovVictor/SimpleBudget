@@ -33,7 +33,6 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     @Transactional
     public Income addIncome(Income income) {
         if (income.getIncomeId() == null) {
-
             em.persist(income);
             em.flush();
             purseRepository.addPurseAmount(income.getPurse().getPurseId(), income.getValue());
@@ -77,7 +76,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     @Transactional
-    public Income changeIncome(Income changeIncome/*Long incomeId, String description, Double value, Purse purse*/) {
+    public Income changeIncome(Income changeIncome) {
         Income income = em.find(Income.class, changeIncome.getIncomeId());
         Double oldValue = income.getValue();
         Purse oldPurse = income.getPurse();

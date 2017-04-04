@@ -6,7 +6,7 @@
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
-        <th>Description</th>
+        <th>Shop</th>
         <th>Date</th>
         <th>Amount</th>
         <th>Purse</th>
@@ -15,16 +15,20 @@
     <c:forEach items="${receiptList}" var="receipt">
         <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
         <tr>
-            <td><a href="income/${receipt.id}">${receipt.id}</a></td>
+            <td><a href="/receipts/${receipt.id}">${receipt.shop}</a></td>
             <td>${receipt.dateTime}</td>
             <td>${receipt.amount}</td>
             <td>${receipt.purse.description}</td>
         </tr>
     </c:forEach>
-    <td/>
-    <td>Сумма расходов</td>
-    <td>${totalAmount}</td>
-    <td/>
+
 </table>
+<table>
+    <tr>
+        <td>Сумма расходов</td>
+        <td>${totalAmount}</td>
+    </tr>
+</table>
+<a href="${pageContext.request.contextPath}/receipts/add">Add a Receipt</a>
 </body>
 </html>

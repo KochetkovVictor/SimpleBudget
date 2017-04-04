@@ -33,4 +33,9 @@ public class ReceiptServiceImpl implements ReceiptService{
     public Receipt addReceipt(Receipt receipt) {
         return receiptRepository.save(receipt);
     }
+
+    @Override
+    public Receipt changeReceipt(Receipt receipt) {
+        return receiptRepository.changeReceipt(receipt);
+    }
 }

@@ -7,27 +7,34 @@
 <body>
 <section>
     <hr>
-    <jsp:useBean id="income" type="ru.simplebudget.model.in.Income" scope="request"/>
+    <jsp:useBean id="receipt" type="ru.simplebudget.model.out.Receipt" scope="request"/>
 
-    <form method="post" action="incomes">
-        <input type="hidden" name="id" value="${income.incomeId}">
+    <form method="post" action="receipts">
+        <input type="hidden" name="id" value="${receipt.id}">
         <dl>
             <dt>DateTime:</dt>
             <dd><label>
-                <input type="datetime-local" value="${income.incomeDateTime}" name="dateTime">
+                <input type="datetime-local" value="${receipt.dateTime}" name="dateTime">
             </label></dd>
         </dl>
         <dl>
-            <dt>Description:</dt>
+            <dt>Shop:</dt>
 
             <dd><label>
-                <input type="text" value="${income.description}" size=40 name="description">
+                <select name="shop">
+                    <c:forEach items="${shopList}" var="shop">
+                        <jsp:useBean id="shop" type="ru.simplebudget.model.common.Shop"/>
+                        <option  value="${shop.shopId}">
+                                ${shop.name}
+                        </option>
+                    </c:forEach>
+                </select>
             </label></dd>
         </dl>
         <dl>
             <dt>Value:</dt>
             <dd><label>
-                <input type="number" value="${income.value}" name="value">
+                <input type="number" value="${receipt.amount}" name="value">
             </label></dd>
         </dl>
         <dl>
@@ -39,7 +46,7 @@
                         <c:forEach items="${purseList}" var="purse">
                             <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
                             <option value="${purse.purseId}">
-                                ${purse.description}
+                                    ${purse.description}
                             </option>
                         </c:forEach>
                     </select>
@@ -52,3 +59,4 @@
 </section>
 </body>
 </html>
+
