@@ -3,31 +3,36 @@
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <body>
-<table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-    <tr>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Purse</th>
-    </tr>
-    </thead>
-    <c:forEach items="${incomeList}" var="income">
-        <jsp:useBean id="income" scope="page" class="ru.simplebudget.model.in.Income"/>
+<section>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
         <tr>
-            <td><a href="${pageContext.request.contextPath}/incomes/update/${income.incomeId}"> ${income.description}</a></td>
-            <td>${income.incomeDateTime}</td>
-            <td>${income.value}</td>
-            <td>${income.purse.description}</td>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Purse</th>
         </tr>
-    </c:forEach>
-</table>
-<table border="0">
-    <tr>
-     <td>Сумма поступлений: </td>
-     <td>${totalAmount}</td>
-    </tr>
-</table>
-<a href="${pageContext.request.contextPath}/incomes/add">Add an Income</a>
+        </thead>
+        <c:forEach items="${incomeList}" var="income">
+            <jsp:useBean id="income" scope="page" class="ru.simplebudget.model.in.Income"/>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/incomes/update/${income.incomeId}"> ${income.description}</a>
+                </td>
+                <td>${income.incomeDateTime}</td>
+                <td>${income.value}</td>
+                <td>${income.purse.description}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <table border="0">
+        <tr>
+            <td>Сумма поступлений:</td>
+            <td>${totalAmount}</td>
+        </tr>
+    </table>
+    <a href="${pageContext.request.contextPath}/incomes/add">Add an Income</a>
+</section>
 </body>
+<jsp:include page="fragments/footer.jsp"/>
 </html>

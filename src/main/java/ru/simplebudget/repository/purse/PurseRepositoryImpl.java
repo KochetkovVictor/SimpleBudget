@@ -121,7 +121,7 @@ public class PurseRepositoryImpl implements PurseRepository {
         cq.where(fromCondition);
         TypedQuery<Purse> fromQuery = em.createQuery(cq);
         Purse fromPurse = fromQuery.getSingleResult();
-        if (fromPurse.getAmount() - transferAmount < 0) throw new NotEnoughMoneyException("Not enough money");
+        if (fromPurse.getAmount() - transferAmount < 0 || fromPurse.getAmount()==0) throw new NotEnoughMoneyException("Not enough money");
         else {
             fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
             Predicate toCondition = cb.equal(root.get("purseId"), toPurseId);

@@ -51,4 +51,5 @@
     </form>
 </section>
 </body>
+<jsp:include page="fragments/footer.jsp"/>
 </html>

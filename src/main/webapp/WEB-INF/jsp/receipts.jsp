@@ -3,32 +3,35 @@
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <body>
-<table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-    <tr>
-        <th>Shop</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Purse</th>
-    </tr>
-    </thead>
-    <c:forEach items="${receiptList}" var="receipt">
-        <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
+<section>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
         <tr>
-            <td><a href="/receipts/${receipt.id}">${receipt.shop.name}</a></td>
-            <td>${receipt.dateTime}</td>
-            <td>${receipt.amount}</td>
-            <td>${receipt.purse.description}</td>
+            <th>Shop</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Purse</th>
         </tr>
-    </c:forEach>
+        </thead>
+        <c:forEach items="${receiptList}" var="receipt">
+            <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
+            <tr>
+                <td><a href="/receipts/${receipt.id}">${receipt.shop.name}</a></td>
+                <td>${receipt.dateTime}</td>
+                <td>${receipt.amount}</td>
+                <td>${receipt.purse.description}</td>
+            </tr>
+        </c:forEach>
 
-</table>
-<table>
-    <tr>
-        <td>Сумма расходов</td>
-        <td>${totalAmount}</td>
-    </tr>
-</table>
-<a href="${pageContext.request.contextPath}/receipts/add">Add a Receipt</a>
+    </table>
+    <table>
+        <tr>
+            <td>Сумма расходов</td>
+            <td>${totalAmount}</td>
+        </tr>
+    </table>
+    <a href="${pageContext.request.contextPath}/receipts/add">Add a Receipt</a>
+</section>
 </body>
+<jsp:include page="fragments/footer.jsp"/>
 </html>
