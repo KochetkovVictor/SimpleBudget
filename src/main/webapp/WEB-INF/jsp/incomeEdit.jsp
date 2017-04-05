@@ -14,20 +14,20 @@
         <dl>
             <dt>DateTime:</dt>
             <dd><label>
-                <input type="datetime-local" value="${income.incomeDateTime}" name="dateTime">
+                <input required type="datetime-local" value="${income.incomeDateTime}" name="dateTime" >
             </label></dd>
         </dl>
         <dl>
             <dt>Description:</dt>
 
             <dd><label>
-                <input type="text" value="${income.description}" size=40 name="description">
+                <input required type="text" value="${income.description}" size=40 name="description" >
             </label></dd>
         </dl>
         <dl>
             <dt>Value:</dt>
             <dd><label>
-                <input type="number" value="${income.value}" name="value">
+                <input required type="number" value="${income.value}" name="value" >
             </label></dd>
         </dl>
         <dl>
@@ -35,7 +35,7 @@
             <dd>
                 <label>
                     <select required name="purse">
-                        <option disabled>Choose a Purse </option>
+                        <option disabled selected>Choose a Purse </option>
                         <c:forEach items="${purseList}" var="purse">
                             <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
                             <option value="${purse.purseId}">
