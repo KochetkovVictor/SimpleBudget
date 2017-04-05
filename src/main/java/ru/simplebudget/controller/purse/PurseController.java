@@ -1,13 +1,16 @@
 package ru.simplebudget.controller.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.servlet.ModelAndView;
+import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.service.purse.PurseServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,5 +28,13 @@ public class PurseController {
         modelMap.put("purseList", service.getAll());
         modelMap.put("totalAmount", service.getTotalAmount());
         return new ModelAndView("purses", modelMap);
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView transferAmount(HttpServletRequest request)
+    {
+        service.transferAmount(Long.valueOf(request.getParameter("fromPurse")),
+                Long.valueOf(request.getParameter("toPurse")),
+                Double.valueOf(request.getParameter("transferAmount")));
+        return new ModelAndView("redirect:/purses");
     }
 }

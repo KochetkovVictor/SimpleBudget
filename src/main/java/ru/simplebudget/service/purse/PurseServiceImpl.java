@@ -7,13 +7,13 @@ import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class PurseServiceImpl implements PurseService{
 
     @Autowired
-    @Qualifier(value="purseRepositoryImpl")
+    //@Qualifier(value="purseRepositoryImpl")
     private
     PurseRepository repository;
 
@@ -29,6 +29,11 @@ public class PurseServiceImpl implements PurseService{
     @Override
     public Purse getById(Long id) {
         return repository.get(id);
+    }
+
+    @Override
+    public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount) {
+        repository.transferAmount(fromPurseId,toPurseId, transferAmount);
     }
 
 }

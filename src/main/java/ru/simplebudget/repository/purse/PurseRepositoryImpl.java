@@ -3,6 +3,7 @@ package ru.simplebudget.repository.purse;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
 
@@ -10,8 +11,7 @@ import ru.simplebudget.repository.purse.PurseRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
@@ -107,5 +107,31 @@ public class PurseRepositoryImpl implements PurseRepository {
         TypedQuery<Purse> query = em.createQuery(cq);
 
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Purse> cq = em.getCriteriaBuilder().createQuery(Purse.class);
+
+        Root<Purse> root = cq.from(Purse.class);
+
+        Predicate fromCondition = cb.equal(root.get("purseId"), fromPurseId);
+        cq.where(fromCondition);
+        TypedQuery<Purse> fromQuery = em.createQuery(cq);
+        Purse fromPurse = fromQuery.getSingleResult();
+        if (fromPurse.getAmount() - transferAmount < 0) throw new NotEnoughMoneyException("Not enough money");
+        else {
+            fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
+            Predicate toCondition = cb.equal(root.get("purseId"), toPurseId);
+            cq.where(toCondition);
+            TypedQuery<Purse> toQuery = em.createQuery(cq);
+            Purse toPurse = toQuery.getSingleResult();
+            toPurse.setAmount(toPurse.getAmount() + transferAmount);
+
+            em.merge(fromPurse);
+            em.merge(toPurse);
+        }
     }
 }
