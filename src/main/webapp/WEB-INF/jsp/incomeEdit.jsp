@@ -5,7 +5,8 @@
 <jsp:include page="fragments/head.jsp"/>
 <h3>${action}</h3>
 <body>
-<section>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+<div class="jumbotron">
     <hr>
     <jsp:useBean id="income" type="ru.simplebudget.model.in.Income" scope="request"/>
 
@@ -49,7 +50,7 @@
         <button type="submit">Save</button>
         <button onclick="window.history.back()">Cancel</button>
     </form>
-</section>
+</div>
 </body>
 <jsp:include page="fragments/footer.jsp"/>
 </html>

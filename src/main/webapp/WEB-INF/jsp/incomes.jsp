@@ -3,7 +3,8 @@
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <body>
-<section>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+<div class="jumbotron">
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
@@ -32,7 +33,7 @@
         </tr>
     </table>
     <a href="${pageContext.request.contextPath}/incomes/add">Add an Income</a>
-</section>
+</div>
 </body>
 <jsp:include page="fragments/footer.jsp"/>
 </html>

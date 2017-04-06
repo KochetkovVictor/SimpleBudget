@@ -3,78 +3,80 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <html>
 <jsp:include page="fragments/head.jsp"/>
-<jsp:include page="fragments/bodyHeader.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
 <body>
-
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
             <h3><fmt:message key="purses.title"/></h3>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add"><fmt:message key="purses.add"/></a>
-                <table >
+
+                <table class="table table-striped display" id="datatable">
+                    <thead>
                     <tr>
-                        <td>
-                            <table class="table table-striped display" id="datatable">
-                                <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Active</th>
-                                </tr>
-                                </thead>
-                                <c:forEach items="${purseList}" var="purse">
-                                    <jsp:useBean id="purse" type="ru.simplebudget.model.common.Purse"/>
-                                    <tr class="${purse.active ? 'enable' : 'disable'}">
-                                        <td><a href="purses/${purse.purseId}">${purse.description}</a></td>
-                                        <td>${purse.amount}</td>
-                                        <td>
-                                            <input type="checkbox"
-                                                   <c:if test="${purse.active}">checked</c:if> id="${purse.purseId}"/>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                <td>Сумма по кошелькам</td>
-                                <td>${totalAmount}</td>
-                            </table>
-                        </td>
-                        <td>
-                            <form action="purses" method="post">
-                                <dl>
-                                    <dt>
-                                        <label>From Purse:</label>
-                                        <label>
-                                            <select required name="fromPurse">
-                                                <c:forEach items="${purseList}" var="purse">
-                                                    <option value="${purse.purseId}">
-                                                            ${purse.description}
-                                                    </option>
-                                                </c:forEach>
-                                            </select>
-                                        </label>
-                                        <label>To Purse:</label>
-                                        <label>
-                                            <select required name="toPurse">
-                                                <c:forEach items="${purseList}" var="purse">
-                                                    <option value="${purse.purseId}">
-                                                            ${purse.description}
-                                                    </option>
-                                                </c:forEach>
-                                            </select>
-                                        </label>
-                                        <label>Amount: </label>
-                                        <label>
-                                            <input name="transferAmount"/>
-                                        </label>
-                                    </dt>
-                                </dl>
-                                <button type="submit">Transfer</button>
-                                <button onclick="window.history.back()">Cancel</button>
-                            </form>
-                        </td>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Active</th>
                     </tr>
+                    </thead>
+                    <c:forEach items="${purseList}" var="purse">
+                        <jsp:useBean id="purse" type="ru.simplebudget.model.common.Purse"/>
+                        <tr class="${purse.active ? 'enable' : 'disable'}">
+                            <td><a href="purses/${purse.purseId}">${purse.description}</a></td>
+                            <td>${purse.amount}</td>
+                            <td>
+                                <label for="${purse.purseId}"></label><input type="checkbox"
+                                                                             <c:if test="${purse.active}">checked</c:if> id="${purse.purseId}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
                 </table>
+                <div>
+                    <table class="table table-striped display">
+                        <tr>
+                            <td>Сумма по кошелькам: </td>
+                            <td>${totalAmount}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <form action="purses" method="post">
+                <dl>
+                    <dt>
+                        <label>From Purse:</label>
+                        <label>
+                            <select required name="fromPurse">
+                                <c:forEach items="${purseList}" var="purse">
+                                    <option value="${purse.purseId}">
+                                            ${purse.description}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                        <label>To Purse:</label>
+                        <label>
+                            <select required name="toPurse">
+                                <c:forEach items="${purseList}" var="purse">
+                                    <option value="${purse.purseId}">
+                                            ${purse.description}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                        <label>Amount: </label>
+                        <label>
+                            <input required name="transferAmount"/>
+                        </label>
+                    </dt>
+                </dl>
+                <button type="submit">Transfer</button>
+                <button onclick="window.history.back()">Cancel</button>
+            </form>
+            <div>
+
             </div>
         </div>
     </div>
@@ -94,17 +96,18 @@
                         <label for="description" class="control-label col-xs-3">Name</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="description" name="description" placeholder="Desription">
+                            <input type="text" class="form-control" id="description" name="description"
+                                   placeholder="Desription">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <label for="amount" class="control-label col-xs-3">Email</label>
 
                         <div class="col-xs-9">
                             <input type="number" class="form-control" id="amount" name="amount" placeholder="amount">
                         </div>
-                    </div>
+                    </div>--%>
 
                     <%--<div class="form-group">
                         <label for="password" class="control-label col-xs-3">Password</label>
