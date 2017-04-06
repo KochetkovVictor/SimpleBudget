@@ -11,5 +11,6 @@
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
 
     <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
-<h2>Simple Budget v.0.1</h2>
+
