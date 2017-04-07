@@ -13,6 +13,7 @@ import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +51,7 @@ public class ReceiptController {
         modelMap.put("shopList", shopService.getAll());
         modelMap.put("purseList", purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList()));
         modelMap.put("action", "Add a Receipt");
-        return new ModelAndView("editReceipt", modelMap);
+        return new ModelAndView("receipts", modelMap);
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
@@ -59,7 +60,7 @@ public class ReceiptController {
         modelMap.put("receipt", receiptService.getById(Long.valueOf(id)));
         modelMap.put("shopList", shopService.getAll());
         modelMap.put("purseList", purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList()));
-        modelMap.put("action", "Add a Receipt");
+        modelMap.put("update", "Update a Receipt");
         return new ModelAndView("editReceipt", modelMap);
     }
     @RequestMapping(method = RequestMethod.POST)
@@ -69,7 +70,7 @@ public class ReceiptController {
         Receipt receipt=new Receipt();
         receipt.setActive(true);
         receipt.setAmount(Double.valueOf(request.getParameter("value")));
-        receipt.setDateTime(LocalDateTime.parse(request.getParameter("dateTime")));
+        receipt.setReceiptDate(LocalDate.parse(request.getParameter("dateTime")));
         receipt.setPurse(purseService.getById(Long.valueOf(request.getParameter("purse"))));
         receipt.setShop(shopService.getById(Long.valueOf(request.getParameter("shop"))));
         receipt.setId(receiptId.isEmpty() ? null:Long.valueOf(receiptId));

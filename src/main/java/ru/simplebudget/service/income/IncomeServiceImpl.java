@@ -24,7 +24,7 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public List<Income> getIncomesPerAPeriod(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate) {
         return repository.getIncomesPerAPeriod(startDate, endDate);
     }
 

@@ -32,7 +32,7 @@ public class Main {
       /*  Receipt bean = configurableApplicationContext.getBean(Receipt.class);
         //bean.setId(1L);
         bean.setAmount(300L);
-        bean.setDateTime(LocalDateTime.now());
+        bean.setReceiptDate(LocalDateTime.now());
         List<Product> products = new ArrayList<>();
         products.add(new Product("Chocolate", 300L));
         products.add(new Product("Milk", 60L));
@@ -51,7 +51,7 @@ public class Main {
        List<Receipt> receiptList=cp.getByPeriod(LocalDateTime.of(2017, Month.FEBRUARY,1,11,0), LocalDateTime.now());
         for (Receipt r:receiptList
              ) {
-            System.out.println(r.getAmount()+ "    " +r.getDateTime());
+            System.out.println(r.getAmount()+ "    " +r.getReceiptDate());
         }
         PurseRepository pr=(PurseRepository) configurableApplicationContext.getBeanFactory().getBean("purseRepository");
 
@@ -60,9 +60,9 @@ public class Main {
         Purse purse=pr.get(107L);
         System.out.println("Purse Amount of " +purse.getDescription() +" is "+purse .getAmount());*/
         //System.out.println(ir.changeIncome(116L,"Forth Income", 550.50, pr.get(108L)));
-        LocalDateTime start=LocalDateTime.of(2017,3,22,0,0);
+       /* LocalDateTime start=LocalDateTime.of(2017,3,22,0,0);
         LocalDateTime end=LocalDateTime.of(2017,3,26,23,59);
-        System.out.println(ir.getIncomesPerAPeriod(start,end));
+        System.out.println(ir.getIncomesPerAPeriod(start,end));*/
         configurableApplicationContext.close();
     }
 }

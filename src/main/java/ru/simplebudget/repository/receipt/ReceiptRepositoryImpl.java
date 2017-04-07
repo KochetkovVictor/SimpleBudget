@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -67,9 +68,9 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public List<Receipt> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public List<Receipt> getByPeriod(LocalDate startDate, LocalDate endDate) {
         return em.createNamedQuery(Receipt.GET_BETWEEN_DATETIME, Receipt.class)
-                .setParameter("startDateTime", startDateTime).setParameter("endDateTime", endDateTime).getResultList();
+                .setParameter("startDateTime", startDate).setParameter("endDateTime", endDate).getResultList();
     }
 
     @Override
@@ -87,7 +88,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
         Root<Receipt> root = cq.from(Receipt.class);
-        Path<LocalDateTime> date = root.get(Receipt_.dateTime);
+        Path<LocalDate> date = root.get(Receipt_.receiptDate);
         cq.orderBy(cb.asc(date));
         TypedQuery<Receipt> query = em.createQuery(cq);
 

@@ -13,7 +13,6 @@ import java.util.List;
 public class PurseServiceImpl implements PurseService{
 
     @Autowired
-    //@Qualifier(value="purseRepositoryImpl")
     private
     PurseRepository repository;
 
@@ -35,5 +34,11 @@ public class PurseServiceImpl implements PurseService{
     public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount) {
         repository.transferAmount(fromPurseId,toPurseId, transferAmount);
     }
+
+    @Override
+    public void addPurse(Purse purse) {
+        repository.save(purse);
+    }
+
 
 }

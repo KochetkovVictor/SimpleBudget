@@ -5,6 +5,7 @@ import ru.simplebudget.model.common.Purse;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +21,7 @@ public class Income {
     Long incomeId;
 
     @Column(name="datetime",columnDefinition = "timestamp default now()")
-    private LocalDateTime incomeDateTime;
+    private LocalDate incomeDate;
     private Double value;
     private String description;
 
@@ -37,12 +38,12 @@ public class Income {
         this.incomeId = incomeId;
     }
 
-    public LocalDateTime getIncomeDateTime() {
-        return incomeDateTime;
+    public LocalDate getIncomeDate() {
+        return incomeDate;
     }
 
-    public void setIncomeDateTime(LocalDateTime incomeDateTime) {
-        this.incomeDateTime = incomeDateTime;
+    public void setIncomeDate(LocalDate incomeDate) {
+        this.incomeDate = incomeDate;
     }
 
     public Double getValue() {
@@ -70,20 +71,14 @@ public class Income {
     }
 
     public Income() {
-        this.incomeDateTime=LocalDateTime.now();
+        this.incomeDate =LocalDateTime.now().toLocalDate();
     }
-
-    /*public Income(Double value, String description) {
-        this.incomeDateTime=LocalDateTime.now();
-        this.value = value;
-        this.description = description;
-    }*/
 
     @Override
     public String toString() {
         return "Income{" +
                 "incomeId=" + incomeId +
-                ", incomeDateTime=" + incomeDateTime +
+                ", incomeDate=" + incomeDate +
                 ", value=" + value +
                 ", description='" + description + '\'' +
                 ", purse=" + purse +

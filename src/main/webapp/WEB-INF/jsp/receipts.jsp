@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
@@ -9,7 +10,7 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h3><fmt:message key="purses.title"/></h3>
+            <h3><fmt:message key="receipts.title"/></h3>
             <div class="view-box">
                 <a class="btn btn-sm btn-info" id="add"><fmt:message key="receipts.add"/></a>
 
@@ -25,25 +26,26 @@
                     <c:forEach items="${receiptList}" var="receipt">
                         <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
                         <tr>
-                            <td><a href="/receipts/${receipt.id}">${receipt.shop.name}</a></td>
-                            <td>${receipt.dateTime}</td>
+                            <td><a href="${pageContext.request.contextPath}/receipts/update/${receipt.id}">${receipt.shop.name}</a></td>
+                            <td>${receipt.receiptDate}</td>
                             <td>${receipt.amount}</td>
                             <td>${receipt.purse.description}</td>
                         </tr>
                     </c:forEach>
 
                 </table>
-                <table>
+                <table class="table table-striped display">
                     <tr>
-                        <td>Сумма расходов</td>
+                        <td>Сумма расходов: </td>
                         <td>${totalAmount}</td>
                     </tr>
                 </table>
-                <a href="${pageContext.request.contextPath}/receipts/add">Add a Receipt</a>
             </div>
         </div>
     </div>
 </div>
+
+<!--Pop up window for adding  receipt-->
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -53,26 +55,27 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" method="post" id="detailsForm">
-                    <input type="text" hidden="hidden" id="id" name="id">
-
+                    <label for="id"></label><input type="text" hidden="hidden" id="id" name="id">
+                    <!--Selection of receipts shop-->
                     <div class="form-group">
                         <label for="shop" class="control-label col-xs-3">Shop</label>
 
-                        <div class="col-xs-9">
-                            <select required name="shop">
-                                <option disabled selected>Choose a Shop </option>
-                                <c:forEach items="${purseList}" var="purse">
-                                    <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
-                                    <option value="${purse.purseId}">
-                                            ${purse.description}
-                                    </option>
-                                </c:forEach>
-                            </select>
-                            <%--<input type="text" class="form-control" id="shop" name="shop"
-                                   placeholder="Shop">--%>
+                        <div  class="col-xs-9">
+                            <label >
+                                <select required  name="shop" id="shop">
+                                    <option disabled selected>Choose a Shop</option>
+                                    <c:forEach items="${shopList}" var="shop">
+                                        <jsp:useBean id="shop" class="ru.simplebudget.model.common.Shop"
+                                                     scope="request"/>
+                                        <option value="${shop.shopId}">
+                                            ${shop.name}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </label>
                         </div>
                     </div>
-
+                    <!--Receipts date-->
                     <div class="form-group">
                         <label for="date" class="control-label col-xs-3">Date</label>
 
@@ -80,15 +83,34 @@
                             <input type="datetime-local" class="form-control" id="date" name="date" placeholder="Date">
                         </div>
                     </div>
-
-                    <%--<div class="form-group">
-                        <label for="password" class="control-label col-xs-3">Password</label>
+                    <!--Receipts amount-->
+                    <div class="form-group">
+                        <label for="amount" class="control-label col-xs-3">Amount:</label>
 
                         <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="">
+                            <input type="number" class="form-control" id="amount" name="amount" placeholder="">
                         </div>
-                    </div>--%>
+                    </div>
 
+                    <!--Put receipt in a purse-->
+                    <div class="form-group">
+                        <label for="purse" class="control-label col-xs-3">Purse</label>
+
+                        <%--<div class="col-xs-9">
+                            <label>--%>
+                                <select required name="purse" id="purse">
+                                    <option disabled selected>Choose a Purse</option>
+                                    <c:forEach items="${purseList}" var="purses">
+                                        <jsp:useBean id="purses" class="ru.simplebudget.model.common.Purse"
+                                                     scope="request"/>
+                                        <option value="${purses.purseId}">
+                                                ${purses.description}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            <%--</label>--%>
+                        <%--</div>--%>
+                    </div>
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="submit" class="btn btn-primary">Save</button>
@@ -106,7 +128,8 @@
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/admin/users/';
+
+    var ajaxUrl = 'receipts';
     var datatableApi;
 
     // $(document).ready(function () {
@@ -116,16 +139,16 @@
             "bInfo": false,
             "aoColumns": [
                 {
-                    "mData": "Shop"
+                    "mData": "shop"
                 },
                 {
-                    "mData": "Date"
+                    "mData": "date"
                 },
                 {
-                    "mData": "Amount"
+                    "mData": "amount"
                 },
                 {
-                    "mData": "Purse"
+                    "mData": "purse"
                 }
             ],
             "aaSorting": [

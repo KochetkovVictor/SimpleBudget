@@ -2,7 +2,6 @@ package ru.simplebudget.controller.income;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +13,7 @@ import ru.simplebudget.service.purse.PurseService;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +47,7 @@ public class IncomeController {
         String id=request.getParameter("id");
         income.setIncomeId(id.isEmpty() ? null:Long.valueOf(request.getParameter("id")));
         income.setDescription(request.getParameter("description"));
-        income.setIncomeDateTime(LocalDateTime.parse(request.getParameter("dateTime")));
+        income.setIncomeDate(LocalDate.parse(request.getParameter("dateTime")));
         income.setValue(Double.parseDouble(request.getParameter("value")));
         income.setPurse(purseService.getById(Long.valueOf(request.getParameter("purse"))));
 

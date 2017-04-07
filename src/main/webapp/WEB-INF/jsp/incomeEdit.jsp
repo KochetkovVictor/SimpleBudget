@@ -15,7 +15,7 @@
         <dl>
             <dt>DateTime:</dt>
             <dd><label>
-                <input required type="datetime" value="${income.incomeDateTime}" name="dateTime" >
+                <input required type="datetime" value="${income.incomeDate}" name="dateTime" >
             </label></dd>
         </dl>
         <dl>

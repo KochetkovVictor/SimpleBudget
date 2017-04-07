@@ -13,6 +13,7 @@ public class Purse {
 
     @Id
     @SequenceGenerator(name = "global_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private
     Long purseId;

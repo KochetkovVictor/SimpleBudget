@@ -28,7 +28,8 @@
                             <td>${purse.amount}</td>
                             <td>
                                 <label for="${purse.purseId}"></label><input type="checkbox"
-                                                                             <c:if test="${purse.active}">checked</c:if> id="${purse.purseId}"/>
+                                                                             <c:if test="${purse.active}">checked</c:if>
+                                                                             id="${purse.purseId}"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -37,13 +38,13 @@
                 <div>
                     <table class="table table-striped display">
                         <tr>
-                            <td>Сумма по кошелькам: </td>
+                            <td>Сумма по кошелькам:</td>
                             <td>${totalAmount}</td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <form action="purses" method="post">
+            <form action="purses/transfer" method="post">
                 <dl>
                     <dt>
                         <label>From Purse:</label>
@@ -100,23 +101,6 @@
                                    placeholder="Desription">
                         </div>
                     </div>
-
-                    <%--<div class="form-group">
-                        <label for="amount" class="control-label col-xs-3">Email</label>
-
-                        <div class="col-xs-9">
-                            <input type="number" class="form-control" id="amount" name="amount" placeholder="amount">
-                        </div>
-                    </div>--%>
-
-                    <%--<div class="form-group">
-                        <label for="password" class="control-label col-xs-3">Password</label>
-
-                        <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="">
-                        </div>
-                    </div>--%>
-
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="submit" class="btn btn-primary">Save</button>
@@ -134,7 +118,8 @@
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript">
-    var ajaxUrl = 'ajax/admin/users/';
+
+    var ajaxUrl = '${pageContext.request.contextPath}/purses';
     var datatableApi;
 
     // $(document).ready(function () {

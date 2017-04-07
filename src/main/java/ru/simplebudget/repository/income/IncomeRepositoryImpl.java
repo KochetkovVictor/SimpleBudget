@@ -43,11 +43,11 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     }
 
     @Override
-    public List<Income> getIncomesPerAPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public List<Income> getIncomesPerAPeriod(LocalDate startDateTime, LocalDate endDateTime) {
         CriteriaBuilder cb =em.getCriteriaBuilder();
         CriteriaQuery<Income> cq = cb.createQuery(Income.class);
         Root<Income> root = cq.from(Income.class);
-        Path<LocalDateTime> date=root.get(Income_.incomeDateTime);
+        Path<LocalDate> date=root.get(Income_.incomeDate);
 
         Predicate condition = cb.between(date,startDateTime,endDateTime);
         cq.where(condition);
@@ -67,7 +67,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         CriteriaBuilder cb =em.getCriteriaBuilder();
         CriteriaQuery<Income> cq = cb.createQuery(Income.class);
         Root<Income> root = cq.from(Income.class);
-        Path<LocalDateTime> date=root.get(Income_.incomeDateTime);
+        Path<LocalDate> date=root.get(Income_.incomeDate);
         cq.orderBy(cb.asc(date));
         TypedQuery<Income> query = em.createQuery(cq);
 

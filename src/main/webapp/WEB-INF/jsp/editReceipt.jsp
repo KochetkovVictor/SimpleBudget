@@ -3,11 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <jsp:include page="fragments/head.jsp"/>
-<h3>${action}</h3>
+
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <hr>
+    <h3>${action}</h3>
     <jsp:useBean id="receipt" type="ru.simplebudget.model.out.Receipt" scope="request"/>
 
     <form method="post" action="receipts">
@@ -15,7 +16,7 @@
         <dl>
             <dt>DateTime:</dt>
             <dd><label>
-                <input required type="datetime-local" value="${receipt.dateTime}" name="dateTime" >
+                <input required type="datetime-local" value="${receipt.receiptDate}" name="dateTime" >
             </label></dd>
         </dl>
         <dl>
@@ -43,7 +44,7 @@
             <dd>
                 <label>
                     <select required name="purse">
-                        <option disabled selected>Choose a Purse </option>
+                        <option selected value="${receipt.purse.purseId}">${receipt.purse.description}</option>
                         <c:forEach items="${purseList}" var="purse">
                             <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
                             <option value="${purse.purseId}">

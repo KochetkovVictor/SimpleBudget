@@ -10,7 +10,7 @@ import java.util.List;
 public interface IncomeService {
 
     Income addIncome(Income income);
-    List<Income> getIncomesPerAPeriod(LocalDateTime startDate, LocalDateTime endDate);
+    List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate);
     List<Income> getAll();
     Income getById(Long id);
     Income changeIncome(Income income);

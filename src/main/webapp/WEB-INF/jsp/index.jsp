@@ -11,7 +11,7 @@
         <p/>
 
         <%--<form method="post" action="users">
-            <fmt:message key="app.login"/>: <select name="userId">
+            <fmt:message key="messages.app.login"/>: <select name="userId">
             <option value="100000" selected>User</option>
             <option value="100001">Admin</option>
         </select>
