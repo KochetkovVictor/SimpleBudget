@@ -20,6 +20,7 @@ function makeEditable() {
 }
 
 function add() {
+    debugger;
     form.find(":input").val("");
     $('#id').val(0);
     $('#editRow').modal();
@@ -53,9 +54,9 @@ function enable(chkbox, id) {
     $.ajax({
         url: ajaxUrl + id,
         type: 'POST',
-        data: 'enabled=' + enabled,
+        data: 'active=' + enabled,
         success: function () {
-            successNoty(enabled ? 'Enabled' : 'Disabled');
+            successNoty(enabled ? 'Active' : 'Not active');
         }
     });
 }

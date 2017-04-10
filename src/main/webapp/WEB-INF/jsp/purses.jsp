@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
@@ -15,57 +14,60 @@
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="purses.add"/></a>
+
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
                         <th>Description</th>
                         <th>Amount</th>
+                        <th>Active</th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                 </table>
-                <div>
-                    <table class="table table-striped display">
-                        <tr>
-                            <td>Сумма по кошелькам:</td>
-                            <td>${totalAmount}</td>
-                        </tr>
-                    </table>
-                </div>
+                <%--<div>
+        <table class="table table-striped display">
+            <tr>
+                <td>Сумма по кошелькам:</td>
+                <td>${totalAmount}</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <form action="purses/transfer" method="post">
+        <dl>
+            <dt>
+                <label>From Purse:</label>
+                <label>
+                    <select required name="fromPurse">
+                        <c:forEach items="${purseList}" var="purse">
+                            <option value="${purse.purseId}">
+                                    ${purse.description}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </label>
+                <label>To Purse:</label>
+                <label>
+                    <select required name="toPurse">
+                        <c:forEach items="${purseList}" var="purse">
+                            <option value="${purse.purseId}">
+                                    ${purse.description}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </label>
+                <label>Amount: </label>
+                <label>
+                    <input required name="transferAmount"/>
+                </label>
+            </dt>
+        </dl>
+        <button type="submit">Transfer</button>
+        <button onclick="window.history.back()">Cancel</button>
+    </form>--%>
             </div>
-            <form action="purses/transfer" method="post">
-                <dl>
-                    <dt>
-                        <label>From Purse:</label>
-                        <label>
-                            <select required name="fromPurse">
-                                <c:forEach items="${purseList}" var="purse">
-                                    <option value="${purse.purseId}">
-                                            ${purse.description}
-                                    </option>
-                                </c:forEach>
-                            </select>
-                        </label>
-                        <label>To Purse:</label>
-                        <label>
-                            <select required name="toPurse">
-                                <c:forEach items="${purseList}" var="purse">
-                                    <option value="${purse.purseId}">
-                                            ${purse.description}
-                                    </option>
-                                </c:forEach>
-                            </select>
-                        </label>
-                        <label>Amount: </label>
-                        <label>
-                            <input required name="transferAmount"/>
-                        </label>
-                    </dt>
-                </dl>
-                <button type="submit">Transfer</button>
-                <button onclick="window.history.back()">Cancel</button>
-            </form>
         </div>
     </div>
 </div>
@@ -100,7 +102,8 @@
     </div>
 </div>
 </body>
-
+<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>

@@ -1,17 +1,19 @@
-var ajaxUrl = 'ajax/purses';
+var ajaxUrl = 'ajax/purses/';
 var datatableApi;
 
 function updateTable() {
+    debugger;
     $.get(ajaxUrl, updateTableByData);
 }
 
 $(function () {
+    debugger;
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
             "dataSrc": ""
         },
-        "paging": true,
+        "paging": false,
         "info": true,
         "columns": [
             {
@@ -20,7 +22,16 @@ $(function () {
             {
                 "data": "amount"
             },
-                        {
+            {
+                "data": "active",
+                "render": function (data, type, row) {
+                    if (type == 'display') {
+                        return '<input type="checkbox" ' + (data ? 'checked' : '') + ' onclick="enable($(this),' + row.id + ');"/>';
+                    }
+                    return data;
+                }
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "render": renderEditBtn
@@ -38,7 +49,7 @@ $(function () {
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
-            if (!data.enabled) {
+            if (!data.active) {
                 $(row).css("text-decoration", "line-through");
             }
         },

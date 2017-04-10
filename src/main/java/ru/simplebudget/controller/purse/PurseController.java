@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/ajax/purses")
+@RequestMapping("/ajax/purses")
 public class PurseController extends AbstractPurseController{
 
     /*@Autowired
