@@ -1,30 +1,31 @@
 package ru.simplebudget.controller.purse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
-import ru.simplebudget.service.purse.PurseServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(value = "/purses")
-public class PurseController {
+public class PurseController extends AbstractPurseController{
 
-    @Autowired
+    /*@Autowired
     private
-    PurseServiceImpl service;
+    PurseServiceImpl service;*/
 
-    @RequestMapping(method = RequestMethod.POST)
+    /*@RequestMapping(method = RequestMethod.POST)
     public ModelAndView addPurse(HttpServletRequest request) {
         Purse purse = new Purse();
         purse.setAmount(0.0);
@@ -32,20 +33,24 @@ public class PurseController {
         purse.setDescription(request.getParameter("description"));
         service.addPurse(purse);
         return new ModelAndView("redirect:/purses");
-    }
+    }*/
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView getAll() {
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("purseList", service.getAll());
-        modelMap.put("totalAmount", service.getTotalAmount());
-        return new ModelAndView("purses", modelMap);
-    }
-
-    @RequestMapping(value="/transfer",method = RequestMethod.POST)
+    public List<Purse> getAll(){return super.getAll();}
+    /*  public ModelAndView getAll() {
+            Map<String, Object> modelMap = new HashMap<>();
+            modelMap.put("purseList", service.getAll());
+            modelMap.put("totalAmount", service.getTotalAmount());
+            return new ModelAndView("purses", modelMap);
+        }*/
+    /*@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Double getTotalAmount(){
+        return super.getTotalAmount();
+    }*/
+   @RequestMapping(value="/transfer",method = RequestMethod.POST)
     public ModelAndView transferAmount(HttpServletRequest request) {
         try {
-            service.transferAmount(Long.valueOf(request.getParameter("fromPurse")),
+            super.transferAmount(Long.valueOf(request.getParameter("fromPurse")),
                     Long.valueOf(request.getParameter("toPurse")),
                     Double.valueOf(request.getParameter("transferAmount")));
         } catch (NotEnoughMoneyException neme) {

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://fn.simplebudget.ru/functions" %>
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <body>
@@ -26,7 +27,8 @@
                             <td>
                                 <a href="${pageContext.request.contextPath}/incomes/update/${income.incomeId}"> ${income.description}</a>
                             </td>
-                            <td>${income.incomeDate}</td>
+
+                            <td>${fn:formatDate(income.incomeDate)}</td>
                             <td>${income.value}</td>
                             <td>${income.purse.description}</td>
                         </tr>
@@ -38,7 +40,7 @@
                         <td>${totalAmount}</td>
                     </tr>
                 </table>
-                <a href="${pageContext.request.contextPath}/incomes/add">Add an Income</a>
+                <a class="btn btn-sm btn-info" href="${pageContext.request.contextPath}/incomes/add">Add an Income</a>
             </div>
         </div>
     </div>

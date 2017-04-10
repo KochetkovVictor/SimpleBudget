@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://fn.simplebudget.ru/functions"%>
+
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
@@ -27,7 +28,7 @@
                         <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
                         <tr>
                             <td><a href="${pageContext.request.contextPath}/receipts/update/${receipt.id}">${receipt.shop.name}</a></td>
-                            <td>${receipt.receiptDate}</td>
+                            <td> ${fn:formatDate(receipt.receiptDate)}</td>
                             <td>${receipt.amount}</td>
                             <td>${receipt.purse.description}</td>
                         </tr>
@@ -68,7 +69,7 @@
                                         <jsp:useBean id="shop" class="ru.simplebudget.model.common.Shop"
                                                      scope="request"/>
                                         <option value="${shop.shopId}">
-                                            ${shop.name}
+                                            <c:out value="${shop.name}"/>
                                         </option>
                                     </c:forEach>
                                 </select>
@@ -129,7 +130,7 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript">
 
-    var ajaxUrl = 'receipts';
+    var ajaxUrl = '${pageContext.request.contextPath}/receipts';
     var datatableApi;
 
     // $(document).ready(function () {
