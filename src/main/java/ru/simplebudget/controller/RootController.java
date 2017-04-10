@@ -9,4 +9,9 @@ public class RootController {
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String root(){return "index";}
+
+    @RequestMapping(value = "/purses", method = RequestMethod.GET)
+    public String purseList() {
+        return "purses";
+    }
 }

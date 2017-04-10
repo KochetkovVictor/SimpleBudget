@@ -1,4 +1,4 @@
-var ajaxUrl = 'purses/';
+var ajaxUrl = 'ajax/purses';
 var datatableApi;
 
 function updateTable() {
