@@ -1,5 +1,5 @@
 var ajaxUrl = 'ajax/purses/';
-var totalAmountUrl = 'ajax/purses/totalAmount/';
+var totalAmountUrl = ajaxUrl+'totalAmount/';
 var datatableApi;
 var totalAmountApi;
 
@@ -13,6 +13,7 @@ function updateTable() {
     } );
 }
 $(function () {
+    debugger;
     totalAmountApi = $('#totalamount').DataTable({
         "ajax": {
             "url": totalAmountUrl,
@@ -30,16 +31,9 @@ $(function () {
                 "data": ""
             }
         ]
-        /*"createdRow": function (row, data, dataIndex) {
-            if (!data.active) {
-                $(row).css("text-decoration", "line-through");
-            }
-        },
-        "initComplete": makeEditable*/
     });
 });
 $(function () {
-
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
