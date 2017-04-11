@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
+import ru.simplebudget.model.to.AmountWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -25,8 +26,9 @@ public class PurseController extends AbstractPurseController {
     public List<Purse> getAll() {
         return super.getAll();
     }
+
     @RequestMapping(value = "/totalAmount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Double getTotalAmount(){
+    public AmountWrapper getTotalAmount(){
         return super.getTotalAmount();
     }
 

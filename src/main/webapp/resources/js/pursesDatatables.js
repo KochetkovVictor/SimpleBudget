@@ -6,11 +6,12 @@ var totalAmountApi;
 function updateTable() {
     debugger;
     $.get(ajaxUrl, updateTableByData);
-    $.ajax({
+    $.get(totalAmountUrl,updateTableByData);
+  /*  $.ajax({
         dataType: "json",
         url: totalAmountUrl,
         data:data
-    } );
+    } );*/
 }
 $(function () {
     debugger;
@@ -24,11 +25,11 @@ $(function () {
         "columns": [
             {
                 "orderable":false,
-                "data": ""
+                "defaultContent": ""
             },
             {
                 "orderable":false,
-                "data": ""
+                "data": "value"
             }
         ]
     });
