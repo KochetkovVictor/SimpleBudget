@@ -1,20 +1,54 @@
 var ajaxUrl = 'ajax/purses/';
+var totalAmountUrl = 'ajax/purses/totalAmount/';
 var datatableApi;
+var totalAmountApi;
 
 function updateTable() {
     debugger;
     $.get(ajaxUrl, updateTableByData);
+    $.ajax({
+        dataType: "json",
+        url: totalAmountUrl,
+        data:data
+    } );
 }
-
 $(function () {
-    debugger;
+    totalAmountApi = $('#totalamount').DataTable({
+        "ajax": {
+            "url": totalAmountUrl,
+            "dataSrc": ""
+        },
+        "paging": false,
+        "info": false,
+        "columns": [
+            {
+                "orderable":false,
+                "data": ""
+            },
+            {
+                "orderable":false,
+                "data": ""
+            }
+        ]
+        /*"createdRow": function (row, data, dataIndex) {
+            if (!data.active) {
+                $(row).css("text-decoration", "line-through");
+            }
+        },
+        "initComplete": makeEditable*/
+    });
+});
+$(function () {
+
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
             "dataSrc": ""
         },
-        "paging": false,
-        "info": true,
+        "scrollY":        "200px",
+        "scrollCollapse": true,
+        "paging": true,
+        "info": false,
         "columns": [
             {
                 "data": "description"
@@ -22,15 +56,6 @@ $(function () {
             {
                 "data": "amount"
             },
-            /*{
-                "data": "active",
-                "render": function (data, type, row) {
-                    if (type == 'display') {
-                        return '<input type="checkbox" ' + (data ? 'checked' : '') + ' onclick="enable($(this),' + row.id + ');"/>';
-                    }
-                    return data;
-                }
-            },*/
             {
                 "orderable": false,
                 "defaultContent": "",
@@ -55,4 +80,5 @@ $(function () {
         },
         "initComplete": makeEditable
     });
+
 });

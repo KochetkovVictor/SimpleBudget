@@ -20,53 +20,55 @@
                     <tr>
                         <th>Description</th>
                         <th>Amount</th>
-                      <%--  <th>Active</th>--%>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                 </table>
-                <%--<div>
-        <table class="table table-striped display">
-            <tr>
-                <td>Сумма по кошелькам:</td>
-                <td>${totalAmount}</td>
-            </tr>
-        </table>
-    </div>
-    </div>
-    <form action="purses/transfer" method="post">
-        <dl>
-            <dt>
-                <label>From Purse:</label>
-                <label>
-                    <select required name="fromPurse">
-                        <c:forEach items="${purseList}" var="purse">
-                            <option value="${purse.purseId}">
-                                    ${purse.description}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </label>
-                <label>To Purse:</label>
-                <label>
-                    <select required name="toPurse">
-                        <c:forEach items="${purseList}" var="purse">
-                            <option value="${purse.purseId}">
-                                    ${purse.description}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </label>
-                <label>Amount: </label>
-                <label>
-                    <input required name="transferAmount"/>
-                </label>
-            </dt>
-        </dl>
-        <button type="submit">Transfer</button>
-        <button onclick="window.history.back()">Cancel</button>
-    </form>--%>
+
+                <table class="table table-striped display" id="totalamount">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Сумма по кошелькам</th>
+                    </tr>
+                    </thead>
+                </table>
+
+
+                <%--</div>
+                <form action="purses/transfer" method="post">
+                    <dl>
+                        <dt>
+                            <label>From Purse:</label>
+                            <label>
+                                <select required name="fromPurse">
+                                    <c:forEach items="${purseList}" var="purse">
+                                        <option value="${purse.purseId}">
+                                                ${purse.description}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </label>
+                            <label>To Purse:</label>
+                            <label>
+                                <select required name="toPurse">
+                                    <c:forEach items="${purseList}" var="purse">
+                                        <option value="${purse.purseId}">
+                                                ${purse.description}
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </label>
+                            <label>Amount: </label>
+                            <label>
+                                <input required name="transferAmount"/>
+                            </label>
+                        </dt>
+                    </dl>
+                    <button type="submit">Transfer</button>
+                    <button onclick="window.history.back()">Cancel</button>
+                </form>--%>
             </div>
         </div>
     </div>

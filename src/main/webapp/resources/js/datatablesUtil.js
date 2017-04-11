@@ -62,6 +62,7 @@ function deleteRow(id) {
 }*/
 
 function updateTableByData(data) {
+    totalAmountApi.clear().rows.add(data).draw();
     datatableApi.clear().rows.add(data).draw();
 }
 

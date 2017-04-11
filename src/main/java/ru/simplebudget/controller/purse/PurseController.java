@@ -1,7 +1,6 @@
 package ru.simplebudget.controller.purse;
 
 
-
 import org.springframework.http.MediaType;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,35 +18,19 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ajax/purses")
-public class PurseController extends AbstractPurseController{
+public class PurseController extends AbstractPurseController {
 
-    /*@Autowired
-    private
-    PurseServiceImpl service;*/
-
-    /*@RequestMapping(method = RequestMethod.POST)
-    public ModelAndView addPurse(HttpServletRequest request) {
-        Purse purse = new Purse();
-        purse.setAmount(0.0);
-        purse.setActive(true);
-        purse.setDescription(request.getParameter("description"));
-        service.addPurse(purse);
-        return new ModelAndView("redirect:/purses");
-    }*/
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Purse> getAll(){return super.getAll();}
-    /*  public ModelAndView getAll() {
-            Map<String, Object> modelMap = new HashMap<>();
-            modelMap.put("purseList", service.getAll());
-            modelMap.put("totalAmount", service.getTotalAmount());
-            return new ModelAndView("purses", modelMap);
-        }*/
-    /*@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Purse> getAll() {
+        return super.getAll();
+    }
+    @RequestMapping(value = "/totalAmount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Double getTotalAmount(){
         return super.getTotalAmount();
-    }*/
-   @RequestMapping(value="/transfer",method = RequestMethod.POST)
+    }
+
+    @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public ModelAndView transferAmount(HttpServletRequest request) {
         try {
             super.transferAmount(Long.valueOf(request.getParameter("fromPurse")),
