@@ -22,11 +22,12 @@
         <jackson-json.version>2.7.3</jackson-json.version>
 
         <!--webjars-->
-        <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
+        <webjars-bootstrap.version>4.0.0-alpha.6-1</webjars-bootstrap.version>
         <webjars-jquery.version>3.2.0</webjars-jquery.version>
-        <webjars-datetimepicker.version>2.4.7</webjars-datetimepicker.version>
-        <webjars-noty.version>2.3.8</webjars-noty.version>
-        <webjars-datatables.version>1.10.12</webjars-datatables.version>
+        <webjars-datetimepicker.version>2.5.4</webjars-datetimepicker.version>
+        <webjars-noty.version>2.4.1</webjars-noty.version>
+        <webjars-datatables.version>1.10.13</webjars-datatables.version>
+        <webjars-tether.version>1.4.0</webjars-tether.version>
     </properties>
 
     <dependencies>
@@ -106,6 +107,11 @@
             <groupId>org.webjars</groupId>
             <artifactId>datatables</artifactId>
             <version>${webjars-datatables.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>tether</artifactId>
+            <version>${webjars-tether.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
