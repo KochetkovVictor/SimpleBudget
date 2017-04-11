@@ -1,10 +1,10 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
 
-        <a href="${pageContext.request.contextPath}/" class="navbar-brand"><fmt:message key="messages.app.title"/></a>
+        <a href="${pageContext.request.contextPath}/" class="navbar-brand"><spring:message code="messages.app.title"/></a>
 
         <%--<div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">

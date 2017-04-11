@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <jsp:include page="fragments/head.jsp"/>
-<link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
