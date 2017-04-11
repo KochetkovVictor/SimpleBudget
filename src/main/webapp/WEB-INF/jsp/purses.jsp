@@ -20,7 +20,7 @@
                     <tr>
                         <th>Description</th>
                         <th>Amount</th>
-                        <th>Active</th>
+                      <%--  <th>Active</th>--%>
                         <th></th>
                         <th></th>
                     </tr>

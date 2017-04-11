@@ -48,7 +48,7 @@ function deleteRow(id) {
     });
 }
 
-function enable(chkbox, id) {
+/*function enable(chkbox, id) {
     var enabled = chkbox.is(":checked");
     chkbox.closest('tr').css("text-decoration", enabled ? "none" : "line-through");
     $.ajax({
@@ -59,7 +59,7 @@ function enable(chkbox, id) {
             successNoty(enabled ? 'Active' : 'Not active');
         }
     });
-}
+}*/
 
 function updateTableByData(data) {
     datatableApi.clear().rows.add(data).draw();

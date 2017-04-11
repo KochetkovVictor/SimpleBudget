@@ -22,7 +22,7 @@ $(function () {
             {
                 "data": "amount"
             },
-            {
+            /*{
                 "data": "active",
                 "render": function (data, type, row) {
                     if (type == 'display') {
@@ -30,7 +30,7 @@ $(function () {
                     }
                     return data;
                 }
-            },
+            },*/
             {
                 "orderable": false,
                 "defaultContent": "",
