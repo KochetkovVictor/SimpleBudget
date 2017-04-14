@@ -31,10 +31,6 @@ public class Purse {
     private
     boolean active;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "purse")
-//    @JsonIgnore
-    protected List<Income> Income;
-
     public boolean isActive() {
         return active;
     }
