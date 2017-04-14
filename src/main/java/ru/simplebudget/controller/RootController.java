@@ -22,6 +22,11 @@ public class RootController {
         return "incomes";
     }
 
+    @RequestMapping(value = "/receipts", method = RequestMethod.GET)
+    public String receiptList() {
+        return "receipts";
+    }
+
     @RequestMapping("/amount")
     public String amount() {
         return "amount";

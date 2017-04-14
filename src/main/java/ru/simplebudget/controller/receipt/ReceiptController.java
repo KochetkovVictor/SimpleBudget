@@ -1,50 +1,22 @@
 package ru.simplebudget.controller.receipt;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import ru.simplebudget.model.common.Purse;
+import org.springframework.web.bind.annotation.RestController;
 import ru.simplebudget.model.out.Receipt;
-import ru.simplebudget.service.purse.PurseService;
-import ru.simplebudget.service.receipt.ReceiptService;
-import ru.simplebudget.service.shop.ShopService;
-
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-@Controller
-@RequestMapping(value = "/receipts")
-public class ReceiptController {
 
-    @Autowired
-    private
-    ReceiptService receiptService;
-    @Autowired
-    private PurseService purseService;
-    @Autowired
-    private ShopService shopService;
+@RestController
+@RequestMapping(value = "/ajax/receipts")
+public class ReceiptController extends AbstractReceiptController{
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAll() {
-        Map<String, Object> modelMap = new HashMap<>();
-        List<Receipt> receiptList = receiptService.getAll();
-        modelMap.put("receiptList", receiptList);
-        Double totalAmount = 0.0;
-        for (Receipt receipt : receiptList)
-            totalAmount += receipt.getAmount();
-        modelMap.put("totalAmount", totalAmount);
-        return new ModelAndView("receipts", modelMap);
-    }
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Receipt> getAll(){return super.getAll();}
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView toAddReceiptPage() {
         Map<String, Object> modelMap = new HashMap<>();
         modelMap.put("receipt", new Receipt());
@@ -80,5 +52,5 @@ public class ReceiptController {
         }
         else receiptService.changeReceipt(receipt);
         return new ModelAndView("redirect:/receipts");
-    }
+    }*/
 }

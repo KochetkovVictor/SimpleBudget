@@ -5,7 +5,7 @@
 
 <html>
 <jsp:include page="fragments/head.jsp"/>
-<link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
@@ -22,24 +22,10 @@
                         <th>Date</th>
                         <th>Amount</th>
                         <th>Purse</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
-                    <c:forEach items="${receiptList}" var="receipt">
-                        <jsp:useBean id="receipt" scope="page" class="ru.simplebudget.model.out.Receipt"/>
-                        <tr>
-                            <td><a href="${pageContext.request.contextPath}/receipts/update/${receipt.id}">${receipt.shop.name}</a></td>
-                            <td> ${fn:formatDate(receipt.receiptDate)}</td>
-                            <td>${receipt.amount}</td>
-                            <td>${receipt.purse.description}</td>
-                        </tr>
-                    </c:forEach>
-
-                </table>
-                <table class="table table-striped display">
-                    <tr>
-                        <td>Сумма расходов: </td>
-                        <td>${totalAmount}</td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -97,8 +83,6 @@
                     <div class="form-group">
                         <label for="purse" class="control-label col-xs-3">Purse</label>
 
-                        <%--<div class="col-xs-9">
-                            <label>--%>
                                 <select required name="purse" id="purse">
                                     <option disabled selected>Choose a Purse</option>
                                     <c:forEach items="${purseList}" var="purses">
@@ -109,8 +93,7 @@
                                         </option>
                                     </c:forEach>
                                 </select>
-                            <%--</label>--%>
-                        <%--</div>--%>
+
                     </div>
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
@@ -127,40 +110,6 @@
 
 <script type="text/javascript" src="webjars/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.4.1/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="resources/js/receiptesDatatables.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
-<script type="text/javascript">
-
-    var ajaxUrl = '${pageContext.request.contextPath}/receipts';
-    var datatableApi;
-
-    // $(document).ready(function () {
-    $(function () {
-        datatableApi = $('#datatable').dataTable({
-            "bPaginate": true,
-            "bInfo": false,
-            "aoColumns": [
-                {
-                    "mData": "shop"
-                },
-                {
-                    "mData": "date"
-                },
-                {
-                    "mData": "amount"
-                },
-                {
-                    "mData": "purse"
-                }
-            ],
-            "aaSorting": [
-                [
-                    0,
-                    "asc"
-                ]
-            ]
-        });
-        makeEditable();
-    });
-</script>
-
 </html>

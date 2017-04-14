@@ -1,14 +1,16 @@
-var ajaxUrl = 'ajax/incomes/';
+var ajaxUrl = 'ajax/receipts/';
 var datatableApi;
 
 function updateTable() {
-    $.ajax({
+    /*$.ajax({
         type: "POST",
         url: ajaxUrl + 'filter',
         data: $('#filter').serialize(),
         success: updateTableByData
     });
-    return false;
+    return false;*/
+    debugger;
+    $.get(ajaxUrl, updateTableByData);
 }
 
 $(function () {
@@ -21,10 +23,10 @@ $(function () {
         "info": false,
         "columns": [
             {
-                "data": "description"
+                "data": "shop.name"
             },
             {
-                "data": "dateTime",
+                "data": "receiptDate",
                 "render": function (date, type, row) {
                     if (type == 'display') {
                         return date.replace('T', ' ').substr(0, 16);
@@ -37,7 +39,7 @@ $(function () {
                 "data": "amount"
             },
             {
-                "data":"purse"
+                "data":"purse.description"
             },
             {
                 "defaultContent": "",
