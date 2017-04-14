@@ -43,6 +43,7 @@ function deleteRow(id) {
         type: 'DELETE',
         success: function () {
             updateTable();
+            updateAmountTable();
             successNoty('Deleted');
         }
     });
@@ -62,7 +63,6 @@ function deleteRow(id) {
 }*/
 
 function updateTableByData(data) {
-    totalAmountApi.clear().rows.add(data).draw();
     datatableApi.clear().rows.add(data).draw();
 }
 
@@ -74,6 +74,7 @@ function save() {
         success: function () {
             $('#editRow').modal('hide');
             updateTable();
+            updateAmountTable();
             successNoty('Saved');
         }
     });

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @StaticMetamodel(Income.class)
 public class Income {
 
+
     @Id
     @SequenceGenerator(name = "global_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +27,7 @@ public class Income {
     private String description;
 
     @JoinColumn(name="purseId")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private
     Purse purse;
 

@@ -12,13 +12,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import javax.persistence.metamodel.Metamodel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 
-@Repository
+@Repository("incomeRepository")
 @Transactional(readOnly = true)
 public class IncomeRepositoryImpl implements IncomeRepository {
 

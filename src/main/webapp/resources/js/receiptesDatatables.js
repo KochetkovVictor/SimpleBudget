@@ -2,19 +2,16 @@ var ajaxUrl = 'ajax/incomes/';
 var datatableApi;
 
 function updateTable() {
-    /*$.ajax({
+    $.ajax({
         type: "POST",
         url: ajaxUrl + 'filter',
         data: $('#filter').serialize(),
         success: updateTableByData
     });
-    return false;*/
-    debugger;
-    $.get(ajaxUrl, updateTableByData);
+    return false;
 }
 
 $(function () {
-    debugger;
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
@@ -27,20 +24,20 @@ $(function () {
                 "data": "description"
             },
             {
-                "data": "incomeDate",
+                "data": "dateTime",
                 "render": function (date, type, row) {
-                    /*if (type == 'display') {
+                    if (type == 'display') {
                         return date.replace('T', ' ').substr(0, 16);
-                    }*/
+                    }
                     return date;
                 }
             },
 
             {
-                "data": "value"
+                "data": "amount"
             },
             {
-                "data":"purse.description"
+                "data":"purse"
             },
             {
                 "defaultContent": "",
@@ -71,7 +68,7 @@ $(function () {
 
             var startDate = $('#startDate');
             var endDate = $('#endDate');
-            
+
             startDate.datetimepicker({
                 timepicker: false,
                 format: 'Y-m-d',
@@ -110,3 +107,4 @@ $(function () {
         }
     });
 });
+

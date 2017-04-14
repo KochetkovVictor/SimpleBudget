@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.repository.income.IncomeRepository;
+import ru.simplebudget.repository.purse.PurseRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,37 +15,35 @@ import java.util.List;
 public class IncomeServiceImpl implements IncomeService {
 
     @Autowired
-    @Qualifier(value = "incomeRepositoryImpl")
     private
-    IncomeRepository repository;
+    IncomeRepository incomeRepository;
+    @Autowired
+    private
+    PurseRepository purseRepository;
 
     @Override
     public Income addIncome(Income income) {
-        return repository.addIncome(income);
+        return incomeRepository.addIncome(income);
     }
 
     @Override
     public List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate) {
-        return repository.getIncomesPerAPeriod(startDate, endDate);
+        return incomeRepository.getIncomesPerAPeriod(startDate, endDate);
     }
 
     @Override
     public List<Income> getAll() {
-        return repository.getAll();
+        return incomeRepository.getAll();
     }
 
     @Override
     public Income getById(Long id) {
-        return repository.getIncome(id);
+        return incomeRepository.getIncome(id);
     }
 
     @Override
     public Income changeIncome(Income income) {
-        return repository.changeIncome(income);
+        return incomeRepository.changeIncome(income);
     }
 
-    /*@Override
-    public Income showIncomeDetails(Long incomeId) {
-        return repository.getIncome(incomeId);
-    }*/
 }

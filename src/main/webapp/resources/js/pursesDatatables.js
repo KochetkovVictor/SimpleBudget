@@ -1,40 +1,13 @@
 var ajaxUrl = 'ajax/purses/';
-var totalAmountUrl = ajaxUrl+'totalAmount/';
 var datatableApi;
-var totalAmountApi;
 
 function updateTable() {
     debugger;
     $.get(ajaxUrl, updateTableByData);
-    $.get(totalAmountUrl,updateTableByData);
-  /*  $.ajax({
-        dataType: "json",
-        url: totalAmountUrl,
-        data:data
-    } );*/
 }
+
 $(function () {
     debugger;
-    totalAmountApi = $('#totalamount').DataTable({
-        "ajax": {
-            "url": totalAmountUrl,
-            "dataSrc": ""
-        },
-        "paging": false,
-        "info": false,
-        "columns": [
-            {
-                "orderable":false,
-                "defaultContent": ""
-            },
-            {
-                "orderable":false,
-                "data": "value"
-            }
-        ]
-    });
-});
-$(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,

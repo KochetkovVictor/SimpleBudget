@@ -1,9 +1,11 @@
 package ru.simplebudget.model.common;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import ru.simplebudget.model.in.Income;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +30,10 @@ public class Purse {
     @Column(name = "active")
     private
     boolean active;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "purse")
+//    @JsonIgnore
+    protected List<Income> Income;
 
     public boolean isActive() {
         return active;
@@ -62,5 +68,10 @@ public class Purse {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return  description;
     }
 }

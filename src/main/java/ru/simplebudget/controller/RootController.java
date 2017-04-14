@@ -7,11 +7,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RootController {
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String root(){return "index";}
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String root() {
+        return "index";
+    }
 
     @RequestMapping(value = "/purses", method = RequestMethod.GET)
     public String purseList() {
         return "purses";
+    }
+
+    @RequestMapping(value = "/incomes", method = RequestMethod.GET)
+    public String incomeList() {
+        return "incomes";
+    }
+
+    @RequestMapping("/amount")
+    public String amount() {
+        return "amount";
     }
 }

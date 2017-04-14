@@ -6,10 +6,4 @@
     <import resource="spring-db.xml"/>
     <context:annotation-config/>
     <context:component-scan base-package="ru.simplebudget.**"/>
-    <!--<bean class="ru.simplebudget.model.out.Receipt" id="receipt"/>
-    <bean class="ru.simplebudget.model.in.Income" id="income"/>
-    <bean class="ru.simplebudget.repository.receipt.ReceiptRepositoryImpl" id="receiptRepository"/>
-    <bean class="ru.simplebudget.repository.purse.PurseRepositoryImpl" id="purseRepository"/>
-    <bean class="ru.simplebudget.repository.income.IncomeRepositoryImpl" id="incomeRepository"/>-->
-
 </beans>
