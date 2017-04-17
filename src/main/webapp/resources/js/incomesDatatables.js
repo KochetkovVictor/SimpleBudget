@@ -2,15 +2,13 @@ var ajaxUrl = 'ajax/incomes/';
 var datatableApi;
 
 function updateTable() {
-    /*$.ajax({
+   $.ajax({
         type: "POST",
         url: ajaxUrl + 'filter',
         data: $('#filter').serialize(),
         success: updateTableByData
     });
-    return false;*/
-    debugger;
-    $.get(ajaxUrl, updateTableByData);
+    return false;
 }
 
 $(function () {
@@ -29,9 +27,6 @@ $(function () {
             {
                 "data": "incomeDate",
                 "render": function (date, type, row) {
-                    /*if (type == 'display') {
-                        return date.replace('T', ' ').substr(0, 16);
-                    }*/
                     return date;
                 }
             },
