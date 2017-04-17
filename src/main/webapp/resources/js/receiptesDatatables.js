@@ -59,9 +59,6 @@ $(function () {
                 "desc"
             ]
         ],
-        "createdRow": function (row, data, dataIndex) {
-            $(row).addClass(data.exceed ? 'exceeded' : 'normal');
-        },
         "initComplete": function () {
             $('#filter').submit(function () {
                 updateTable();
