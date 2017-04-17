@@ -32,6 +32,7 @@ public abstract class AbstractPurseController {
 
     Purse addPurse(Purse purse)
     {
+        purse.setId(null);
         return service.addPurse(purse);
     }
 

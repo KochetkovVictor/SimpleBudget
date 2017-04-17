@@ -30,7 +30,7 @@ public class PurseRepositoryImpl implements PurseRepository {
             em.flush();
             return purse;
         } else {
-            System.out.println("update purse # "+purse.getId());
+            System.out.println("update purse # " + purse.getId());
             return em.merge(purse);
         }
     }
@@ -89,15 +89,14 @@ public class PurseRepositoryImpl implements PurseRepository {
 
 
     @Transactional
-    public boolean changeName(Long id, String newDescription) {
+    public boolean changeName(Long id, String newDescription, Double amount, boolean active) {
         Purse purse = get(id);
         if (purse != null) {
-            String oldName = purse.getDescription();
-            if (!oldName.equals(newDescription)) {
-                purse.setDescription(newDescription);
-                save(purse);
-                return true;
-            }
+            purse.setDescription(newDescription);
+            purse.setActive(active);
+            purse.setAmount(amount);
+            save(purse);
+            return true;
         }
         return false;
     }
@@ -123,7 +122,8 @@ public class PurseRepositoryImpl implements PurseRepository {
         cq.where(fromCondition);
         TypedQuery<Purse> fromQuery = em.createQuery(cq);
         Purse fromPurse = fromQuery.getSingleResult();
-        if (fromPurse.getAmount() - transferAmount < 0 || fromPurse.getAmount()==0) throw new NotEnoughMoneyException("Not enough money");
+        if (fromPurse.getAmount() - transferAmount < 0 || fromPurse.getAmount() == 0)
+            throw new NotEnoughMoneyException("Not enough money");
         else {
             fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
             Predicate toCondition = cb.equal(root.get("purseId"), toPurseId);

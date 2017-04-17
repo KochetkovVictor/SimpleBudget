@@ -43,7 +43,9 @@ public class PurseServiceImpl implements PurseService{
     public void updatePurse(Purse purse) {
         String description=purse.getDescription();
         Long id=purse.getId();
-        repository.changeName(id, description);
+        boolean active=purse.isActive();
+        Double amount=purse.getAmount();
+        repository.changeName(id, description, amount, active);
     }
 
     @Override

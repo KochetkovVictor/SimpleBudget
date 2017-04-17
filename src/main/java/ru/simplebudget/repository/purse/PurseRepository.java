@@ -15,7 +15,7 @@ public interface PurseRepository {
     void addPurseAmount(Long id, Double amount);
     Double getTotalAmount(List<Purse> purseList);
     boolean deletePurse(Long id);
-    boolean changeName(Long id, String newDescription);
+    boolean changeName(Long id, String newDescription, Double amount, boolean active);
     List<Purse> getAll();
     void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount);
 }

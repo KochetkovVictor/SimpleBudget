@@ -25,6 +25,7 @@ function add() {
 }
 
 function updateRow(id) {
+    alert(id);
     $.get(ajaxUrl + id, function (data) {
         $('#editRow').modal();
     });

@@ -13,7 +13,7 @@ $(function () {
             "url": ajaxUrl,
             "dataSrc": ""
         },
-        "scrollY":        "200px",
+        "scrollY": "200px",
         "scrollCollapse": true,
         "paging": true,
         "info": true,
@@ -46,7 +46,6 @@ $(function () {
                 $(row).css("text-decoration", "line-through");
                 $(row).css("color", "grey");
             }
-
         },
         "initComplete": makeEditable
     });

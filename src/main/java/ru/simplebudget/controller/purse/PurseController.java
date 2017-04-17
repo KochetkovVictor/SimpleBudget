@@ -42,9 +42,10 @@ public class PurseController extends AbstractPurseController {
     public void updateOrCreate(Purse purse)
     {
         System.out.println("Purse description = " + purse.getDescription());
+        System.out.println("Purse id= "+purse.getId());
+        System.out.println("Purse is active= " +purse.isActive());
         if(purse.getId()==0L)
         {
-            System.out.println("New purse");
             super.addPurse(purse);
         }
         else{
