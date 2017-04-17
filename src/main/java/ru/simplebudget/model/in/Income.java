@@ -75,6 +75,11 @@ public class Income {
         this.incomeDate =LocalDateTime.now().toLocalDate();
     }
 
+
+    public Income(Long id) {
+        this.incomeId=id;
+    }
+
     @Override
     public String toString() {
         return "Income{" +

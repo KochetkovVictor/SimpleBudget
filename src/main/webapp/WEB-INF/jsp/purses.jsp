@@ -50,6 +50,20 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="amount" class="control-label col-xs-3">Amount</label>
+
+                        <div class="col-xs-9">
+                            <input class="form-control" id="amount" name="amount" placeholder="0.0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="active" class="control-label col-xs-3">Active</label>
+
+                        <div class="col-xs-9">
+                            <input class="form-control" id="active" name="active" placeholder="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>

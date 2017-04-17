@@ -13,11 +13,33 @@ public abstract class AbstractPurseController {
     @Autowired
     private PurseService service;
 
-    List<Purse> getAll(){
+    List<Purse> getAll() {
         return service.getAll();
     }
-    AmountWrapper getTotalAmount(){return new AmountWrapper(service.getTotalAmount());}
-    void transferAmount(Long from, Long to, Double amount){service.transferAmount(from,to,amount);}
 
+
+
+    Purse get(Long id) {
+      return service.getById(id);
+    }
+
+    void delete(Long id){service.delete(id);}
+
+    void update(Purse purse)
+    {
+        service.updatePurse(purse);
+    }
+
+    Purse addPurse(Purse purse)
+    {
+        return service.addPurse(purse);
+    }
+
+    void transferAmount(Long from, Long to, Double amount) {
+        service.transferAmount(from, to, amount);
+    }
+    AmountWrapper getTotalAmount() {
+        return new AmountWrapper(service.getTotalAmount());
+    }
 
 }

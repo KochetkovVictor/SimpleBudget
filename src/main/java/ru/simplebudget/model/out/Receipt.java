@@ -115,7 +115,7 @@ public class Receipt {
         this.receiptDate = receiptDate;
     }
 
-
+    public Receipt(Long id){this.id=id;}
     @Override
     public String toString() {
         return "Receipt{" +

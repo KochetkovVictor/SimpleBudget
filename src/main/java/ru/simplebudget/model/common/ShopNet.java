@@ -27,6 +27,10 @@ public class ShopNet {
 
     }
 
+    public ShopNet(Long id) {
+        this.id = id;
+    }
+
     @Id
     private
     Long id;

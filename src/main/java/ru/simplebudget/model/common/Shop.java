@@ -8,13 +8,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Shop.class)
 public class Shop {
 
-
     @Id
     @SequenceGenerator(name = "shops_id_seq", sequenceName = "shops_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shops_id_seq")
     @Column(name = "id")
     private
-    Long shopId;
+    Long id;
     @Column(name="adress")
     private
     String adress;
@@ -29,13 +28,15 @@ public class Shop {
 
     public Shop() {
     }
-
-    public Long getShopId() {
-        return shopId;
+    public Shop(Long id){
+        this.id =id;
+    }
+    public Long getId() {
+        return id;
     }
 
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
+    public void setId(Long shopId) {
+        this.id = shopId;
     }
 
     public String getAdress() {

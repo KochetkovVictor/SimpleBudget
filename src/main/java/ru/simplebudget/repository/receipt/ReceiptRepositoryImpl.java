@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +34,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     public Receipt save(Receipt receipt) {
         if (receipt.getId() == null) {
             em.persist(receipt);
-            purseRepository.addPurseAmount(receipt.getPurse().getPurseId(), -receipt.getAmount());
+            purseRepository.addPurseAmount(receipt.getPurse().getId(), -receipt.getAmount());
             return receipt;
         } else {
             return em.merge(receipt);
@@ -106,16 +105,16 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         }
         if (!Objects.equals(oldAmount, changeReceipt.getAmount())) {
             receipt.setAmount(changeReceipt.getAmount());
-            if (Objects.equals(oldPurse.getPurseId(), changeReceipt.getPurse().getPurseId())) {
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getPurseId(), -changeReceipt.getAmount() - oldAmount);
+            if (Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
+                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), -changeReceipt.getAmount() - oldAmount);
             } else {
-                purseRepository.addPurseAmount(oldPurse.getPurseId(), oldAmount);
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getPurseId(), -changeReceipt.getAmount());
+                purseRepository.addPurseAmount(oldPurse.getId(), oldAmount);
+                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), -changeReceipt.getAmount());
                 receipt.setPurse(changeReceipt.getPurse());
             }
-        } else if (!Objects.equals(oldPurse.getPurseId(), changeReceipt.getPurse().getPurseId())) {
-            purseRepository.addPurseAmount(oldPurse.getPurseId(), oldAmount);
-            purseRepository.addPurseAmount(changeReceipt.getPurse().getPurseId(), -changeReceipt.getAmount());
+        } else if (!Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
+            purseRepository.addPurseAmount(oldPurse.getId(), oldAmount);
+            purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), -changeReceipt.getAmount());
             receipt.setPurse(changeReceipt.getPurse());
         }
         return em.merge(receipt);

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
-import ru.simplebudget.repository.purse.PurseRepository;
 
 
 import javax.persistence.EntityManager;
@@ -25,11 +24,13 @@ public class PurseRepositoryImpl implements PurseRepository {
 
     @Transactional
     public Purse save(Purse purse) {
-        if (purse.getPurseId() == null) {
+        if (purse.getId() == null) {
+            System.out.println("new Purse******************");
             em.persist(purse);
             em.flush();
             return purse;
         } else {
+            System.out.println("update purse # "+purse.getId());
             return em.merge(purse);
         }
     }
@@ -75,8 +76,9 @@ public class PurseRepositoryImpl implements PurseRepository {
     public boolean deletePurse(Long id) {
         Purse purse = get(id);
         if (purse != null) {
+
             boolean flag = purse.isActive();
-            if (!flag) {
+            if (flag) {
                 purse.setActive(false);
                 save(purse);
                 return true;

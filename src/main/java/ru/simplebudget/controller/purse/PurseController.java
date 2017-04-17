@@ -3,6 +3,7 @@ package ru.simplebudget.controller.purse;
 
 import org.springframework.http.MediaType;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,8 +28,33 @@ public class PurseController extends AbstractPurseController {
         return super.getAll();
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Long id) {
+        super.delete(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET,  produces = MediaType.APPLICATION_JSON_VALUE)
+    public Purse get(@PathVariable("id") Long id) {
+        return super.get(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateOrCreate(Purse purse)
+    {
+        System.out.println("Purse description = " + purse.getDescription());
+        if(purse.getId()==0L)
+        {
+            System.out.println("New purse");
+            super.addPurse(purse);
+        }
+        else{
+            System.out.println("Edit purse # "+purse.getId());
+            super.update(purse);
+        }
+    }
+
     @RequestMapping(value = "/totalAmount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public AmountWrapper getTotalAmount(){
+    public AmountWrapper getTotalAmount() {
         return super.getTotalAmount();
     }
 

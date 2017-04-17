@@ -11,5 +11,8 @@ public interface PurseService {
     Double getTotalAmount();
     Purse getById(Long id);
     void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount);
-    void  addPurse(Purse purse);
+    Purse  addPurse(Purse purse);
+    void updatePurse(Purse purse);
+
+    void delete(Long id);
 }

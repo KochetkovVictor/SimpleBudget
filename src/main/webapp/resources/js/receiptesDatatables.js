@@ -2,15 +2,13 @@ var ajaxUrl = 'ajax/receipts/';
 var datatableApi;
 
 function updateTable() {
-    /*$.ajax({
+    $.ajax({
         type: "POST",
         url: ajaxUrl + 'filter',
         data: $('#filter').serialize(),
         success: updateTableByData
     });
-    return false;*/
-    debugger;
-    $.get(ajaxUrl, updateTableByData);
+    return false;
 }
 
 $(function () {

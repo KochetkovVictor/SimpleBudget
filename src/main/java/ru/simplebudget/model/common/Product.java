@@ -9,13 +9,15 @@ public class Product {
     private
     Long id;
     private String name;
-    private Long cost;
+    private Double cost;
 
 
     public Product() {
     }
-
-    public Product(String name, Long cost) {
+    public Product(Long id) {
+        this.id=id;
+    }
+    public Product(String name, Double cost) {
         this.name = name;
         this.cost = cost;
     }
@@ -36,11 +38,11 @@ public class Product {
         this.name = name;
     }
 
-    public Long getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Long cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 }

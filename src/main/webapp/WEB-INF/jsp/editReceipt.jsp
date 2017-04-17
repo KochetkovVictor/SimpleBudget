@@ -26,7 +26,7 @@
                 <select required name="shop" >
                     <c:forEach items="${shopList}" var="shop">
                         <jsp:useBean id="shop" type="ru.simplebudget.model.common.Shop"/>
-                        <option  value="${shop.shopId}">
+                        <option  value="${shop.id}">
                                 ${shop.name}
                         </option>
                     </c:forEach>
@@ -44,7 +44,7 @@
             <dd>
                 <label>
                     <select required name="purse">
-                        <option selected value="${receipt.purse.purseId}">${receipt.purse.description}</option>
+                        <option selected value="${receipt.purse.id}">${receipt.purse.description}</option>
                         <c:forEach items="${purseList}" var="purse">
                             <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
                             <option value="${purse.purseId}">

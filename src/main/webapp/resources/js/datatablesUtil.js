@@ -2,25 +2,23 @@ var form;
 
 function makeEditable() {
     form = $('#detailsForm');
-
     form.submit(function () {
         save();
         return false;
     });
 
-    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
+   $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
     });
-
+/*
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function(e, xhr, options) {
         xhr.setRequestHeader(header, token);
-    });
+    });*/
 }
 
 function add() {
-    debugger;
     form.find(":input").val("");
     $('#id').val(0);
     $('#editRow').modal();
@@ -28,11 +26,6 @@ function add() {
 
 function updateRow(id) {
     $.get(ajaxUrl + id, function (data) {
-        $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(
-                key === "dateTime" ? value.replace('T', ' ').substr(0, 16) : value
-            );
-        });
         $('#editRow').modal();
     });
 }
@@ -43,7 +36,6 @@ function deleteRow(id) {
         type: 'DELETE',
         success: function () {
             updateTable();
-            updateAmountTable();
             successNoty('Deleted');
         }
     });
@@ -103,6 +95,7 @@ function renderEditBtn(data, type, row) {
 }
 
 function renderDeleteBtn(data, type, row) {
+
     if (type == 'display') {
         return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">Delete</a>';
     }

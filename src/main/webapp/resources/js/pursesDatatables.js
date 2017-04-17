@@ -2,12 +2,12 @@ var ajaxUrl = 'ajax/purses/';
 var datatableApi;
 
 function updateTable() {
-    debugger;
+
     $.get(ajaxUrl, updateTableByData);
 }
 
 $(function () {
-    debugger;
+
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
@@ -16,7 +16,7 @@ $(function () {
         "scrollY":        "200px",
         "scrollCollapse": true,
         "paging": true,
-        "info": false,
+        "info": true,
         "columns": [
             {
                 "data": "description"
@@ -37,16 +37,17 @@ $(function () {
         ],
         "order": [
             [
-                0,
-                "asc"
+                1,
+                "desc"
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
             if (!data.active) {
                 $(row).css("text-decoration", "line-through");
+                $(row).css("color", "grey");
             }
+
         },
         "initComplete": makeEditable
     });
-
 });

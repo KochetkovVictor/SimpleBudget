@@ -1,7 +1,6 @@
 package ru.simplebudget.service.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
@@ -36,9 +35,22 @@ public class PurseServiceImpl implements PurseService{
     }
 
     @Override
-    public void addPurse(Purse purse) {
-        repository.save(purse);
+    public Purse addPurse(Purse purse) {
+        return  repository.save(purse);
     }
+
+    @Override
+    public void updatePurse(Purse purse) {
+        String description=purse.getDescription();
+        Long id=purse.getId();
+        repository.changeName(id, description);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.deletePurse(id);
+    }
+
 
 
 }
