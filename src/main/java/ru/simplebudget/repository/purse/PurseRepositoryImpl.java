@@ -29,7 +29,6 @@ public class PurseRepositoryImpl implements PurseRepository {
             em.flush();
             return purse;
         } else {
-            System.out.println("update purse # " + purse.getId());
             return em.merge(purse);
         }
     }
