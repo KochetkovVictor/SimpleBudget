@@ -41,15 +41,11 @@ public class PurseController extends AbstractPurseController {
     @RequestMapping(method = RequestMethod.POST)
     public void updateOrCreate(Purse purse)
     {
-        System.out.println("Purse description = " + purse.getDescription());
-        System.out.println("Purse id= "+purse.getId());
-        System.out.println("Purse is active= " +purse.isActive());
         if(purse.getId()==0L)
         {
             super.addPurse(purse);
         }
         else{
-            System.out.println("Edit purse # "+purse.getId());
             super.update(purse);
         }
     }

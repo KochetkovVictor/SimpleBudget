@@ -25,7 +25,6 @@ public class PurseRepositoryImpl implements PurseRepository {
     @Transactional
     public Purse save(Purse purse) {
         if (purse.getId() == null) {
-            System.out.println("new Purse******************");
             em.persist(purse);
             em.flush();
             return purse;

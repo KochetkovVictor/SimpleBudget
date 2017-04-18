@@ -40,27 +40,27 @@
             </div>
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
-                    <input type="hidden" id="id" name="id">
+                    <label for="id"></label><input <%--type="hidden"--%> id="id" name="id">
 
                     <div class="form-group">
                         <label for="description" class="control-label col-xs-3">Name</label>
 
                         <div class="col-xs-9">
-                            <input class="form-control" id="description" name="description" placeholder="Description">
+                            <input required class="form-control" id="description" name="description" placeholder="Description">
                         </div>
                     </div>
                     <div class="form-group">
                         <label  for="amount" class="control-label col-xs-3">Amount</label>
 
                         <div class="col-xs-9">
-                            <input type="number" class="form-control" id="amount" name="amount" placeholder="0.0">
+                            <input required type="number" class="form-control" id="amount" name="amount" placeholder="0.0">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="active" class="control-label col-xs-3">Active</label>
 
                         <div class="col-xs-9">
-                            <input  class="form-control" id="active" name="active" placeholder="true">
+                            <input required class="form-control" id="active" name="active" placeholder="true">
                         </div>
                     </div>
                     <div class="form-group">

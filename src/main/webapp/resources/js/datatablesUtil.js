@@ -25,8 +25,10 @@ function add() {
 }
 
 function updateRow(id) {
-    alert(id);
     $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
         $('#editRow').modal();
     });
 }
@@ -96,7 +98,6 @@ function renderEditBtn(data, type, row) {
 }
 
 function renderDeleteBtn(data, type, row) {
-
     if (type == 'display') {
         return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">Delete</a>';
     }
