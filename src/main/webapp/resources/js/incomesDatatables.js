@@ -12,7 +12,6 @@ function updateTable() {
 }
 
 $(function () {
-    debugger;
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,

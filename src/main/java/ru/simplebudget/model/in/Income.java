@@ -19,7 +19,7 @@ public class Income {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private
-    Long incomeId;
+    Long id;
 
     @Column(name="datetime",columnDefinition = "timestamp default now()")
     private LocalDate incomeDate;
@@ -31,12 +31,12 @@ public class Income {
     private
     Purse purse;
 
-    public Long getIncomeId() {
-        return incomeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setIncomeId(Long incomeId) {
-        this.incomeId = incomeId;
+    public void setId(Long incomeId) {
+        this.id = incomeId;
     }
 
     public LocalDate getIncomeDate() {
@@ -77,13 +77,13 @@ public class Income {
 
 
     public Income(Long id) {
-        this.incomeId=id;
+        this.id =id;
     }
 
     @Override
     public String toString() {
         return "Income{" +
-                "incomeId=" + incomeId +
+                "incomeId=" + id +
                 ", incomeDate=" + incomeDate +
                 ", value=" + value +
                 ", description='" + description + '\'' +

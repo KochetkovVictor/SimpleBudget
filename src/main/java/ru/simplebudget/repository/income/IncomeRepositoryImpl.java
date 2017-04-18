@@ -31,7 +31,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Transactional
     public Income addIncome(Income income) {
-        if (income.getIncomeId() == null) {
+        if (income.getId() == null) {
             em.persist(income);
             em.flush();
             purseRepository.addPurseAmount(income.getPurse().getId(), income.getValue());
@@ -76,7 +76,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     @Override
     @Transactional
     public Income changeIncome(Income changeIncome) {
-        Income income = em.find(Income.class, changeIncome.getIncomeId());
+        Income income = em.find(Income.class, changeIncome.getId());
         Double oldValue = income.getValue();
         Purse oldPurse = income.getPurse();
         if (!income.getDescription().equals(changeIncome.getDescription())) {
@@ -97,5 +97,15 @@ public class IncomeRepositoryImpl implements IncomeRepository {
             income.setPurse(changeIncome.getPurse());
         }
         return em.merge(income);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        CriteriaBuilder cb =em.getCriteriaBuilder();
+        CriteriaDelete<Income> cq = cb.createCriteriaDelete(Income.class);
+        Root<Income> root = cq.from(Income.class);
+        cq.where(cb.equal(root.get("id"),id));
+        this.em.createQuery(cq).executeUpdate();
     }
 }

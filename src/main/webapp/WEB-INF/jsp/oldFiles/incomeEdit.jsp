@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<jsp:include page="fragments/head.jsp"/>
+<jsp:include page="../fragments/head.jsp"/>
 <h3>${action}</h3>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="../fragments/bodyHeader.jsp"/>
 <div class="jumbotron">
     <hr>
     <jsp:useBean id="income" type="ru.simplebudget.model.in.Income" scope="request"/>
 
     <form method="post" action="incomes">
-        <input type="hidden" name="id" value="${income.incomeId}">
+        <input type="hidden" name="id" value="${income.id}">
         <dl>
             <dt>DateTime:</dt>
             <dd><label>
@@ -52,5 +52,5 @@
     </form>
 </div>
 </body>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/>
 </html>

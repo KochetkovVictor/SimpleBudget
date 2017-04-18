@@ -30,10 +30,10 @@ public abstract class AbstractPurseController {
         service.updatePurse(purse);
     }
 
-    Purse addPurse(Purse purse)
+    void addPurse(Purse purse)
     {
         purse.setId(null);
-        return service.addPurse(purse);
+        service.addPurse(purse);
     }
 
     void transferAmount(Long from, Long to, Double amount) {

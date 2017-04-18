@@ -4,58 +4,48 @@ package ru.simplebudget.controller.income;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.simplebudget.model.in.Income;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/ajax/incomes")
-public class IncomeController extends AbstractIncomeController{
+public class IncomeController extends AbstractIncomeController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Income> getAll(){
-        return  super.getAll();
+    public List<Income> getAll() {
+        return super.getAll();
     }
 
-    /*@RequestMapping(method = RequestMethod.POST)
-    public ModelAndView addOrUpdateIncome(HttpServletRequest request) {
-        Income income=new Income();
-        String id=request.getParameter("id");
-        income.setIncomeId(id.isEmpty() ? null:Long.valueOf(request.getParameter("id")));
-        income.setDescription(request.getParameter("description"));
-        income.setIncomeDate(LocalDate.parse(request.getParameter("dateTime")));
-        income.setValue(Double.parseDouble(request.getParameter("value")));
-        income.setPurse(purseService.getById(Long.valueOf(request.getParameter("purse"))));
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Income getIncome(@PathVariable("id") Long id){return super.getIncome(id);}
 
-        if (income.getIncomeId()==null)
+    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    public void deleteIncome(@PathVariable("id") Long id){
+        super.deleteIncome(id);
+    }
+
+    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Income> getByPeriod(@PathVariable(value = "startDate", required = false) LocalDate startDate,
+                                    @PathVariable(value = "endDate",required = false) LocalDate endDate) {
+        return super.getByPeriod(startDate, endDate);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateOrCreate(Income income)
+    {
+        if (income.getId()==0L)
         {
-            incomeService.addIncome(income);
-        }
-        else {
-            incomeService.changeIncome(income);
-        }
-        return new ModelAndView("redirect:/incomes");
-    }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView toAddIncomePage() {
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("income", new Income());
-        modelMap.put("purseList", purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList()));
-        modelMap.put("action", "Add an Income");
-        return new ModelAndView("incomeEdit", modelMap);
+            super.addIncome(income);
+        }
+        else {updateIncome(income);}
     }
-
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public ModelAndView toUpdateIncomePage(@PathVariable("id") Long id) {
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("income", incomeService.getById(id));
-        modelMap.put("purseList", purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList()));
-        modelMap.put("action", "Update an Income");
-        return new ModelAndView("incomeEdit", modelMap);
-    }*/
 }
 

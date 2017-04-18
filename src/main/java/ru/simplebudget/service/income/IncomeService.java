@@ -14,5 +14,6 @@ public interface IncomeService {
     List<Income> getAll();
     Income getById(Long id);
     Income changeIncome(Income income);
+    void deleteIncome(Long id);
     //Income showIncomeDetails(Long incomeId);
 }
