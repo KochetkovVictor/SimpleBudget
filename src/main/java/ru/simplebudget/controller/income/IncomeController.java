@@ -4,10 +4,7 @@ package ru.simplebudget.controller.income;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.in.Income;
 
 import java.time.LocalDate;
@@ -31,9 +28,9 @@ public class IncomeController extends AbstractIncomeController {
         super.deleteIncome(id);
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Income> getByPeriod(@PathVariable(value = "startDate", required = false) LocalDate startDate,
-                                    @PathVariable(value = "endDate",required = false) LocalDate endDate) {
+    @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Income> getByPeriod(@RequestParam(value = "startDate", required = false) LocalDate startDate,
+                                    @RequestParam(value = "endDate",required = false) LocalDate endDate) {
         return super.getByPeriod(startDate, endDate);
     }
 
