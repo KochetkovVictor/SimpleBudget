@@ -2,9 +2,9 @@ package ru.simplebudget.controller.income;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.service.income.IncomeService;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +33,4 @@ public abstract class AbstractIncomeController {
     void updateIncome(Income income) {
         service.changeIncome(income);
     }
-
-
 }

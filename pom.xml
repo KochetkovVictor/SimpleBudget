@@ -102,13 +102,18 @@
             <artifactId>noty</artifactId>
             <version>${webjars-noty.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>datatables</artifactId>
-            <version>${webjars-datatables.version}</version>
-        </dependency>
+         <dependency>
+             <groupId>org.webjars</groupId>
+             <artifactId>datatables</artifactId>
+             <version>${webjars-datatables.version}</version>
+         </dependency>
+        <!--<dependency>
+                 <groupId>org.webjars.bower</groupId>
+                 <artifactId>datatables</artifactId>
+                 <version>1.10.15</version>
+             </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+            <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>

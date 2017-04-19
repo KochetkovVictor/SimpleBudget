@@ -1,19 +1,27 @@
 package ru.simplebudget.controller.income;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+;
 
 import org.springframework.web.bind.annotation.*;
+import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
+import ru.simplebudget.service.purse.PurseService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/ajax/incomes")
 public class IncomeController extends AbstractIncomeController {
+
+    @Autowired
+    private PurseService purseService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Income> getAll() {
@@ -31,7 +39,7 @@ public class IncomeController extends AbstractIncomeController {
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Income> getByPeriod(@RequestParam(value = "startDate", required = false) LocalDate startDate,
                                     @RequestParam(value = "endDate",required = false) LocalDate endDate) {
-        return super.getByPeriod(startDate, endDate);
+        return super.getByPeriod(startDate==null? LocalDate.MIN:startDate, endDate==null? LocalDate.MAX:endDate);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -43,6 +51,11 @@ public class IncomeController extends AbstractIncomeController {
             super.addIncome(income);
         }
         else {updateIncome(income);}
+    }
+
+    @RequestMapping(value = "/amount/pursesList", method = RequestMethod.GET)
+    public List<Purse> purses() {
+        return purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList());
     }
 }
 

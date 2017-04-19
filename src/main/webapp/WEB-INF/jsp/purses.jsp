@@ -24,10 +24,44 @@
                         <th></th>
                     </tr>
                     </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Total:</th>
+                        <th colspan="2" style="text-align:right"></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
+</div>
+<div>
+    <form method="post" action="${pageContext.request.contextPath}/ajax/purses/transfer">
+        <label> From:
+            <select name="from">
+                <option disabled selected>Choose a Purse</option>
+                <c:forEach items="${purseList}" var="purse">
+                    <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
+                    <option value="${purse.purseId}">
+                            ${purse.description}
+                    </option>
+                </c:forEach>
+            </select>
+        </label>
+        <label> To:
+            <select name="to">
+                <option disabled selected>Choose a Purse</option>
+                <c:forEach items="${purseList}" var="purse">
+                    <option value="${purse.purseId}">
+                            ${purse.description}
+                    </option>
+                </c:forEach>
+            </select>
+        </label>
+        <button>Transfer</button>
+    </form>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 
@@ -46,14 +80,16 @@
                         <label for="description" class="control-label col-xs-3">Name</label>
 
                         <div class="col-xs-9">
-                            <input required class="form-control" id="description" name="description" placeholder="Description">
+                            <input required class="form-control" id="description" name="description"
+                                   placeholder="Description">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  for="amount" class="control-label col-xs-3">Amount</label>
+                        <label for="amount" class="control-label col-xs-3">Amount</label>
 
                         <div class="col-xs-9">
-                            <input required type="number" class="form-control" id="amount" name="amount" placeholder="0.0">
+                            <input required type="number" class="form-control" id="amount" name="amount"
+                                   placeholder="0.0">
                         </div>
                     </div>
                     <div class="form-group">

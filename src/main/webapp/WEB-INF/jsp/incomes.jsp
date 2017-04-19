@@ -87,13 +87,17 @@
                             <input type="number" class="form-control" id="value" name="value">
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="purse" class="control-label col-xs-3">Purse</label>
+                        <label for="purses" class="control-label col-xs-3">Purse</label>
 
                         <div class="col-xs-9">
-                            <input class="form-control" id="purse" name="purse.description">
+                            <select class="form-control" id="purses" name="purses">
+                                <option disabled>Choose a purse</option>
+                            </select>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="submit" class="btn btn-primary">Save</button>
