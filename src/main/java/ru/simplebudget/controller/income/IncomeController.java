@@ -29,28 +29,29 @@ public class IncomeController extends AbstractIncomeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Income getIncome(@PathVariable("id") Long id){return super.getIncome(id);}
+    public Income getIncome(@PathVariable("id") Long id) {
+        return super.getIncome(id);
+    }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-    public void deleteIncome(@PathVariable("id") Long id){
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteIncome(@PathVariable("id") Long id) {
         super.deleteIncome(id);
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Income> getByPeriod(@RequestParam(value = "startDate", required = false) LocalDate startDate,
-                                    @RequestParam(value = "endDate",required = false) LocalDate endDate) {
-        return super.getByPeriod(startDate==null? LocalDate.MIN:startDate, endDate==null? LocalDate.MAX:endDate);
+                                    @RequestParam(value = "endDate", required = false) LocalDate endDate) {
+        return super.getByPeriod(startDate, endDate);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(Income income)
-    {
-        if (income.getId()==0L)
-        {
+    public void updateOrCreate(Income income) {
+        if (income.getId() == 0L) {
 
             super.addIncome(income);
+        } else {
+            super.updateIncome(income);
         }
-        else {updateIncome(income);}
     }
 
     @RequestMapping(value = "/amount/pursesList", method = RequestMethod.GET)

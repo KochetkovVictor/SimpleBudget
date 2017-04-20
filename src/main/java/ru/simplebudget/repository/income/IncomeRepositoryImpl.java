@@ -103,9 +103,11 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     @Transactional
     public void delete(Long id) {
         CriteriaBuilder cb =em.getCriteriaBuilder();
-        CriteriaDelete<Income> cq = cb.createCriteriaDelete(Income.class);
-        Root<Income> root = cq.from(Income.class);
-        cq.where(cb.equal(root.get("id"),id));
-        this.em.createQuery(cq).executeUpdate();
+        CriteriaDelete<Income> cdIncome = cb.createCriteriaDelete(Income.class);
+        Root<Income> rootIncome = cdIncome.from(Income.class);
+        cdIncome.where(cb.equal(rootIncome.get("id"),id));
+        purseRepository.addPurseAmount(getIncome(id).getPurse().getId(),
+                -getIncome(id).getValue());
+        this.em.createQuery(cdIncome).executeUpdate();
     }
 }

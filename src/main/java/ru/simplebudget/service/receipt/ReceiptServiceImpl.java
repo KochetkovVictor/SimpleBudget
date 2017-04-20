@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.repository.receipt.ReceiptRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class ReceiptServiceImpl implements ReceiptService{
     }
 
     @Override
-    public List<Receipt> getByPeriod(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return null;
+    public List<Receipt> getByPeriod(LocalDate startDateTime, LocalDate endDateTime) {
+        return receiptRepository.getByPeriod(startDateTime,endDateTime);
     }
 
     @Override
@@ -37,5 +38,10 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Override
     public Receipt changeReceipt(Receipt receipt) {
         return receiptRepository.changeReceipt(receipt);
+    }
+
+    @Override
+    public void deleteReceipt(Long id) {
+        receiptRepository.delete(id);
     }
 }

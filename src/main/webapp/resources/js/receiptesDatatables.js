@@ -32,12 +32,11 @@ $(function () {
                     return date;
                 }
             },
-
             {
                 "data": "amount"
             },
             {
-                "data":"purse.description"
+                "data": "purse.description"
             },
             {
                 "defaultContent": "",
@@ -48,15 +47,20 @@ $(function () {
                 "defaultContent": "",
                 "orderable": false,
                 "render": renderDeleteBtn
-
             }
         ],
         "order": [
             [
-                0,
+                3,
                 "desc"
             ]
         ],
+        "createdRow": function (row, data, dataIndex) {
+            if (!data.active) {
+                $(row).css("text-decoration", "line-through");
+                $(row).css("color", "grey");
+            }
+        },
         "initComplete": function () {
             $('#filter').submit(function () {
                 updateTable();

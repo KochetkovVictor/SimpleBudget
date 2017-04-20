@@ -4,6 +4,7 @@ package ru.simplebudget.controller.income;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.service.income.IncomeService;
+import ru.simplebudget.utils.TimeUtil;
 
 
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ public abstract class AbstractIncomeController {
 
     public List<Income> getByPeriod(LocalDate startDate, LocalDate endDate) {
         return
-                service.getIncomesPerAPeriod(startDate, endDate);
+                service.getIncomesPerAPeriod(startDate==null? TimeUtil.MIN_DATE:startDate, endDate==null? TimeUtil.MAX_DATE:endDate);
     }
 
     void updateIncome(Income income) {

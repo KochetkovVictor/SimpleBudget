@@ -47,6 +47,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         Receipt receipt = get(id);
         if (receipt != null && receipt.isActive()) {
             receipt.setActive(false);
+            purseRepository.addPurseAmount(receipt.getPurse().getId(),receipt.getAmount());
             save(receipt);
             return true;
         }

@@ -52,11 +52,6 @@ public class PurseController extends AbstractPurseController {
         }
     }
 
-    @RequestMapping(value = "/totalAmount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public AmountWrapper getTotalAmount() {
-        return super.getTotalAmount();
-    }
-
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public ModelAndView transferAmount(HttpServletRequest request) {
         try {
