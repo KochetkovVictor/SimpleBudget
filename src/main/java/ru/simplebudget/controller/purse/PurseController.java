@@ -3,6 +3,7 @@ package ru.simplebudget.controller.purse;
 
 import org.springframework.http.MediaType;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ public class PurseController extends AbstractPurseController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Purse> getAll() {
+
         return super.getAll();
     }
 

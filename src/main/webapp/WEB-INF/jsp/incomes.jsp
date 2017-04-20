@@ -36,6 +36,7 @@
                     </div>
                 </form:form>
                 <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="income.add"/></a>
+
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>

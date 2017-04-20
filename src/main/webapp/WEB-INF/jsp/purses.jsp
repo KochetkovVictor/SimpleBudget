@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
@@ -24,46 +25,64 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tfoot>
-                    <tr>
-                        <th>Total:</th>
-                        <th colspan="2" style="text-align:right"></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </tfoot>
+                    <%--  <tfoot>
+                      <tr>
+                          <th>Total:</th>
+                          <th colspan="2" style="text-align:right"></th>
+                          <th></th>
+                          <th></th>
+                      </tr>
+                      </tfoot>--%>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<form method="post" action="${pageContext.request.contextPath}/ajax/purses/transfer">
+    <div class="row">
+        <div class="col-md-3">
+            <label for="select1" class="control-label col-md-3">From purse:</label>
+            <div class="col-md-3">
+                <select id="select1" name="fromPurse">
+                    <option selected disabled>From Purse</option>
+                    <c:forEach items="${purseList}" var="purse">
+                        <jsp:useBean id="purse" class="ru.simplebudget.model.common.Purse" scope="request"/>
+                        <option value="${purse.id}">
+                                ${purse.description}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="select2" class="control-label col-md-3">To purse:</label>
+            <div class="col-md-3">
+                <select id="select2" name="toPurse">
+                    <option selected disabled>To Purse</option>
+                    <c:forEach items="${purseList}" var="purse">
+                        <option value="${purse.id}">
+                                ${purse.description}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="transferamount" class="control-label col-md-3">Amount:</label>
+            <div class="col-md-6">
+                <input type="number" id="transferamount" class="form-control" name="transferAmount">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <button <%--onclick="transfer()"--%>type="submit">Transfer</button>
+        </div>
+    </div>
+</form>
+
 <div>
-    <form method="post" action="${pageContext.request.contextPath}/ajax/purses/transfer">
-        <label> From:
-            <select name="from">
-                <option disabled selected>Choose a Purse</option>
-                <c:forEach items="${purseList}" var="purse">
-                    <jsp:useBean id="purse1" class="ru.simplebudget.model.common.Purse" scope="request"/>
-                    <option value="${purse.purseId}">
-                            ${purse.description}
-                    </option>
-                </c:forEach>
-            </select>
-        </label>
-        <label> To:
-            <select name="to">
-                <option disabled selected>Choose a Purse</option>
-                <c:forEach items="${purseList}" var="purse">
-                    <option value="${purse.purseId}">
-                            ${purse.description}
-                    </option>
-                </c:forEach>
-            </select>
-        </label>
-        <button>Transfer</button>
-    </form>
+    <jsp:include page="fragments/footer.jsp"/>
 </div>
-<jsp:include page="fragments/footer.jsp"/>
 
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
