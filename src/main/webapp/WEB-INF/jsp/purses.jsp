@@ -25,14 +25,12 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <%--  <tfoot>
-                      <tr>
-                          <th>Total:</th>
-                          <th colspan="2" style="text-align:right"></th>
-                          <th></th>
-                          <th></th>
-                      </tr>
-                      </tfoot>--%>
+                    <tfoot>
+                    <tr>
+                        <td>Total:</td>
+                        <td colspan="2" style="text-align:right"></td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -93,7 +91,7 @@
             </div>
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
-                    <label for="id"></label><input <%--type="hidden"--%> id="id" name="id">
+                    <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
                         <label for="description" class="control-label col-xs-3">Name</label>
