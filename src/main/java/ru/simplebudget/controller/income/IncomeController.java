@@ -44,7 +44,17 @@ public class IncomeController extends AbstractIncomeController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(Income income) {
+    public void updateOrCreate(@RequestParam (value = "incomeDate") LocalDate date,
+                               @RequestParam(value="description") String description,
+                               @RequestParam(value="value")Double value,
+                               @RequestParam(value="editedPurse")Long purseId,
+                               @RequestParam(value="id")Long id) {
+        Income income=new Income();
+        income.setId(id);
+        income.setPurse(purseService.getById(purseId));
+        income.setValue(value==null? 0.0:value);
+        income.setDescription(description);
+        income.setIncomeDate(date==null? LocalDate.now():date);
         if (income.getId() == 0L) {
 
             super.addIncome(income);
@@ -53,9 +63,5 @@ public class IncomeController extends AbstractIncomeController {
         }
     }
 
-    @RequestMapping(value = "/amount/pursesList", method = RequestMethod.GET)
-    public List<Purse> purses() {
-        return purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList());
-    }
 }
 

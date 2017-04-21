@@ -77,7 +77,7 @@
                         <label for="description" class="control-label col-xs-3">Description</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="description" name="description"
+                            <input required type="text" class="form-control" id="description" name="description"
                                    placeholder="Description">
                         </div>
                     </div>
@@ -90,11 +90,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="purses" class="control-label col-xs-3">Purse</label>
-
+                        <label for="purse" class="control-label col-xs-3">Purse</label>
                         <div class="col-xs-9">
-                            <select class="form-control" id="purses" name="purses">
-                                <option disabled>Choose a purse</option>
+                            <select required id="purse" name="editedPurse">
+                                <option selected disabled>Choose a purse</option>
+                                <c:forEach items="${purseList}" var="purse">
+                                    <option value="${purse.id}">
+                                            ${purse.description}
+                                    </option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>

@@ -39,7 +39,7 @@ CREATE TABLE income(
   purseId INTEGER NOT NULL DEFAULT 0,
   FOREIGN KEY (purseId) REFERENCES purse (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX income_unique_dateTime_purse_index ON income(dateTime,purseId);
+CREATE UNIQUE INDEX income_id_index ON income(id);
 
 CREATE TABLE receipt(
   id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
@@ -51,6 +51,6 @@ CREATE TABLE receipt(
   FOREIGN KEY (purseId) REFERENCES purse (id) ON DELETE CASCADE,
   FOREIGN KEY (shopId) REFERENCES shop (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX receipt_unique_dateTime_purse_index ON receipt(dateTime,purseId);
+CREATE UNIQUE INDEX receipt_unique_id_index ON receipt(id);
 
 

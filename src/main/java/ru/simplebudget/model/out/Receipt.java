@@ -116,6 +116,16 @@ public class Receipt {
     }
 
     public Receipt(Long id){this.id=id;}
+
+    public Receipt(Long id, Shop shop, LocalDate receiptDate, Double amount,Purse purse, boolean active)
+    {
+        this.id=id;
+        this.active=active;
+        this.receiptDate=receiptDate;
+        this.amount=amount;
+        this.shop=shop;
+        this.purse=purse;
+    }
     @Override
     public String toString() {
         return "Receipt{" +

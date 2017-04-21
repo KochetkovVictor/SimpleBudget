@@ -93,7 +93,7 @@ $(function () {
             });
 
             $('#dateTime').datetimepicker({
-                format: 'Y-m-d H:i',
+                format: 'Y-m-d',
                 lang: 'ru'
             });
 

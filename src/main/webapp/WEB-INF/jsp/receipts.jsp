@@ -68,11 +68,17 @@
                 <form:form class="form-horizontal" method="post" id="detailsForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
-                        <label for="Shop" class="control-label col-xs-3">Shop</label>
+                        <label for="shop" class="control-label col-xs-3">Shop</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="shop" name="shop"
-                                   placeholder="Shop">
+                            <select required id="shop" name="editedShop">
+                                <option selected disabled>Choose a shop</option>
+                                <c:forEach items="${shopList}" var="shop">
+                                    <option value="${shop.id}">
+                                            ${shop.name}
+                                    </option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
 
@@ -95,7 +101,15 @@
                         <label for="purse" class="control-label col-xs-3">Purse</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="purse" name="purse">
+                            <%--<input type="text" class="form-control" id="purse" name="purse.id">--%>
+                            <select required id="purse" name="editedPurse">
+                                <option selected disabled>Choose a purse</option>
+                                <c:forEach items="${purseList}" var="purse">
+                                    <option value="${purse.id}">
+                                            ${purse.description}
+                                    </option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

@@ -72,6 +72,7 @@ public class Income {
     }
 
     public Income() {
+        this.value=0.0;
         this.incomeDate =LocalDateTime.now().toLocalDate();
     }
 
