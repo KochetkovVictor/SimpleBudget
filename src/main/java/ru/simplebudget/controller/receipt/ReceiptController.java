@@ -29,7 +29,7 @@ public class ReceiptController extends AbstractReceiptController {
         super.deleteReceipt(id);
     }
 
-    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Receipt getById(@PathVariable("id") Long id) {
         return super.getReceipt(id);
     }

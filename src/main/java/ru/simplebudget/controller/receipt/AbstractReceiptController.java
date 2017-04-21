@@ -9,7 +9,7 @@ import ru.simplebudget.utils.TimeUtil;
 import java.time.LocalDate;
 import java.util.List;
 
-public class AbstractReceiptController {
+public abstract class AbstractReceiptController {
 
     @Autowired
     private

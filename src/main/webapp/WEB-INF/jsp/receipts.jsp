@@ -67,34 +67,35 @@
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
                     <input type="hidden" id="id" name="id">
+                    <div class="form-group">
+                        <label for="Shop" class="control-label col-xs-3">Shop</label>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control" id="shop" name="shop"
+                                   placeholder="Shop">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="dateTime" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input class="form-control" id="dateTime" name="dateTime" placeholder="Date">
+                            <input class="form-control" id="dateTime" name="receiptDate" placeholder="Date">
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="description" class="control-label col-xs-3">Description</label>
+                        <label for="amount" class="control-label col-xs-3">Amount</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="description" name="description"
-                                   placeholder="Description">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="value" class="control-label col-xs-3">Value</label>
-
-                        <div class="col-xs-9">
-                            <input type="number" class="form-control" id="value" name="value">
+                            <input type="number" class="form-control" id="amount" name="amount">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="purse" class="control-label col-xs-3">Purse</label>
 
                         <div class="col-xs-9">
-                            <input type="number" class="form-control" id="purse" name="purse">
+                            <input type="text" class="form-control" id="purse" name="purse">
                         </div>
                     </div>
                     <div class="form-group">

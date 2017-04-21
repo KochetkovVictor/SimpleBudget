@@ -3,7 +3,6 @@ package ru.simplebudget.controller.income;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-;
 
 import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.common.Purse;
@@ -11,7 +10,7 @@ import ru.simplebudget.model.in.Income;
 import ru.simplebudget.service.purse.PurseService;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
