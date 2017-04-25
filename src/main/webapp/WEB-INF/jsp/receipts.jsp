@@ -71,10 +71,7 @@
                         <label for="shop" class="control-label col-xs-3">Shop</label>
 
                         <div class="col-xs-9">
-                            <input class="form-control" type="text"
-                                   size="40"
-                                   id="shop"
-                                   onkeyup="doCompletion();">
+                            <input class="form-control" type="text" id="shop" onkeyup="doCompletion();" name="receipt.shop">
                             <table>
                                 <tr>
                                     <td id="auto-row" colspan="2">
