@@ -21,4 +21,9 @@ public class ShopServiceImpl implements ShopService {
     public Shop getById(Long id) {
         return shopRepository.getById(id);
     }
+
+    @Override
+    public List<Shop> getByTemplate(String action, String id) {
+        return shopRepository.getByTemplate(action,id);
+    }
 }

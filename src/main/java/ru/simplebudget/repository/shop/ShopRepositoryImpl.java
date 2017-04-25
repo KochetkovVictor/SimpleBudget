@@ -31,4 +31,10 @@ public class ShopRepositoryImpl implements ShopRepository{
     public Shop getById(Long id) {
          return entityManager.find(Shop.class, id);
     }
+
+    @Override
+    public List<Shop> getByTemplate(String action, String id) {
+
+        return null;
+    }
 }

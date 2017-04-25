@@ -8,7 +8,7 @@
 <html>
 <jsp:include page="fragments/head.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
-<body>
+<body onload="init()">
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css">
@@ -65,20 +65,31 @@
                 <h2 class="modal-title"><spring:message code="receipts.edit"/></h2>
             </div>
             <div class="modal-body">
-                <form:form class="form-horizontal" method="post" id="detailsForm">
+                <form:form class="form-horizontal" method="post" id="detailsForm" action="autocomplete">
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
                         <label for="shop" class="control-label col-xs-3">Shop</label>
 
-                        <div class="col-xs-9">
-                            <select required id="shop" name="editedShop">
+                        < class="col-xs-9">
+                            <input class="form-control" type="text"
+                                   size="40"
+                                   id="shop"
+                                   onkeyup="doCompletion();">
+                        <table>
+                            <tr>
+                                <td id="auto-row" colspan="2">
+                                    <table id="complete-table" />
+                                </td>
+                            </tr>
+                        </table>
+                            <%--<select required id="shop" name="editedShop">
                                 <option selected disabled>Choose a shop</option>
                                 <c:forEach items="${shopList}" var="shop">
                                     <option value="${shop.id}">
                                             ${shop.name}
                                     </option>
                                 </c:forEach>
-                            </select>
+                            </select>--%>
                         </div>
                     </div>
 
@@ -127,5 +138,6 @@
 <script type="text/javascript" src="webjars/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.4.1/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/receiptesDatatables.js"></script>
+<script type="text/javascript" src="resources/js/experimental/autocompleteShop.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 </html>

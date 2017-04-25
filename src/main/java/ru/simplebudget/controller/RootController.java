@@ -1,15 +1,22 @@
 package ru.simplebudget.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.simplebudget.model.common.Purse;
+import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.shop.ShopService;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,5 +59,12 @@ public class RootController {
     @RequestMapping("/amount")
     public String amount() {
         return "amount";
+    }
+    @RequestMapping(method=RequestMethod.GET, value="/autocomplete", produces = MediaType.TEXT_XML_VALUE)
+    public List<Shop> getShopByTemplate(@RequestParam(value="action") String action,
+                                        @RequestParam(value="id") String id){
+
+
+        return shopService.getByTemplate(action, id);
     }
 }

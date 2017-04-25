@@ -4,6 +4,7 @@ package ru.simplebudget.controller.receipt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.shop.ShopService;
@@ -64,4 +65,5 @@ public class ReceiptController extends AbstractReceiptController {
             super.updateReceipt(receipt);
         }
     }
+
 }
