@@ -6,14 +6,14 @@ var completeTable;
 var autoRow;
 
 function init() {
-    completeField = document.getElementById("complete-field");
+    completeField = document.getElementById("shop");
     completeTable = document.getElementById("complete-table");
     autoRow = document.getElementById("auto-row");
     completeTable.style.top = getElementY(autoRow) + "px";
 }
 
 function doCompletion() {
-    var url = "autocomplete?action=complete&id=" + /*escape*/encodeURI(completeField.value);
+    var url = "ajax/receipts/autocomplete?action=complete&id=" + /*escape*/encodeURI(completeField.value);
     req = initRequest();
     req.open("GET", url, true);
     req.onreadystatechange = callback;
@@ -32,13 +32,14 @@ function initRequest() {
     }
 }
 function callback() {
+    clearTable();
     if (req.readyState == 4) {
         if (req.status == 200) {
             parseMessages(req.responseXML);
         }
     }
 }
-function appendShop(firstName,lastName,composerId) {
+function appendShop(description,id) {
 
     var row;
     var cell;
@@ -60,8 +61,55 @@ function appendShop(firstName,lastName,composerId) {
 
     linkElement = document.createElement("a");
     linkElement.className = "popupItem";
-    linkElement.setAttribute("href", "autocomplete?action=lookup&id=" + composerId);
-    linkElement.appendChild(document.createTextNode(firstName + " " + lastName));
+    linkElement.setAttribute("href", "autocomplete?action=lookup&id=" + id);
+    linkElement.appendChild(document.createTextNode(description));
     cell.appendChild(linkElement);
 }
+function getElementY(element){
 
+    var targetTop = 0;
+
+    if (element.offsetParent) {
+        while (element.offsetParent) {
+            targetTop += element.offsetTop;
+            element = element.offsetParent;
+        }
+    } else if (element.y) {
+        targetTop += element.y;
+    }
+    return targetTop;
+}
+function clearTable() {
+    if (completeTable.getElementsByTagName("tr").length > 0) {
+        completeTable.style.display = 'none';
+        for (loop = completeTable.childNodes.length -1; loop >= 0 ; loop--) {
+            completeTable.removeChild(completeTable.childNodes[loop]);
+        }
+    }
+}
+
+function parseMessages(responseXML) {
+
+    // no matches returned
+    if (responseXML == null) {
+        return false;
+    } else {
+
+        var shops = responseXML.getElementsByTagName("shops")[0];
+
+        if (composers.childNodes.length > 0) {
+            completeTable.setAttribute("bordercolor", "black");
+            completeTable.setAttribute("border", "1");
+
+            for (loop = 0; loop < composers.childNodes.length; loop++) {
+                var composer = composers.childNodes[loop];
+                var firstName = composer.getElementsByTagName("firstName")[0];
+                var lastName = composer.getElementsByTagName("lastName")[0];
+                var composerId = composer.getElementsByTagName("id")[0];
+                appendComposer(firstName.childNodes[0].nodeValue,
+                    lastName.childNodes[0].nodeValue,
+                    composerId.childNodes[0].nodeValue);
+            }
+        }
+    }
+}

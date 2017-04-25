@@ -70,26 +70,26 @@
                     <div class="form-group">
                         <label for="shop" class="control-label col-xs-3">Shop</label>
 
-                        < class="col-xs-9">
+                        <div class="col-xs-9">
                             <input class="form-control" type="text"
                                    size="40"
                                    id="shop"
                                    onkeyup="doCompletion();">
-                        <table>
-                            <tr>
-                                <td id="auto-row" colspan="2">
-                                    <table id="complete-table" />
-                                </td>
-                            </tr>
-                        </table>
-                            <%--<select required id="shop" name="editedShop">
-                                <option selected disabled>Choose a shop</option>
-                                <c:forEach items="${shopList}" var="shop">
-                                    <option value="${shop.id}">
-                                            ${shop.name}
-                                    </option>
-                                </c:forEach>
-                            </select>--%>
+                            <table>
+                                <tr>
+                                    <td id="auto-row" colspan="2">
+                                        <table id="complete-table"></table>
+                                    </td>
+                                </tr>
+                            </table>
+                                <%--<select required id="shop" name="editedShop">
+                                    <option selected disabled>Choose a shop</option>
+                                    <c:forEach items="${shopList}" var="shop">
+                                        <option value="${shop.id}">
+                                                ${shop.name}
+                                        </option>
+                                    </c:forEach>
+                                </select>--%>
                         </div>
                     </div>
 
@@ -112,7 +112,6 @@
                         <label for="purse" class="control-label col-xs-3">Purse</label>
 
                         <div class="col-xs-9">
-                            <%--<input type="text" class="form-control" id="purse" name="purse.id">--%>
                             <select required id="purse" name="editedPurse">
                                 <option selected disabled>Choose a purse</option>
                                 <c:forEach items="${purseList}" var="purse">

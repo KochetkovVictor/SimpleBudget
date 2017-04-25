@@ -60,11 +60,6 @@ public class RootController {
     public String amount() {
         return "amount";
     }
-    @RequestMapping(method=RequestMethod.GET, value="/autocomplete", produces = MediaType.TEXT_XML_VALUE)
-    public List<Shop> getShopByTemplate(@RequestParam(value="action") String action,
-                                        @RequestParam(value="id") String id){
 
 
-        return shopService.getByTemplate(action, id);
-    }
 }

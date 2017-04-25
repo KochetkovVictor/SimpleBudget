@@ -65,5 +65,9 @@ public class ReceiptController extends AbstractReceiptController {
             super.updateReceipt(receipt);
         }
     }
-
+    @RequestMapping(method=RequestMethod.GET, value="/autocomplete", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Shop> getShopByTemplate(@RequestParam(value="action") String action,
+                                        @RequestParam(value="id") String id){
+        return shopService.getByTemplate(action, id);
+    }
 }
