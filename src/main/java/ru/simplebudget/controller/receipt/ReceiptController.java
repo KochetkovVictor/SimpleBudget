@@ -11,6 +11,7 @@ import ru.simplebudget.service.shop.ShopService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -68,6 +69,7 @@ public class ReceiptController extends AbstractReceiptController {
     @RequestMapping(method=RequestMethod.GET, value="/autocomplete", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Shop> getShopByTemplate(@RequestParam(value="action") String action,
                                         @RequestParam(value="id") String id){
+        if (id.isEmpty()) return Collections.emptyList();
         return shopService.getByTemplate(action, id);
     }
 }
