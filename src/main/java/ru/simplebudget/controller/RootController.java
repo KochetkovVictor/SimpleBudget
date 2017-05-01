@@ -56,6 +56,7 @@ public class RootController {
         return "receipts";
     }
 
+
     @RequestMapping("/amount")
     public String amount() {
         return "amount";

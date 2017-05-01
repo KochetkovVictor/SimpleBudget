@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://fn.simplebudget.ru/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -10,7 +9,6 @@
 <link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
 <body onload="init()">
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css">
 <div class="jumbotron">
     <div class="container">

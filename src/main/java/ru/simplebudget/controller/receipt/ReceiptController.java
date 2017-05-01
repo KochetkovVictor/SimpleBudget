@@ -22,8 +22,7 @@ public class ReceiptController extends AbstractReceiptController {
     @Autowired
     private
     ShopService shopService;
-    @Autowired
-    private
+    @Autowired    private
     PurseService purseService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,5 +70,9 @@ public class ReceiptController extends AbstractReceiptController {
                                         @RequestParam(value="id") String id){
         if (id.isEmpty()) return Collections.emptyList();
         return shopService.getByTemplate(action, id);
+    }
+    @RequestMapping(value="/shops",method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    public List<Shop> shopList(){
+        return shopService.getAll();
     }
 }

@@ -39,7 +39,7 @@ function callback() {
         }
     }
 }
-function appendShop(description,id) {
+function appendShop(name,id) {
 
     var row;
     var cell;
@@ -62,7 +62,7 @@ function appendShop(description,id) {
     linkElement = document.createElement("a");
     linkElement.className = "popupItem";
     linkElement.setAttribute("href", "autocomplete?action=lookup&id=" + id);
-    linkElement.appendChild(document.createTextNode(description));
+    linkElement.appendChild(document.createTextNode(name));
     cell.appendChild(linkElement);
 }
 function getElementY(element){
@@ -82,7 +82,7 @@ function getElementY(element){
 function clearTable() {
     if (completeTable.getElementsByTagName("tr").length > 0) {
         completeTable.style.display = 'none';
-        for (loop = completeTable.childNodes.length -1; loop >= 0 ; loop--) {
+        for (var loop = completeTable.childNodes.length -1; loop >= 0 ; loop--) {
             completeTable.removeChild(completeTable.childNodes[loop]);
         }
     }
@@ -97,18 +97,16 @@ function parseMessages(responseXML) {
 
         var shops = responseXML.getElementsByTagName("shops")[0];
 
-        if (composers.childNodes.length > 0) {
+        if (shops.childNodes.length > 0) {
             completeTable.setAttribute("bordercolor", "black");
             completeTable.setAttribute("border", "1");
 
-            for (loop = 0; loop < composers.childNodes.length; loop++) {
-                var composer = composers.childNodes[loop];
-                var firstName = composer.getElementsByTagName("firstName")[0];
-                var lastName = composer.getElementsByTagName("lastName")[0];
-                var composerId = composer.getElementsByTagName("id")[0];
-                appendComposer(firstName.childNodes[0].nodeValue,
-                    lastName.childNodes[0].nodeValue,
-                    composerId.childNodes[0].nodeValue);
+            for (var loop = 0; loop < shops.childNodes.length; loop++) {
+                var shop = shops.childNodes[loop];
+                var name = shop.getElementsByTagName("name")[0];
+                var shopId = shop.getElementsByTagName("id")[0];
+                appendShop(name.childNodes[0].nodeValue,
+                    shopId.childNodes[0].nodeValue);
             }
         }
     }
