@@ -1,11 +1,16 @@
 package ru.simplebudget.model.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "shop")
 @StaticMetamodel(Shop.class)
+@XmlRootElement
 public class Shop {
 
     @Id
@@ -23,6 +28,7 @@ public class Shop {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shopnetid")
+    @JsonIgnore
     private
     ShopNet netName;
 
@@ -31,6 +37,7 @@ public class Shop {
     public Shop(Long id){
         this.id =id;
     }
+    @XmlElement
     public Long getId() {
         return id;
     }
@@ -38,7 +45,7 @@ public class Shop {
     public void setId(Long shopId) {
         this.id = shopId;
     }
-
+    @XmlElement
     public String getAdress() {
         return adress;
     }
@@ -46,7 +53,7 @@ public class Shop {
     public void setAdress(String adress) {
         this.adress = adress;
     }
-
+    @XmlElement
     public String getName() {
         return name;
     }
