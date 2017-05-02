@@ -35,6 +35,7 @@ function callback() {
     clearTable();
     if (req.readyState === 4) {
         if (req.status === 200) {
+            alert(req.responseXML);
             parseMessages(req.responseXML);
         }
     }
@@ -95,8 +96,8 @@ function parseMessages(responseXML) {
         return false;
     } else {
 
-        var shops = responseXML.getElementsByTagName("shops")[0];
-
+        var shops = responseXML.getElementsByTagName("List")[0];
+        alert(shops);
         if (shops.childNodes.length > 0) {
             completeTable.setAttribute("bordercolor", "black");
             completeTable.setAttribute("border", "1");
