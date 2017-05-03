@@ -73,9 +73,6 @@
                                    name="editedShop">
                             <table>
                                 <tr>
-
-                                </tr>
-                                <tr>
                                     <td id="auto-row" colspan="2">
                                         <table id="complete-table"></table>
                                     </td>

@@ -58,6 +58,7 @@ function appendShop(name,id) {
     }
 
     cell.className = "popupCell";
+
     linkElement = document.createElement("input");
     linkElement.className = "popupItem";
     linkElement.setAttribute("value", name);
