@@ -59,9 +59,10 @@ function appendShop(name,id) {
 
     cell.className = "popupCell";
 
-    linkElement = document.createElement("input");
+    linkElement = document.createElement("a");
     linkElement.className = "popupItem";
     linkElement.setAttribute("value", name);
+    linkElement.setAttribute("onclick", $('#shop').val(name));
     linkElement.appendChild(document.createTextNode(name));
     cell.appendChild(linkElement);
 }
