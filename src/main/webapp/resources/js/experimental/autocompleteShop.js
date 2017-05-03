@@ -97,8 +97,8 @@ function parseMessages(responseXML) {
 
         var shops = responseXML.getElementsByTagName("List")[0];
         if (shops.childNodes.length > 0) {
-            completeTable.setAttribute("bordercolor", "black");
-            completeTable.setAttribute("border", "1");
+            /*completeTable.setAttribute("bordercolor", "black");
+            completeTable.setAttribute("border", "1");*/
 
             for (var loop = 0; loop < shops.childNodes.length; loop++) {
                 var shop = shops.childNodes[loop];
