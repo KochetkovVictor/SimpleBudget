@@ -58,10 +58,9 @@ function appendShop(name,id) {
     }
 
     cell.className = "popupCell";
-
-    linkElement = document.createElement("a");
+    linkElement = document.createElement("input");
     linkElement.className = "popupItem";
-    linkElement.setAttribute("href", "ajax/receipts/autocomplete?action=lookup&id=" + id);
+    linkElement.setAttribute("value", name);
     linkElement.appendChild(document.createTextNode(name));
     cell.appendChild(linkElement);
 }

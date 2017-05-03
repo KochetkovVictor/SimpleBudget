@@ -69,8 +69,12 @@
                         <label for="shop" class="control-label col-xs-3">Shop</label>
 
                         <div class="col-xs-9">
-                            <input class="form-control" type="text" id="shop" onkeyup="doCompletion();" name="receipt.shop">
+                            <input class="form-control" type="text" id="shop" onkeyup="doCompletion();"
+                                   name="editedShop">
                             <table>
+                                <tr>
+
+                                </tr>
                                 <tr>
                                     <td id="auto-row" colspan="2">
                                         <table id="complete-table"></table>
