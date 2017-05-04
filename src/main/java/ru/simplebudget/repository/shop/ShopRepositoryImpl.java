@@ -40,8 +40,8 @@ public class ShopRepositoryImpl implements ShopRepository{
         CriteriaQuery<Shop> cq = entityManager.getCriteriaBuilder().createQuery(Shop.class);
 
         Root<Shop> root = cq.from(Shop.class);
-        cq.where(cb.like(root.get(Shop_.name),"%"+id.substring(0,1).toUpperCase()+id.substring(1,id.length())+"%"));
-
+        cq.where(cb.like(root.get(Shop_.name),id.substring(0,1).toUpperCase()+id.substring(1,id.length())+"%"));
+        cq.orderBy(cb.asc(root.get(Shop_.name)));
         return entityManager.createQuery(cq).getResultList();
     }
 }

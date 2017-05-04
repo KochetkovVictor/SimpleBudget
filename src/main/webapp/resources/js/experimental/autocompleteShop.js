@@ -61,9 +61,11 @@ function appendShop(name,id) {
 
     linkElement = document.createElement("a");
     linkElement.className = "popupItem";
-    linkElement.setAttribute("value", name);
-    linkElement.setAttribute("onclick", $('#shop').val(name));
+    //linkElement.setAttribute("value", name);
+
     linkElement.appendChild(document.createTextNode(name));
+
+    completeField.setAttribute("onclick", alert(name));
     cell.appendChild(linkElement);
 }
 function getElementY(element){
