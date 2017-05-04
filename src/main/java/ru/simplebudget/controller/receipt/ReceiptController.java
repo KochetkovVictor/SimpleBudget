@@ -47,7 +47,7 @@ public class ReceiptController extends AbstractReceiptController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestParam(value = "editedShop") Long shopId,
+    public void updateOrCreate(@RequestParam(value = "editedShop") String shopName,
                                @RequestParam(value="receiptDate")LocalDate receiptDate,
                                @RequestParam(value="amount")Double amount,
                                @RequestParam(value="editedPurse") Long purseId,
@@ -56,7 +56,7 @@ public class ReceiptController extends AbstractReceiptController {
         receipt.setId(id);
         receipt.setReceiptDate(receiptDate==null? LocalDate.now():receiptDate);
         receipt.setAmount(amount==null? 0.0:amount);
-        receipt.setShop(shopService.getById(shopId));
+        receipt.setShop(shopService.getByTemplate("complete",shopName).get(0));
         receipt.setPurse(purseService.getById(purseId));
         if (receipt.getId() == 0L) {
             receipt.setActive(true);

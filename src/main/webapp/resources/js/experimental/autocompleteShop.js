@@ -39,7 +39,7 @@ function callback() {
         }
     }
 }
-function appendShop(name,id) {
+function appendShop(name, id) {
 
     var row;
     var cell;
@@ -61,14 +61,14 @@ function appendShop(name,id) {
 
     linkElement = document.createElement("a");
     linkElement.className = "popupItem";
-    //linkElement.setAttribute("value", name);
-
     linkElement.appendChild(document.createTextNode(name));
-
-    completeField.setAttribute("onclick", alert(name));
+    $(linkElement).bind('click', function () {
+        $(completeField).val(name);
+    });
+    alert(completeField.val());
     cell.appendChild(linkElement);
 }
-function getElementY(element){
+function getElementY(element) {
 
     var targetTop = 0;
 
@@ -85,7 +85,7 @@ function getElementY(element){
 function clearTable() {
     if (completeTable.getElementsByTagName("tr").length > 0) {
         completeTable.style.display = 'none';
-        for (var loop = completeTable.childNodes.length -1; loop >= 0 ; loop--) {
+        for (var loop = completeTable.childNodes.length - 1; loop >= 0; loop--) {
             completeTable.removeChild(completeTable.childNodes[loop]);
         }
     }
@@ -101,7 +101,7 @@ function parseMessages(responseXML) {
         var shops = responseXML.getElementsByTagName("List")[0];
         if (shops.childNodes.length > 0) {
             /*completeTable.setAttribute("bordercolor", "black");
-            completeTable.setAttribute("border", "1");*/
+             completeTable.setAttribute("border", "1");*/
 
             for (var loop = 0; loop < shops.childNodes.length; loop++) {
                 var shop = shops.childNodes[loop];
