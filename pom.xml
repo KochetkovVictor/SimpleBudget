@@ -79,7 +79,11 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
         <!-- Webjars (static dependencies distributed as JAR files) -->
 
         <dependency>
@@ -239,6 +243,7 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson-json.version}</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>

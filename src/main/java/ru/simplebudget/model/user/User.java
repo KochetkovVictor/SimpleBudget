@@ -1,31 +1,34 @@
 package ru.simplebudget.model.user;
 
 
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.cglib.core.Local;
 
-import javax.persistence.Column;
+
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
 @StaticMetamodel(User.class)
+@Table(name="users")
 public class User {
 
     @Id
     private Long id;
-    @Column(name="nickname", nullable = false, unique = true)
+    @Column(name = "nickname", nullable = false, unique = true)
     private String nickName;
     @Column(name = "password", nullable = false)
     @NotEmpty
     @Length(min = 5)
     private String password;
-    @Column(name = "dayofbirth", columnDefinition = "timestamp default now()")
+    @Column(name = "dateOfBirth", columnDefinition = "timestamp default now()")
     private LocalDate dateOfBirth;
     @Column
     private String firsName;
@@ -36,8 +39,15 @@ public class User {
     @NotEmpty
     private String email;
 
-    @Column(name = "registered", columnDefinition = "timestamp default now()")
+    @Column(name = "register", columnDefinition = "timestamp default now()")
     private LocalDate registered;
+
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -86,6 +96,7 @@ public class User {
     public void setLastName(String lastName) {
         LastName = lastName;
     }
+
     public String getEmail() {
         return email;
     }
@@ -93,11 +104,19 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public LocalDate getRegistered() {
         return registered;
     }
 
     public void setRegistered(LocalDate registered) {
         this.registered = registered;
+    }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

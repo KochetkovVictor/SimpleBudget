@@ -1,8 +1,10 @@
-DROP  TABLE  IF EXISTS  income CASCADE ;
+DROP TABLE IF EXISTS income CASCADE ;
 DROP TABLE IF EXISTS purse CASCADE ;
 DROP TABLE IF EXISTS receipt CASCADE ;
 DROP TABLE IF EXISTS shop CASCADE ;
 DROP TABLE IF EXISTS shopnet CASCADE ;
+DROP TABLE IF EXISTS users CASCADE ;
+DROP TABLE IF EXISTS user_roles CASCADE;
 
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -52,5 +54,25 @@ CREATE TABLE receipt(
   FOREIGN KEY (shopId) REFERENCES shop (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX receipt_unique_id_index ON receipt(id);
+
+CREATE TABLE users(
+  id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  nickname VARCHAR(20),
+  password VARCHAR NOT NULL,
+  email VARCHAR NOT NULL,
+  firsName VARCHAR,
+  lastName VARCHAR,
+  dateOfBirth TIMESTAMP,
+  register TIMESTAMP DEFAULT now()
+);
+CREATE UNIQUE INDEX users_unique_email_nickname_index ON users (nickname, email);
+
+CREATE TABLE user_roles
+(
+  user_id INTEGER NOT NULL,
+  role    VARCHAR,
+  CONSTRAINT user_roles_idx UNIQUE (user_id, role),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
 
 
