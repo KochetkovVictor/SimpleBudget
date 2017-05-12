@@ -1,4 +1,4 @@
-package ru.simplebudget.controller.json;
+package ru.simplebudget.utils.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import java.io.IOException;
 import java.util.List;
 
-import static ru.simplebudget.controller.json.JacksonObjectMapper.getMapper;
+import static ru.simplebudget.utils.json.JacksonObjectMapper.getMapper;
 
 
 public class JsonUtil {
