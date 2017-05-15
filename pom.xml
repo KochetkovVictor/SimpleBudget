@@ -13,12 +13,29 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <spring.version>4.3.6.RELEASE</spring.version>
+        <spring-security.core.version>4.1.1.RELEASE</spring-security.core.version>
+
         <postgresql.version>9.4.1208</postgresql.version>
+
         <tomcat.version>9.0.0.M3</tomcat.version>
+
         <logback.version>1.1.7</logback.version>
+
         <slf4j.version>1.7.21</slf4j.version>
+
         <jackson-json.version>2.7.3</jackson-json.version>
+
+        <junit.version>3.8.1</junit.version>
+
+        <hibernate-core.version>5.2.10.Final</hibernate-core.version>
+        <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
+        <hibernate-jpa-2.1.version>1.0.0.Final</hibernate-jpa-2.1.version>
+        <hibernate-jpa-metamodelgen.varsion>5.2.10.Final</hibernate-jpa-metamodelgen.varsion>
+
+        <servlet-jstl.version>1.2</servlet-jstl.version>
+        <servlet-el.version>3.0.0</servlet-el.version>
 
         <!--webjars-->
         <webjars-bootstrap.version>3.3.7</webjars-bootstrap.version>
@@ -30,20 +47,81 @@
     </properties>
 
     <dependencies>
+
+        <!--Tests-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <!--End of Tests-->
+
+        <!--DB-->
+
+        <!--Postgres-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+        <!--Tomcat JDBC-->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+
+        <!--Hibernate-->
+
+        <!--Core-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.6.Final</version>
+            <version>${hibernate-core.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 
+        <!-- Entitymanager -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+
+        <!-- Validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml</groupId>
+                    <artifactId>classmate</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--Javax Persistence-->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>${hibernate-jpa-2.1.version}</version>
+        </dependency>
+
+        <!-- Jpamodelgen -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${hibernate-jpa-metamodelgen.varsion}</version>
+        </dependency>
+        <!--End of Hibernate-->
+
+        <!--End of DB-->
+
+        <!-- Spring Framework -->
+
+        <!--Core-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -56,102 +134,85 @@
             </exclusions>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <!-- Context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.6.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+
+        <!-- Beans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+
+        <!-- Webmvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <!--Orm-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <!--Security-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>4.1.1.RELEASE</version>
+            <version>${spring-security.core.version}</version>
         </dependency>
+
+        <!--End of Spring Framework-->
+
         <!-- Webjars (static dependencies distributed as JAR files) -->
 
+        <!--Bootstrap-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>${webjars-bootstrap.version}</version>
         </dependency>
+
+        <!--JQuery-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>${webjars-jquery.version}</version>
         </dependency>
+
+        <!--DateTimePicker-->
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>datetimepicker</artifactId>
             <version>${webjars-datetimepicker.version}</version>
         </dependency>
+
+        <!--Noty-->
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>noty</artifactId>
             <version>${webjars-noty.version}</version>
         </dependency>
-         <dependency>
-             <groupId>org.webjars</groupId>
-             <artifactId>datatables</artifactId>
-             <version>${webjars-datatables.version}</version>
-         </dependency>
-        <!--<dependency>
-                 <groupId>org.webjars.bower</groupId>
-                 <artifactId>datatables</artifactId>
-                 <version>1.10.15</version>
-             </dependency>-->
 
-            <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <!--DataTables-->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.6.Final</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.4.0.Final</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml</groupId>
-                    <artifactId>classmate</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.webjars</groupId>
+            <artifactId>datatables</artifactId>
+            <version>${webjars-datatables.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
-        </dependency>
+        <!--End of WebJars-->
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-            <version>${tomcat.version}</version>
-        </dependency>
+        <!--Logging-->
+
+        <!--SLF4J-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -173,6 +234,7 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--Logback-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -183,51 +245,40 @@
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
-
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>5.2.8.Final</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+
+        <!--End of Logging-->
+
+        <!-- Javax Servlet -->
+        <!--JSTL-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${servlet-jstl.version}</version>
             <scope>compile</scope>
         </dependency>
 
-
+        <!--Expression Language-->
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
+            <version>${servlet-el.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-        </dependency>
 
-        <!--  <dependency>
-          <groupId>javax.servlet.jsp</groupId>
-          <artifactId>jsp-api</artifactId>
-          <version>2.2</version>
-
-      </dependency>-->
-
+        <!--Tomcat Servlet-->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-servlet-api</artifactId>
             <version>${tomcat.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--End og Javax Servlet-->
+
         <!--Json-->
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -243,6 +294,7 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson-json.version}</version>
         </dependency>
+        <!--End of Json-->
 
     </dependencies>
     <build>
