@@ -20,16 +20,18 @@ INSERT INTO shop (name, adress, shopnetid)  VALUES
   ('Пятерочка Видное Березовая 2','МО, г.Видное, ул. Березовая, д.2',201),
   ('Пятерочка Видное Березовая 7','МО, г.Видное, ул. Березовая, д.7',201);
 
+INSERT INTO users (id, nickname, password, email, firsname, lastname, dateofbirth, register) VALUES
+  (302, 'simpleuser', 'password', 'che18@yandex.ru', 'Victor', 'Kochetkov', '1979-10-23', '2017-05-14'),
+  (301, 'adminuser', 'strongpassword', 'secretphiz@gmail.com', 'Arutyun', 'Shelenberg', '2010-10-10', '2017-05-14');
+
+INSERT INTO user_roles (user_id, role) VALUES
+  (301, 'ROLE_ADMIN'),
+  (302, 'ROLE_USER');
+
 INSERT INTO purse (description,amount, active, user_id) VALUES
   ('Cash',134785.34,true, 301),
   ('Mastercard Alfa',34000.98,TRUE,301),
   ('Mastercard VTB-Moscow',0,TRUE,302),
   ('Pro100 Card SberBank',0,true,302);
 
-INSERT INTO user_roles (user_id, role) VALUES
-  (301, 'ROLE_ADMIN'),
-  (302, 'ROLE_USER');
 
-INSERT INTO users (id, nickname, password, email, firsname, lastname, dateofbirth, register) VALUES
-  (302, 'simpleuser', 'password', 'che18@yandex.ru', 'Victor', 'Kochetkov', 23-10-1979, 14-05-2017),
-  (301, 'adminuser', 'strongpassword', 'secretphiz@gmail.com', 'Arutyun', 'Shelenberg', 10-10-2010, 14-05-2017);
