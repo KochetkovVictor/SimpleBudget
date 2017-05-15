@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.in.Income_;
+import ru.simplebudget.model.user.User;
 import ru.simplebudget.repository.purse.PurseRepository;
 
 import javax.persistence.EntityManager;
@@ -30,8 +31,13 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     PurseRepository purseRepository;
 
     @Transactional
-    public Income addIncome(Income income) {
-        if (income.getId() == null) {
+    @Override
+    public Income addIncome(Income income, Long userId) {
+        if (!income.isNew() && getIncome(income.getId(), userId) == null) {
+            return null;
+        }
+        income.setUser(em.getReference(User.class, userId));
+        if (income.isNew()) {
             em.persist(income);
             em.flush();
             purseRepository.addPurseAmount(income.getPurse().getId(), income.getValue());
@@ -39,16 +45,17 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         } else {
             return em.merge(income);
         }
+
     }
 
     @Override
-    public List<Income> getIncomesPerAPeriod(LocalDate startDateTime, LocalDate endDateTime) {
-        CriteriaBuilder cb =em.getCriteriaBuilder();
+    public List<Income> getIncomesPerAPeriod(LocalDate startDateTime, LocalDate endDateTime,Long userId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Income> cq = cb.createQuery(Income.class);
         Root<Income> root = cq.from(Income.class);
-        Path<LocalDate> date=root.get(Income_.incomeDate);
-
-        Predicate condition = cb.between(date,startDateTime,endDateTime);
+        Path<User> user = root.get(Income_.user);
+        Path<LocalDate> date = root.get(Income_.incomeDate);
+        Predicate condition =cb.and(cb.equal(user.get("id"), userId),cb.between(date, startDateTime, endDateTime));
         cq.where(condition);
         cq.orderBy(cb.asc(date));
         TypedQuery<Income> query = em.createQuery(cq);
@@ -57,16 +64,26 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     }
 
     @Override
-    public Income getIncome(Long incomeId) {
-        return em.find(Income.class, incomeId);
+    public Income getIncome(Long incomeId, Long userId) {
+        CriteriaBuilder cb=em.getCriteriaBuilder();
+        CriteriaQuery<Income> cq=cb.createQuery(Income.class);
+        Root<Income> root = cq.from(Income.class);
+        Path<User> user = root.get(Income_.user);
+        Predicate condition = cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), incomeId));
+        cq.where(condition);
+        TypedQuery<Income> query = em.createQuery(cq);
+        return query.getSingleResult();
     }
 
     @Override
-    public List<Income> getAll() {
-        CriteriaBuilder cb =em.getCriteriaBuilder();
+    public List<Income> getAll(Long userId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Income> cq = cb.createQuery(Income.class);
         Root<Income> root = cq.from(Income.class);
-        Path<LocalDate> date=root.get(Income_.incomeDate);
+        Path<LocalDate> date = root.get(Income_.incomeDate);
+        Path<User> user = root.get(Income_.user);
+        Predicate condition = cb.equal(user.get("id"), userId);
+        cq.where(condition);
         cq.orderBy(cb.asc(date));
         TypedQuery<Income> query = em.createQuery(cq);
 
@@ -75,7 +92,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     @Transactional
-    public Income changeIncome(Income changeIncome) {
+    public Income changeIncome(Income changeIncome, Long userId) {
         Income income = em.find(Income.class, changeIncome.getId());
         Double oldValue = income.getValue();
         Purse oldPurse = income.getPurse();
@@ -91,7 +108,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
                 purseRepository.addPurseAmount(changeIncome.getPurse().getId(), changeIncome.getValue());
                 income.setPurse(changeIncome.getPurse());
             }
-        }else if (!Objects.equals(oldPurse.getId(), changeIncome.getPurse().getId())) {
+        } else if (!Objects.equals(oldPurse.getId(), changeIncome.getPurse().getId())) {
             purseRepository.addPurseAmount(oldPurse.getId(), -oldValue);
             purseRepository.addPurseAmount(changeIncome.getPurse().getId(), changeIncome.getValue());
             income.setPurse(changeIncome.getPurse());
@@ -101,13 +118,14 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        CriteriaBuilder cb =em.getCriteriaBuilder();
+    public void delete(Long id, Long userId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaDelete<Income> cdIncome = cb.createCriteriaDelete(Income.class);
-        Root<Income> rootIncome = cdIncome.from(Income.class);
-        cdIncome.where(cb.equal(rootIncome.get("id"),id));
-        purseRepository.addPurseAmount(getIncome(id).getPurse().getId(),
-                -getIncome(id).getValue());
+        Root<Income> root = cdIncome.from(Income.class);
+        Path<User> user=root.get(Income_.user);
+        cdIncome.where(cb.and(cb.equal(user.get("id"), userId),cb.equal(root.get("id"), id)));
+        purseRepository.addPurseAmount(getIncome(id, userId).getPurse().getId(),
+                -getIncome(id, userId).getValue());
         this.em.createQuery(cdIncome).executeUpdate();
     }
 }

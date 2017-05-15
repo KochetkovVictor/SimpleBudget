@@ -2,6 +2,7 @@ package ru.simplebudget.model.out;
 
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Shop;
+import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
@@ -52,6 +53,18 @@ public class Receipt {
         return purse;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private
+    User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     public void setPurse(Purse purse) {
         this.purse = purse;
     }

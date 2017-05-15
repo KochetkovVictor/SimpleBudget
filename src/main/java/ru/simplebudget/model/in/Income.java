@@ -2,6 +2,7 @@ package ru.simplebudget.model.in;
 
 
 import ru.simplebudget.model.common.Purse;
+import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
@@ -21,15 +22,28 @@ public class Income {
     private
     Long id;
 
-    @Column(name="datetime",columnDefinition = "timestamp default now()")
+    @Column(name = "datetime", columnDefinition = "timestamp default now()")
     private LocalDate incomeDate;
     private Double value;
     private String description;
 
-    @JoinColumn(name="purseId")
+    @JoinColumn(name = "purseId")
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private
     Purse purse;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private
+    User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -72,13 +86,16 @@ public class Income {
     }
 
     public Income() {
-        this.value=0.0;
-        this.incomeDate =LocalDateTime.now().toLocalDate();
+        this.value = 0.0;
+        this.incomeDate = LocalDateTime.now().toLocalDate();
     }
 
+    public boolean isNew() {
+        return (this.id == null);
+    }
 
     public Income(Long id) {
-        this.id =id;
+        this.id = id;
     }
 
     @Override

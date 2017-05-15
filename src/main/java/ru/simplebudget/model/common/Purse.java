@@ -1,6 +1,7 @@
 package ru.simplebudget.model.common;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
@@ -28,6 +29,19 @@ public class Purse {
     @Column(name = "active")
     private
     boolean active;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private
+    User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public boolean isActive() {
         return active;
