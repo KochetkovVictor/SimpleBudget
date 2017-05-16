@@ -31,10 +31,10 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     private PurseRepository purseRepository;
 
     @Transactional
-    public Receipt save(Receipt receipt) {
+    public Receipt save(Receipt receipt, Long userId) {
         if (receipt.getId() == null) {
             em.persist(receipt);
-            purseRepository.addPurseAmount(receipt.getPurse().getId(), -receipt.getAmount());
+            purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, -receipt.getAmount());
             return receipt;
         } else {
             return em.merge(receipt);
@@ -43,19 +43,19 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
 
     @Override
     @Transactional
-    public boolean delete(Long id) {
-        Receipt receipt = get(id);
+    public boolean delete(Long id, Long userId) {
+        Receipt receipt = get(id, userId);
         if (receipt != null && receipt.isActive()) {
             receipt.setActive(false);
-            purseRepository.addPurseAmount(receipt.getPurse().getId(),receipt.getAmount());
-            save(receipt);
+            purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, receipt.getAmount());
+            save(receipt, userId);
             return true;
         }
         return false;
     }
 
     @Override
-    public Receipt get(Long id) {
+    public Receipt get(Long id, Long userId) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> criteriaQuery = cb.createQuery(Receipt.class);
@@ -68,23 +68,23 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public List<Receipt> getByPeriod(LocalDate startDate, LocalDate endDate) {
+    public List<Receipt> getByPeriod(Long userId, LocalDate startDate, LocalDate endDate) {
         return em.createNamedQuery(Receipt.GET_BETWEEN_DATETIME, Receipt.class)
                 .setParameter("startDateTime", startDate).setParameter("endDateTime", endDate).getResultList();
     }
 
     @Override
-    public Receipt getAllByShop(Shop shop) {
+    public Receipt getAllByShop(Long userId, Shop shop) {
         return null;
     }
 
     @Override
-    public Receipt getAllByShopNet(ShopNet shopNet) {
+    public Receipt getAllByShopNet(Long userId, ShopNet shopNet) {
         return null;
     }
 
     @Override
-    public List<Receipt> getAll() {
+    public List<Receipt> getAll(Long userId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
         Root<Receipt> root = cq.from(Receipt.class);
@@ -97,7 +97,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
 
     @Override
     @Transactional
-    public Receipt changeReceipt(Receipt changeReceipt) {
+    public Receipt changeReceipt(Receipt changeReceipt, Long userId) {
         Receipt receipt = em.find(Receipt.class, changeReceipt.getId());
         Double oldAmount = receipt.getAmount();
         Purse oldPurse = receipt.getPurse();
@@ -107,15 +107,15 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         if (!Objects.equals(oldAmount, changeReceipt.getAmount())) {
             receipt.setAmount(changeReceipt.getAmount());
             if (Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), -changeReceipt.getAmount() - oldAmount);
+                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount() - oldAmount);
             } else {
-                purseRepository.addPurseAmount(oldPurse.getId(), oldAmount);
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), -changeReceipt.getAmount());
+                purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
+                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
                 receipt.setPurse(changeReceipt.getPurse());
             }
         } else if (!Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
-            purseRepository.addPurseAmount(oldPurse.getId(), oldAmount);
-            purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), -changeReceipt.getAmount());
+            purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
+            purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
             receipt.setPurse(changeReceipt.getPurse());
         }
         return em.merge(receipt);

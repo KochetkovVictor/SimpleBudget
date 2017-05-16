@@ -16,32 +16,33 @@ public class ReceiptServiceImpl implements ReceiptService{
     private ReceiptRepository receiptRepository;
 
     @Override
-    public List<Receipt> getAll() {
-        return receiptRepository.getAll();
+    public List<Receipt> getAll(Long userId) {
+        return receiptRepository.getAll(userId);
     }
 
     @Override
-    public Receipt getById(Long id) {
-        return receiptRepository.get(id);
+    public Receipt getById(Long id, Long userId) {
+        return receiptRepository.get(id, userId);
     }
 
     @Override
-    public List<Receipt> getByPeriod(LocalDate startDateTime, LocalDate endDateTime) {
-        return receiptRepository.getByPeriod(startDateTime,endDateTime);
+    public List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime) {
+        return receiptRepository.getByPeriod(userId, startDateTime,endDateTime);
     }
 
     @Override
-    public Receipt addReceipt(Receipt receipt) {
-        return receiptRepository.save(receipt);
+    public Receipt addReceipt(Receipt receipt, Long userId) {
+
+        return receiptRepository.save(receipt, userId);
     }
 
     @Override
-    public Receipt changeReceipt(Receipt receipt) {
-        return receiptRepository.changeReceipt(receipt);
+    public Receipt changeReceipt(Receipt receipt, Long userId) {
+        return receiptRepository.changeReceipt(receipt, userId);
     }
 
     @Override
-    public void deleteReceipt(Long id) {
-        receiptRepository.delete(id);
+    public void deleteReceipt(Long id, Long userId) {
+        receiptRepository.delete(id, userId);
     }
 }

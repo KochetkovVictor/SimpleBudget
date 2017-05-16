@@ -14,33 +14,33 @@ public abstract class AbstractPurseController {
     private PurseService service;
 
     List<Purse> getAll() {
-        return service.getAll();
+        return service.getAll(301L);
     }
-
-
 
     Purse get(Long id) {
-      return service.getById(id);
+        return service.getById(id, 301L);
     }
 
-    void delete(Long id){service.delete(id);}
-
-    void update(Purse purse)
-    {
-        service.updatePurse(purse);
+    void delete(Long id) {
+        service.delete(id, 301L);
     }
 
-    void addPurse(Purse purse)
-    {
+    void update(Purse purse) {
+        service.updatePurse(purse, 301L);
+    }
+
+    void addPurse(Purse purse) {
         purse.setId(null);
-        service.addPurse(purse);
+        service.addPurse(purse, 301L);
     }
 
     void transferAmount(Long from, Long to, Double amount) {
-        service.transferAmount(from, to, amount);
+
+        service.transferAmount(from, to, amount, 301L);
     }
+
     AmountWrapper getTotalAmount() {
-        return new AmountWrapper(service.getTotalAmount());
+        return new AmountWrapper(service.getTotalAmount(301L));
     }
 
 }

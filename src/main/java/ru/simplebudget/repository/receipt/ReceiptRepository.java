@@ -11,13 +11,13 @@ import java.util.List;
 
 public interface ReceiptRepository {
 
-    Receipt save(Receipt receipt);
-    boolean delete(Long id);
-    Receipt get(Long id);
-    List<Receipt> getByPeriod(LocalDate startDateTime, LocalDate endDateTime);
-    Receipt getAllByShop(Shop shop);
-    Receipt getAllByShopNet(ShopNet shopNet);
-    List<Receipt> getAll();
-    Receipt changeReceipt(Receipt receipt);
+    Receipt save(Receipt receipt, Long userId);
+    boolean delete(Long id, Long userId);
+    Receipt get(Long id, Long userId);
+    List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime);
+    Receipt getAllByShop(Long userId, Shop shop);
+    Receipt getAllByShopNet(Long userId, ShopNet shopNet);
+    List<Receipt> getAll(Long userId);
+    Receipt changeReceipt(Receipt receipt, Long userId);
 
 }

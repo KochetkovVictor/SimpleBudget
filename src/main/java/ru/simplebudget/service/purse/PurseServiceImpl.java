@@ -15,42 +15,45 @@ public class PurseServiceImpl implements PurseService{
     private
     PurseRepository repository;
 
-    public List<Purse> getAll()
+    @Override
+    public List<Purse> getAll(Long userId)
     {
-        return repository.getAll();
-    }
-
-    public Double getTotalAmount() {
-        return repository.getTotalAmount(getAll());
+        return repository.getAll(userId);
     }
 
     @Override
-    public Purse getById(Long id) {
-        return repository.get(id);
+    public Double getTotalAmount(Long userId) {
+
+        return repository.getTotalAmount(getAll(userId), userId);
     }
 
     @Override
-    public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount) {
-        repository.transferAmount(fromPurseId,toPurseId, transferAmount);
+    public Purse getById(Long id, Long userId) {
+        return repository.get(id, userId);
     }
 
     @Override
-    public Purse addPurse(Purse purse) {
-        return  repository.save(purse);
+    public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount, Long userId) {
+        repository.transferAmount(fromPurseId,toPurseId, transferAmount, userId);
     }
 
     @Override
-    public void updatePurse(Purse purse) {
+    public Purse addPurse(Purse purse, Long userId) {
+        return  repository.save(purse, userId);
+    }
+
+    @Override
+    public void updatePurse(Purse purse, Long userId) {
         String description=purse.getDescription();
         Long id=purse.getId();
         boolean active=purse.isActive();
         Double amount=purse.getAmount();
-        repository.changeName(id, description, amount, active);
+        repository.changeName(id, userId, description, amount, active);
     }
 
     @Override
-    public void delete(Long id) {
-        repository.deletePurse(id);
+    public void delete(Long id, Long userId) {
+        repository.deletePurse(id, userId);
     }
 
 

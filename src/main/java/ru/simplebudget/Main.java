@@ -1,5 +1,6 @@
 package ru.simplebudget;
 
+
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.simplebudget.model.common.Purse;
@@ -18,14 +19,17 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("SimpleBudget v.0.0.1");
-        /*ConfigurableApplicationContext configurableApplicationContext =
+        ConfigurableApplicationContext configurableApplicationContext =
                 new ClassPathXmlApplicationContext("spring/spring-app.xml");
 
 
-        IncomeRepository ir = (IncomeRepository) configurableApplicationContext.
+        /*IncomeRepository ir = (IncomeRepository) configurableApplicationContext.
                 getBeanFactory().getBean("incomeRepository");
-        ir.getAll().forEach(System.out::println);
-        configurableApplicationContext.close();*/
+        ir.getAll().forEach(System.out::println);*/
+        PurseRepository pr=(PurseRepository) configurableApplicationContext.
+                getBeanFactory().getBean("purseRepository");
+        pr.getAll(301L).forEach(System.out::println);
+        configurableApplicationContext.close();
         System.out.println(LocalDate.now());
         System.out.println(LocalDateTime.now().toLocalDate());
     }

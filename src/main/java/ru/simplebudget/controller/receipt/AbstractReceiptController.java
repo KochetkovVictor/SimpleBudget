@@ -15,22 +15,29 @@ public abstract class AbstractReceiptController {
     private
     ReceiptService service;
 
-    public List<Receipt> getAll(){
-        return service.getAll();
+    public List<Receipt> getAll() {
+        return service.getAll(301L);
     }
-    Receipt getReceipt(Long id){return service.getById(id);}
-    public void deleteReceipt(Long id) {service.deleteReceipt(id);}
+
+    Receipt getReceipt(Long id) {
+        return service.getById(id, 301L);
+    }
+
+    public void deleteReceipt(Long id) {
+        service.deleteReceipt(id, 301L);
+    }
+
     void addReceipt(Receipt receipt) {
         receipt.setId(null);
-        service.addReceipt(receipt);
+        service.addReceipt(receipt, 301L);
     }
 
     public List<Receipt> getByPeriod(LocalDate startDate, LocalDate endDate) {
         return
-                service.getByPeriod(startDate==null? TimeUtil.MIN_DATE:startDate, endDate==null? TimeUtil.MAX_DATE:endDate);
+                service.getByPeriod(301L, startDate == null ? TimeUtil.MIN_DATE : startDate, endDate == null ? TimeUtil.MAX_DATE : endDate);
     }
 
     void updateReceipt(Receipt receipt) {
-        service.changeReceipt(receipt);
+        service.changeReceipt(receipt, 301L);
     }
 }

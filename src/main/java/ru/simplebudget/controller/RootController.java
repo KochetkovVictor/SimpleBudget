@@ -32,19 +32,19 @@ public class RootController {
 
     @RequestMapping(value = "/purses", method = RequestMethod.GET)
     public String purseList(Model model) {
-        model.addAttribute("purseList", purseService.getAll());
+        model.addAttribute("purseList", purseService.getAll(301L));
         return "purses";
     }
 
     @RequestMapping(value = "/incomes", method = RequestMethod.GET)
     public String incomeList(Model model) {
-        model.addAttribute("purseList",  purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList()));
+        model.addAttribute("purseList",  purseService.getAll(301L).stream().filter(Purse::isActive).collect(Collectors.toList()));
         return "incomes";
     }
 
     @RequestMapping(value = "/receipts", method = RequestMethod.GET)
     public String receiptList(Model model) {
-        model.addAttribute("purseList",  purseService.getAll().stream().filter(Purse::isActive).collect(Collectors.toList()));
+        model.addAttribute("purseList",  purseService.getAll(301L).stream().filter(Purse::isActive).collect(Collectors.toList()));
         model.addAttribute("shopList",shopService.getAll());
         return "receipts";
     }

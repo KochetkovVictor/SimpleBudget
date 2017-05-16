@@ -9,11 +9,10 @@ import java.util.List;
 
 public interface IncomeService {
 
-    Income addIncome(Income income);
-    List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate);
-    List<Income> getAll();
-    Income getById(Long id);
-    Income changeIncome(Income income);
-    void deleteIncome(Long id);
-    //Income showIncomeDetails(Long incomeId);
+    Income addIncome(Income income, Long userId);
+    List<Income> getIncomesPerAPeriod(Long userId, LocalDate startDate, LocalDate endDate);
+    List<Income> getAll(Long userId);
+    Income getById(Long id, Long userId);
+    Income changeIncome(Income income, Long userId);
+    void deleteIncome(Long id, Long userId);
 }

@@ -15,23 +15,23 @@ public abstract class AbstractIncomeController {
     @Autowired
     private IncomeService service;
 
-    public Income getIncome(Long id){return service.getById(id);}
-    public void deleteIncome(Long id) {service.deleteIncome(id);}
+    public Income getIncome(Long id){return service.getById(id, 301L);}
+    public void deleteIncome(Long id) {service.deleteIncome(id, 301L);}
     public List<Income> getAll() {
-        return service.getAll();
+        return service.getAll(301L);
     }
 
     void addIncome(Income income) {
         income.setId(null);
-        service.addIncome(income);
+        service.addIncome(income,301L);
     }
 
     public List<Income> getByPeriod(LocalDate startDate, LocalDate endDate) {
         return
-                service.getIncomesPerAPeriod(startDate==null? TimeUtil.MIN_DATE:startDate, endDate==null? TimeUtil.MAX_DATE:endDate);
+                service.getIncomesPerAPeriod(301L, startDate==null? TimeUtil.MIN_DATE:startDate, endDate==null? TimeUtil.MAX_DATE:endDate);
     }
 
     void updateIncome(Income income) {
-        service.changeIncome(income);
+        service.changeIncome(income, 301L);
     }
 }

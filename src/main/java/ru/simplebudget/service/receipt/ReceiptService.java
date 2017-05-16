@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface ReceiptService {
 
-    List<Receipt> getAll();
-    Receipt getById(Long id);
-    List<Receipt> getByPeriod(LocalDate startDateTime, LocalDate endDateTime);
-    Receipt addReceipt(Receipt receipt);
-    Receipt changeReceipt(Receipt receipt);
-    void deleteReceipt(Long id);
+    List<Receipt> getAll(Long userId);
+    Receipt getById(Long id, Long userId);
+    List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime);
+    Receipt addReceipt(Receipt receipt, Long userId);
+    Receipt changeReceipt(Receipt receipt, Long userId);
+    void deleteReceipt(Long id, Long userId);
 }

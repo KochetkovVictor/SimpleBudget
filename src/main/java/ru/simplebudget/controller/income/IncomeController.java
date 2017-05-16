@@ -51,7 +51,7 @@ public class IncomeController extends AbstractIncomeController {
                                @RequestParam(value="id")Long id) {
         Income income=new Income();
         income.setId(id);
-        income.setPurse(purseService.getById(purseId));
+        income.setPurse(purseService.getById(purseId, 301L));
         income.setValue(value==null? 0.0:value);
         income.setDescription(description);
         income.setIncomeDate(date==null? LocalDate.now():date);

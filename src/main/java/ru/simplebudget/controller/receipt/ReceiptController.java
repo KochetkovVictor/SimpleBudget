@@ -56,7 +56,7 @@ public class ReceiptController extends AbstractReceiptController {
         receipt.setReceiptDate(receiptDate==null? LocalDate.now():receiptDate);
         receipt.setAmount(amount==null? 0.0:amount);
         receipt.setShop(shopService.getById(shopId));
-        receipt.setPurse(purseService.getById(purseId));
+        receipt.setPurse(purseService.getById(purseId, 301L));
         if (receipt.getId() == 0L) {
             receipt.setActive(true);
             super.addReceipt(receipt);
