@@ -3,9 +3,11 @@ package ru.simplebudget.model.common;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.metamodel.StaticMetamodel;
 
 @Entity
 @Table(name = "shopnet")
+@StaticMetamodel(ShopNet.class)
 public class ShopNet {
     public Long getId() {
         return id;

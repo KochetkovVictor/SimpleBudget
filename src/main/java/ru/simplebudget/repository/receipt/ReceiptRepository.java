@@ -16,7 +16,7 @@ public interface ReceiptRepository {
     Receipt get(Long id, Long userId);
     List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime);
     List<Receipt> getAllByShop(Long userId, Shop shop);
-    List<Receipt> getAllByShopNet(Long userId, ShopNet shopNet);
+    List<Receipt> getAllByShopNet(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate);
     List<Receipt> getAll(Long userId);
     Receipt changeReceipt(Receipt receipt, Long userId);
 

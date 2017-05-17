@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.common.ShopNet;
+import ru.simplebudget.model.common.Shop_;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.model.out.Receipt_;
 import ru.simplebudget.model.user.User;
@@ -97,8 +98,13 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public List<Receipt> getAllByShopNet(Long userId, ShopNet shopNet) {
-        return null;
+    public List<Receipt> getAllByShopNet(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
+        return em.createNamedQuery(Receipt.JOIN_SHOPNET_GET_BETWEEN_DATETIME, Receipt.class)
+                .setParameter("userId", userId)
+                .setParameter("shopNetId", shopNetId)
+                .setParameter("startDateTime", startDate)
+                .setParameter("endDateTime", endDate)
+                .getResultList();
     }
 
     @Override

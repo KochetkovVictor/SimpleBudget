@@ -25,12 +25,15 @@ public class Main {
 
         /*IncomeRepository ir = (IncomeRepository) configurableApplicationContext.
                 getBeanFactory().getBean("incomeRepository");
-        ir.getAll().forEach(System.out::println);*/
+        ir.getAll().forEach(System.out::println);
         PurseRepository pr=(PurseRepository) configurableApplicationContext.
                 getBeanFactory().getBean("purseRepository");
-        pr.getAll(301L).forEach(System.out::println);
+        pr.getAll(301L).forEach(System.out::println);*/
+        ReceiptRepository rr =(ReceiptRepository)configurableApplicationContext.getBeanFactory().getBean("receiptRepository");
+        rr.getAllByShopNet(301L,202L,
+                LocalDate.of(2017, 5,10), LocalDate.of(2017, 5,17))
+                .forEach(System.out::println);
         configurableApplicationContext.close();
-        System.out.println(LocalDate.now());
-        System.out.println(LocalDateTime.now().toLocalDate());
+
     }
 }

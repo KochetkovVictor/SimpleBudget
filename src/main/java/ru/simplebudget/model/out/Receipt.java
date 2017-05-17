@@ -13,7 +13,10 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
                 query = "SELECT r FROM Receipt r WHERE r.user.id = :userId AND r.receiptDate BETWEEN :startDateTime " +
-                        "AND :endDateTime ORDER BY r.receiptDate DESC ")
+                        "AND :endDateTime ORDER BY r.receiptDate DESC "),
+        @NamedQuery(name="Receipt.join.ShopNet.BetweenDateTime", query = "SELECT r FROM Receipt r JOIN r.shop.netName " +
+                "WHERE r.user.id = :userId AND r.shop.netName.id=:shopNetId AND r.receiptDate BETWEEN :startDateTime AND :endDateTime ORDER BY r.receiptDate DESC ")
+
 })
 
 
@@ -23,7 +26,7 @@ import java.time.LocalDateTime;
 public class Receipt {
 
     public static  final String GET_BETWEEN_DATETIME = "Receipt.getBetweenDateTime";
-
+    public static  final String JOIN_SHOPNET_GET_BETWEEN_DATETIME = "Receipt.join.ShopNet.BetweenDateTime";
     @Id
     @SequenceGenerator(name = "global_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
