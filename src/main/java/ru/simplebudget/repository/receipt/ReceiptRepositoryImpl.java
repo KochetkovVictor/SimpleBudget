@@ -9,12 +9,14 @@ import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.common.ShopNet;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.model.out.Receipt_;
+import ru.simplebudget.model.user.User;
 import ru.simplebudget.repository.purse.PurseRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import javax.persistence.metamodel.SingularAttribute;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +34,10 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
 
     @Transactional
     public Receipt save(Receipt receipt, Long userId) {
+        if (receipt.getId() != null && get(receipt.getId(), userId) == null) {
+            return null;
+        }
+        receipt.setUser(em.getReference(User.class, userId));
         if (receipt.getId() == null) {
             em.persist(receipt);
             purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, -receipt.getAmount());
@@ -48,7 +54,13 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         if (receipt != null && receipt.isActive()) {
             receipt.setActive(false);
             purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, receipt.getAmount());
-            save(receipt, userId);
+            //save(receipt, userId);
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaDelete<Receipt> cd = cb.createCriteriaDelete(Receipt.class);
+            Root<Receipt> root = cd.from(Receipt.class);
+            Path<User> user = root.get(Receipt_.user);
+            cd.where(cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), id)));
+            em.createQuery(cd).executeUpdate();
             return true;
         }
         return false;
@@ -60,16 +72,15 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> criteriaQuery = cb.createQuery(Receipt.class);
         Root<Receipt> root = criteriaQuery.from(Receipt.class);
-
-        Predicate condition = cb.equal(root.get(Receipt_.id), id);
+        Path<User> user=root.get(Receipt_.user);
+        Predicate condition = cb.and(cb.equal(user.get("id"), userId),cb.equal(root.get(Receipt_.id), id));
         criteriaQuery.where(condition);
-        TypedQuery<Receipt> q = em.createQuery(criteriaQuery);
-        return q.getSingleResult();
+        return  em.createQuery(criteriaQuery).getSingleResult();
     }
 
     @Override
     public List<Receipt> getByPeriod(Long userId, LocalDate startDate, LocalDate endDate) {
-        return em.createNamedQuery(Receipt.GET_BETWEEN_DATETIME, Receipt.class)
+        return em.createNamedQuery(Receipt.GET_BETWEEN_DATETIME, Receipt.class).setParameter("userId", userId)
                 .setParameter("startDateTime", startDate).setParameter("endDateTime", endDate).getResultList();
     }
 
@@ -89,16 +100,18 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
         Root<Receipt> root = cq.from(Receipt.class);
         Path<LocalDate> date = root.get(Receipt_.receiptDate);
+        Path<User> user =root.get(Receipt_.user);
+        Predicate condition=cb.equal(user.get("id"), userId);
+        cq.where(condition);
         cq.orderBy(cb.asc(date));
         TypedQuery<Receipt> query = em.createQuery(cq);
-
         return query.getResultList();
     }
 
     @Override
     @Transactional
     public Receipt changeReceipt(Receipt changeReceipt, Long userId) {
-        Receipt receipt = em.find(Receipt.class, changeReceipt.getId());
+        Receipt receipt = get(changeReceipt.getId(), userId);
         Double oldAmount = receipt.getAmount();
         Purse oldPurse = receipt.getPurse();
         if (!receipt.getShop().equals(changeReceipt.getShop())) {
@@ -120,5 +133,4 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         }
         return em.merge(receipt);
     }
-
 }

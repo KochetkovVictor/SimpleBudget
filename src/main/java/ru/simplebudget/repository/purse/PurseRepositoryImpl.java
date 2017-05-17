@@ -42,12 +42,18 @@ public class PurseRepositoryImpl implements PurseRepository {
 
     @Override
     public Purse get(Long id, Long userId) {
-        return em.find(Purse.class, id);
+        CriteriaBuilder cb=em.getCriteriaBuilder();
+        CriteriaQuery<Purse> cq=cb.createQuery(Purse.class);
+        Root<Purse> root=cq.from(Purse.class);
+        Path<User> user=root.get(Purse_.user);
+        Predicate condition=cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), id));
+        cq.where(condition);
+        return em.createQuery(cq).getSingleResult();
     }
 
     @Override
     public Double getPurseAmount(Long id, Long userId) {
-        Purse purse = em.find(Purse.class, id);
+        Purse purse = get(id,userId);
         return purse.getAmount();
     }
 
@@ -55,7 +61,7 @@ public class PurseRepositoryImpl implements PurseRepository {
     @Transactional
     @Override
     public void addPurseAmount(Long id, Long userId, Double amount) {
-        Purse purse = em.find(Purse.class, id);
+        Purse purse = get(id,userId);
         purse.setAmount(purse.getAmount() + amount);
         em.merge(purse);
     }
@@ -63,7 +69,7 @@ public class PurseRepositoryImpl implements PurseRepository {
     @Transactional
     @Override
     public void setPurseAmount(Long id, Long userId, Double amount) {
-        Purse purse = em.find(Purse.class, id);
+        Purse purse = get(id,userId);
         purse.setAmount(amount);
         em.merge(purse);
     }
@@ -84,7 +90,6 @@ public class PurseRepositoryImpl implements PurseRepository {
     public boolean deletePurse(Long id, Long userId) {
         Purse purse = get(id, userId);
         if (purse != null) {
-
             boolean flag = purse.isActive();
             if (flag) {
                 purse.setActive(false);
@@ -94,7 +99,6 @@ public class PurseRepositoryImpl implements PurseRepository {
         }
         return false;
     }
-
 
     @Transactional
     @Override
@@ -118,33 +122,19 @@ public class PurseRepositoryImpl implements PurseRepository {
         Path<User> user=root.get(Purse_.user);
         Predicate condition=cb.equal(user.get("id"), userId);
         cq.where(condition);
-        TypedQuery<Purse> query = em.createQuery(cq);
-
-        return query.getResultList();
+        return em.createQuery(cq).getResultList();
     }
 
     @Override
     @Transactional
     public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount, Long userId) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Purse> cq = em.getCriteriaBuilder().createQuery(Purse.class);
-
-        Root<Purse> root = cq.from(Purse.class);
-
-        Predicate fromCondition = cb.equal(root.get("id"), fromPurseId);
-        cq.where(fromCondition);
-        TypedQuery<Purse> fromQuery = em.createQuery(cq);
-        Purse fromPurse = fromQuery.getSingleResult();
+        Purse fromPurse = get(fromPurseId, userId);
+        Purse toPurse=get(toPurseId, userId);
         if (fromPurse.getAmount() - transferAmount < 0 || fromPurse.getAmount() == 0)
             throw new NotEnoughMoneyException("Not enough money");
         else {
             fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
-            Predicate toCondition = cb.equal(root.get("id"), toPurseId);
-            cq.where(toCondition);
-            TypedQuery<Purse> toQuery = em.createQuery(cq);
-            Purse toPurse = toQuery.getSingleResult();
             toPurse.setAmount(toPurse.getAmount() + transferAmount);
-
             em.merge(fromPurse);
             em.merge(toPurse);
         }

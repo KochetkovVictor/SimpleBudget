@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @NamedQueries({
         @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
-                query = "SELECT r FROM Receipt r WHERE r.receiptDate BETWEEN :startDateTime " +
+                query = "SELECT r FROM Receipt r WHERE r.user.id = :userId AND r.receiptDate BETWEEN :startDateTime " +
                         "AND :endDateTime ORDER BY r.receiptDate DESC ")
 })
 

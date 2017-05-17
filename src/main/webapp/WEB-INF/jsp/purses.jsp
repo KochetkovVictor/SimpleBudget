@@ -105,7 +105,7 @@
                         <label for="amount" class="control-label col-xs-3">Amount</label>
 
                         <div class="col-xs-9">
-                            <input required type="number" class="form-control" id="amount" name="amount"
+                            <input required type="number" step="0.01" class="form-control" id="amount" name="amount"
                                    placeholder="0.0">
                         </div>
                     </div>
