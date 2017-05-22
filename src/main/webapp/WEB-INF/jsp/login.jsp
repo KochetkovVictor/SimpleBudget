@@ -4,11 +4,12 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
-<jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="fragments/head.jsp"/>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
+        <div class="navbar-header navbar-brand"><spring:message code="messages.app.title"/></div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -23,7 +24,7 @@
                         <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
                     </form:form>
                 </li>
-                <jsp:include page="fragments/lang.jsp"/>
+                <!--jsp:include page="fragments/lang.jsp"/-->
             </ul>
         </div>
     </div>

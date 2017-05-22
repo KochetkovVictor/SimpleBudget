@@ -11,25 +11,17 @@
 
     <http pattern="/ajax/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
-        <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <csrf disabled="true"/>
-    </http>
-
-    <http>
-        <!--      <intercept-url pattern="/login" access="permitAll"/>
-              <intercept-url pattern="/register" access="permitAll"/>
-
-              -->
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**/rest/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <form-login/>
-        <logout/>
-        <!--<form-login login-page="/login" default-target-url="/meals"
-                    authentication-failure-url="/login?error=true"
-                    login-processing-url="/spring_security_check"/>
-        <logout logout-success-url="/login"/>
-        &lt;!&ndash;<csrf disabled="true"/>&ndash;&gt;-->
+        <csrf disabled="true"/>
+
+        <!--<form-login/>
+        <logout/>-->
+         <form-login login-page="/login" default-target-url="/purses"
+                     authentication-failure-url="/login?error=true"
+                     login-processing-url="/spring_security_check"/>
+         <logout logout-success-url="/login"/>
     </http>
 
 
