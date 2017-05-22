@@ -12,21 +12,24 @@
     <http pattern="/ajax/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/**/rest/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
+    </http>
 
-        <!--<form-login/>
-        <logout/>-->
-         <form-login login-page="/login" default-target-url="/purses"
-                     authentication-failure-url="/login?error=true"
-                     login-processing-url="/spring_security_check"/>
-         <logout logout-success-url="/login"/>
+    <http>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/register" access="permitAll"/>
+
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <form-login login-page="/login" default-target-url="/purses"
+                    authentication-failure-url="/login?error=true"
+                    login-processing-url="/spring_security_check"/>
+        <logout logout-success-url="/login"/>
     </http>
 
 
     <!--<beans:bean class="ru.simplebudget.utils.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>-->
-
     <authentication-manager>
         <authentication-provider><!--user-service-ref="userService"-->
             <!--<password-encoder ref="passwordEncoder"/>-->
