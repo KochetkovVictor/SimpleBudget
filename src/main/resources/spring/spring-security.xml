@@ -9,13 +9,12 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
 
-    <http pattern="/ajax/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
+    <http pattern="/ajax/**" use-expressions="true" name="ajaxSecurityFilterChain" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/ajax/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <csrf disabled="true"/>
     </http>
-
     <http>
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/register" access="permitAll"/>
@@ -27,6 +26,12 @@
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/login"/>
     </http>
+   <!-- <http>
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <form-login/>
+        <logout/>
+    </http>-->
 
 
     <!--<beans:bean class="ru.simplebudget.utils.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>-->
