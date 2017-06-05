@@ -33,7 +33,8 @@ CREATE TABLE users(
   firsName VARCHAR,
   lastName VARCHAR,
   dateOfBirth TIMESTAMP,
-  register TIMESTAMP DEFAULT now()
+  register TIMESTAMP DEFAULT now(),
+  enabled BOOLEAN DEFAULT TRUE
 );
 CREATE UNIQUE INDEX users_unique_email_nickname_index ON users (nickname, email);
 

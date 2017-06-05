@@ -1,7 +1,7 @@
 package ru.simplebudget.model.user;
 
 
-import org.hibernate.annotations.*;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -48,6 +48,9 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
    // @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
+
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
 
     public Long getId() {
         return id;
@@ -118,5 +121,12 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

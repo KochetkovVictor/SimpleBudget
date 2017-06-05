@@ -1,0 +1,64 @@
+package ru.simplebudget.repository.user;
+
+import org.springframework.stereotype.Repository;
+import ru.simplebudget.model.user.User;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
+
+@Repository
+public class UserRepositoryImpl implements UserRepository {
+
+    @PersistenceContext
+    private
+    EntityManager em;
+
+    @Override
+    public User getById(Long id) {
+        return em.find(User.class, id);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> user = cq.from(User.class);
+        Predicate condition = cb.equal(user.get("email"), email);
+        cq.where(condition);
+        return em.createQuery(cq).getSingleResult();
+    }
+
+    @Override
+    public User getByNickName(String nickName) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> user = cq.from(User.class);
+        Predicate condition = cb.equal(user.get("nickName"), nickName);
+        cq.where(condition);
+        return em.createQuery(cq).getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public User save(User user) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(Long id) {
+        User user = getById(id);
+        if (user != null && user.isEnabled()) {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaDelete<User> cd = cb.createCriteriaDelete(User.class);
+            Root<User> root = cd.from(User.class);
+            Predicate condition = cb.equal(root.get("id"), id);
+            cd.where(condition);
+            em.createQuery(cd).executeUpdate();
+            return true;
+        }
+        return false;
+    }
+}
