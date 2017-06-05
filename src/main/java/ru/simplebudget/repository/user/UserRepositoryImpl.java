@@ -43,7 +43,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     @Transactional
     public User save(User user) {
-        return null;
+        if (user.getId() != null) {
+            return em.merge(user);
+        }
+        else {
+        em.persist(user);
+        return user;
+        }
     }
 
     @Override

@@ -33,6 +33,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     @Autowired
     private PurseRepository purseRepository;
 
+    @Override
     @Transactional
     public Receipt save(Receipt receipt, Long userId) {
         if (receipt.getId() != null && get(receipt.getId(), userId) == null) {
