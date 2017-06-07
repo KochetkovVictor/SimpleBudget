@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
+import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
 
 import java.time.LocalDate;
@@ -18,12 +19,17 @@ import java.util.List;
 @RequestMapping(value = "/ajax/receipts")
 public class ReceiptController extends AbstractReceiptController {
 
-    @Autowired
-    private
+    private final
     ShopService shopService;
-    @Autowired
-    private
+    private final
     PurseService purseService;
+
+    @Autowired
+    public ReceiptController(ReceiptService service, ShopService shopService, PurseService purseService) {
+        super(service);
+        this.shopService = shopService;
+        this.purseService = purseService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Receipt> getAll() {

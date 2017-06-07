@@ -21,12 +21,16 @@ import java.util.stream.Collectors;
 @Controller
 public class RootController {
 
-    @Autowired
-    private
+    private final
     PurseService purseService;
-    @Autowired
-    private
+    private final
     ShopService shopService;
+
+    @Autowired
+    public RootController(PurseService purseService, ShopService shopService) {
+        this.purseService = purseService;
+        this.shopService = shopService;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {

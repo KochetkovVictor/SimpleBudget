@@ -13,8 +13,12 @@ import java.util.List;
 
 public abstract class AbstractIncomeController {
 
+    private final IncomeService service;
+
     @Autowired
-    private IncomeService service;
+    public AbstractIncomeController(IncomeService service) {
+        this.service = service;
+    }
 
     public Income getIncome(Long id){return service.getById(id, LoggedUser.id());}
     public void deleteIncome(Long id) {service.deleteIncome(id, LoggedUser.id());}

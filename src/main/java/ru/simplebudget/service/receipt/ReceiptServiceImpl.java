@@ -6,14 +6,17 @@ import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.repository.receipt.ReceiptRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ReceiptServiceImpl implements ReceiptService{
 
+    private final ReceiptRepository receiptRepository;
+
     @Autowired
-    private ReceiptRepository receiptRepository;
+    public ReceiptServiceImpl(ReceiptRepository receiptRepository) {
+        this.receiptRepository = receiptRepository;
+    }
 
     @Override
     public List<Receipt> getAll(Long userId) {

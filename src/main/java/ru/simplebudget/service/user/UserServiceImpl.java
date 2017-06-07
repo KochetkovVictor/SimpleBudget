@@ -13,9 +13,13 @@ import ru.simplebudget.repository.user.UserRepository;
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService{
 
-    @Autowired
-    private
+    private final
     UserRepository repository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public LoggedUser loadUserByUsername(String email) throws UsernameNotFoundException {

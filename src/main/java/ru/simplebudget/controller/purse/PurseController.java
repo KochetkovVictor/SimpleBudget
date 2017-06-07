@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
+import ru.simplebudget.service.purse.PurseService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -22,6 +23,10 @@ import java.util.Map;
 @RequestMapping("/ajax/purses")
 public class PurseController extends AbstractPurseController {
 
+
+    public PurseController(PurseService service) {
+        super(service);
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Purse> getAll() {

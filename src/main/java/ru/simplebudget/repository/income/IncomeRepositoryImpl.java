@@ -26,9 +26,13 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     private
     EntityManager em;
 
-    @Autowired
-    private
+    private final
     PurseRepository purseRepository;
+
+    @Autowired
+    public IncomeRepositoryImpl(PurseRepository purseRepository) {
+        this.purseRepository = purseRepository;
+    }
 
     @Transactional
     @Override

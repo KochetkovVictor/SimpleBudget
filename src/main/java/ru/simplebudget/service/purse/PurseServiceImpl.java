@@ -9,15 +9,18 @@ import java.util.List;
 
 
 @Service
-public class PurseServiceImpl implements PurseService{
+public class PurseServiceImpl implements PurseService {
 
-    @Autowired
-    private
+    private final
     PurseRepository repository;
 
+    @Autowired
+    public PurseServiceImpl(PurseRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
-    public List<Purse> getAll(Long userId)
-    {
+    public List<Purse> getAll(Long userId) {
         return repository.getAll(userId);
     }
 
@@ -34,20 +37,20 @@ public class PurseServiceImpl implements PurseService{
 
     @Override
     public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount, Long userId) {
-        repository.transferAmount(fromPurseId,toPurseId, transferAmount, userId);
+        repository.transferAmount(fromPurseId, toPurseId, transferAmount, userId);
     }
 
     @Override
     public Purse addPurse(Purse purse, Long userId) {
-        return  repository.save(purse, userId);
+        return repository.save(purse, userId);
     }
 
     @Override
     public void updatePurse(Purse purse, Long userId) {
-        String description=purse.getDescription();
-        Long id=purse.getId();
-        boolean active=purse.isActive();
-        Double amount=purse.getAmount();
+        String description = purse.getDescription();
+        Long id = purse.getId();
+        boolean active = purse.isActive();
+        Double amount = purse.getAmount();
         repository.changeName(id, userId, description, amount, active);
     }
 
@@ -55,7 +58,6 @@ public class PurseServiceImpl implements PurseService{
     public void delete(Long id, Long userId) {
         repository.deletePurse(id, userId);
     }
-
 
 
 }

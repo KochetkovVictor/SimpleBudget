@@ -12,9 +12,13 @@ import java.util.List;
 
 public abstract class AbstractReceiptController {
 
-    @Autowired
-    private
+    private final
     ReceiptService service;
+
+    @Autowired
+    public AbstractReceiptController(ReceiptService service) {
+        this.service = service;
+    }
 
     public List<Receipt> getAll() {
         return service.getAll(LoggedUser.id());

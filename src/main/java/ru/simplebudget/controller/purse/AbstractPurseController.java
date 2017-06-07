@@ -11,8 +11,12 @@ import java.util.List;
 
 public abstract class AbstractPurseController {
 
+    private final PurseService service;
+
     @Autowired
-    private PurseService service;
+    public AbstractPurseController(PurseService service) {
+        this.service = service;
+    }
 
     List<Purse> getAll() {
         return service.getAll(LoggedUser.id());

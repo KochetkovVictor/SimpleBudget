@@ -10,8 +10,13 @@ import java.util.List;
 @Service
 public class ShopServiceImpl implements ShopService {
 
+    private final ShopRepository shopRepository;
+
     @Autowired
-    private ShopRepository shopRepository;
+    public ShopServiceImpl(ShopRepository shopRepository) {
+        this.shopRepository = shopRepository;
+    }
+
     @Override
     public List<Shop> getAll() {
         return shopRepository.getAll();

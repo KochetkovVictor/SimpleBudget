@@ -30,8 +30,12 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     @PersistenceContext
     private EntityManager em;
 
+    private final PurseRepository purseRepository;
+
     @Autowired
-    private PurseRepository purseRepository;
+    public ReceiptRepositoryImpl(PurseRepository purseRepository) {
+        this.purseRepository = purseRepository;
+    }
 
     @Override
     @Transactional

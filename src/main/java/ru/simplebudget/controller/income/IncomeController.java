@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.user.LoggedUser;
+import ru.simplebudget.service.income.IncomeService;
 import ru.simplebudget.service.purse.PurseService;
 
 import java.time.LocalDate;
@@ -20,8 +21,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/ajax/incomes")
 public class IncomeController extends AbstractIncomeController {
 
+    private final PurseService purseService;
+
     @Autowired
-    private PurseService purseService;
+    public IncomeController(IncomeService service, PurseService purseService) {
+        super(service);
+        this.purseService = purseService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Income> getAll() {

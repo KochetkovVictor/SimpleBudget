@@ -1,25 +1,26 @@
 package ru.simplebudget.service.income;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Service;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.repository.income.IncomeRepository;
-import ru.simplebudget.repository.purse.PurseRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @Service
 public class IncomeServiceImpl implements IncomeService {
 
-    @Autowired
-    private
+    private final
     IncomeRepository incomeRepository;
+
     @Autowired
-    private
-    PurseRepository purseRepository;
+    public IncomeServiceImpl(IncomeRepository incomeRepository) {
+        this.incomeRepository = incomeRepository;
+    }
+
 
     @Override
     public Income addIncome(Income income, Long userId) {
