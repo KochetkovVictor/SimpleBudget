@@ -20,8 +20,9 @@ public class LoggedUser extends org.springframework.security.core.userdetails.Us
         if (auth == null) {
             return null;
         }
-        Object user = auth.getPrincipal();
-        return (user instanceof LoggedUser) ? (LoggedUser) user : null;
+        Object authUser = auth.getPrincipal();
+        System.out.println("&&&&&&&&&&&&&&&&&&&&"+authUser.getClass());
+        return (authUser instanceof LoggedUser) ? (LoggedUser) authUser : null;
     }
 
     public static LoggedUser get() {
@@ -33,8 +34,6 @@ public class LoggedUser extends org.springframework.security.core.userdetails.Us
     public static Long id(){
         return get().user.getId();
     }
-
-
 
     public void update(User newUser) {
         user = newUser;

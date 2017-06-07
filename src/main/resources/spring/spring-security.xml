@@ -36,20 +36,18 @@
 
     <!--<beans:bean class="ru.simplebudget.utils.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>-->
     <authentication-manager>
-        <authentication-provider><!--user-service-ref="userService"-->
+        <authentication-provider user-service-ref="userService">
             <!--<password-encoder ref="passwordEncoder"/>-->
-            <!--
-                        <jdbc-user-service data-source-ref="dataSource"
+                       <!-- <jdbc-user-service data-source-ref="dataSource"
                                            users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
                                            authorities-by-username-query="
                                                                    SELECT u.email, r.role FROM users u, user_roles r WHERE u.id = r.user_id AND u.email = ?"
-                        />
-
-            -->
+                        />-->
+<!--
             <user-service>
                 <user name="che18@yandex.ru" password="password" authorities="ROLE_USER"/>
                 <user name="secretphiz@gmail.com" password="strongpassword" authorities="ROLE_ADMIN"/>
-            </user-service>
+            </user-service>-->
         </authentication-provider>
     </authentication-manager>
 </beans:beans>

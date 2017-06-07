@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.out.Receipt;
+import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.shop.ShopService;
 
@@ -56,7 +57,7 @@ public class ReceiptController extends AbstractReceiptController {
         receipt.setReceiptDate(receiptDate==null? LocalDate.now():receiptDate);
         receipt.setAmount(amount==null? 0.0:amount);
         receipt.setShop(shopService.getById(shopId));
-        receipt.setPurse(purseService.getById(purseId, 301L));
+        receipt.setPurse(purseService.getById(purseId, LoggedUser.id()));
         if (receipt.getId() == 0L) {
             receipt.setActive(true);
             super.addReceipt(receipt);

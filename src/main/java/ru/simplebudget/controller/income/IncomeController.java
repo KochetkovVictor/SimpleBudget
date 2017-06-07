@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
+import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
 
 import java.time.LocalDate;
@@ -51,7 +52,7 @@ public class IncomeController extends AbstractIncomeController {
                                @RequestParam(value="id")Long id) {
         Income income=new Income();
         income.setId(id);
-        income.setPurse(purseService.getById(purseId, 301L));
+        income.setPurse(purseService.getById(purseId, LoggedUser.id()));
         income.setValue(value==null? 0.0:value);
         income.setDescription(description);
         income.setIncomeDate(date==null? LocalDate.now():date);
