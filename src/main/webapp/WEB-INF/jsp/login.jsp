@@ -16,7 +16,7 @@
                     <form:form class="navbar-form" role="form" action="${pageContext.request.contextPath}/spring_security_check"
                                method="post">
                         <div class="form-group">
-                            <input type="text" placeholder="Email" class="form-control" name='username'>
+                            <input type="text" placeholder="Email or Login" class="form-control" name='username'>
                         </div>
                         <div class="form-group">
                             <input type="password" placeholder="Password" class="form-control" name='password'>

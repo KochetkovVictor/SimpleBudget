@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.model.user.User;
 import ru.simplebudget.repository.user.UserRepository;
+import ru.simplebudget.utils.EmailValidator;
 
 @Service("userService")
-public class UserServiceImpl implements UserService, UserDetailsService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final
     UserRepository repository;
@@ -22,9 +23,16 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     }
 
     @Override
-    public LoggedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user=repository.getByEmail(email);
-        if(user==null){throw new UsernameNotFoundException("User with email "+email+" not found");}
+    public LoggedUser loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user;
+        if (EmailValidator.validate(login)) {
+            user = repository.getByEmail(login);
+        } else {
+            user = repository.getByNickName(login);
+        }
+        if (user == null) {
+            throw new UsernameNotFoundException("User with email " + login + " not found");
+        }
         return new LoggedUser(user);
     }
 
