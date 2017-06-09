@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -66,5 +67,13 @@ public class UserRepositoryImpl implements UserRepository {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<User> getAll() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> user = cq.from(User.class);
+        return em.createQuery(cq).getResultList();
     }
 }

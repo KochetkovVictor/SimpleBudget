@@ -11,6 +11,8 @@ import ru.simplebudget.model.user.User;
 import ru.simplebudget.repository.user.UserRepository;
 import ru.simplebudget.utils.EmailValidator;
 
+import java.util.List;
+
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -59,5 +61,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean delete(Long id) {
         return repository.delete(id);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return repository.getAll();
     }
 }

@@ -39,19 +39,16 @@ public class PurseController extends AbstractPurseController {
         super.delete(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,  produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Purse get(@PathVariable("id") Long id) {
         return super.get(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(Purse purse)
-    {
-        if(purse.getId()==0L)
-        {
+    public void updateOrCreate(Purse purse) {
+        if (purse.getId() == 0L) {
             super.addPurse(purse);
-        }
-        else{
+        } else {
             super.update(purse);
         }
     }

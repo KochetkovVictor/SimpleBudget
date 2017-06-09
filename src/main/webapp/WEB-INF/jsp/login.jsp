@@ -11,21 +11,21 @@
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="messages.app.title"/></div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <form:form class="navbar-form" role="form" action="${pageContext.request.contextPath}/spring_security_check"
-                               method="post">
-                        <div class="form-group">
-                            <input type="text" placeholder="Email or Login" class="form-control" name='username'>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control" name='password'>
-                        </div>
-                        <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
-                    </form:form>
-                </li>
-                <!--jsp:include page="fragments/lang.jsp"/-->
-            </ul>
+            <%-- <ul class="nav navbar-nav navbar-right">
+                 &lt;%&ndash;<li>
+                     <form:form class="navbar-form" role="form" action="${pageContext.request.contextPath}/spring_security_check"
+                                method="post">
+                         <div class="form-group">
+                             <input type="text" placeholder="Email or Login" class="form-control" name='username'>
+                         </div>
+                         <div class="form-group">
+                             <input type="password" placeholder="Password" class="form-control" name='password'>
+                         </div>
+                         <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
+                     </form:form>
+                 </li>&ndash;%&gt;
+                 <!--jsp:include page="fragments/lang.jsp"/-->
+             </ul>--%>
         </div>
     </div>
 </div>
@@ -33,6 +33,7 @@
 <div class="jumbotron">
     <div class="container">
         <c:if test="${error}">
+
             <div class="error">
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
             </div>
@@ -48,9 +49,24 @@
 
         <p>Admin login: <b>secretphiz@gmail.com / strongpassword</b></p>
 
-        <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message code="app.register"/> &raquo;</a></p>
-
+        <p><a class="btn btn-primary btn-lg" role="button" href="register"><spring:message code="app.register"/></a></p>
+        <form:form class="form-signin" role="form"
+                   action="${pageContext.request.contextPath}/spring_security_check"
+                   method="post">
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <input type="text" placeholder="Email or Login" class="form-control" name='username'>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <input type="password" placeholder="Password" class="form-control" name='password'>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
     </div>
+    </form:form>
+</div>
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>
