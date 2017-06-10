@@ -31,9 +31,9 @@ public class User {
     @Column(name = "dateOfBirth", columnDefinition = "timestamp default now()")
     private LocalDate dateOfBirth;
     @Column
-    private String firsName;
+    private String firstName;
     @Column
-    private String LastName;
+    private String lastName;
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotEmpty
@@ -84,20 +84,20 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getFirsName() {
-        return firsName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
+    public void setFirstName(String firsName) {
+        this.firstName = firsName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
