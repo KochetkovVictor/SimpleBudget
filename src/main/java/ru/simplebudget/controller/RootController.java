@@ -32,13 +32,11 @@ public class RootController{
     PurseService purseService;
     private final
     ShopService shopService;
-    private final UserService userService;
 
     @Autowired
-    public RootController(PurseService purseService, ShopService shopService, UserService userService) {
+    public RootController(PurseService purseService, ShopService shopService) {
         this.purseService = purseService;
         this.shopService = shopService;
-        this.userService=userService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -48,8 +46,6 @@ public class RootController{
 
     @RequestMapping(value = "/purses", method = RequestMethod.GET)
     public String purseList(Model model) {
-        //LoggedUser.safeGet();
-        System.out.println("ID    =     " + LoggedUser.id());
         model.addAttribute("purseList", purseService.getAll(LoggedUser.id()));
         return "purses";
     }
@@ -82,46 +78,5 @@ public class RootController{
         return "login";
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String profile() {
-        return "register";
-    }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String updateProfile(@Valid User user, BindingResult result, SessionStatus status) {
-        if (!result.hasErrors()) {
-            try {
-                user.setId(LoggedUser.id());
-                userService.save(user);
-                LoggedUser.get().update(user);
-                status.setComplete();
-                return "redirect:meals";
-            } catch (DataIntegrityViolationException ex) {
-                result.rejectValue("email", "exception.duplicate_email");
-            }
-        }
-        return "register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(ModelMap model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("register", true);
-        return "register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
-        if (!result.hasErrors()) {
-            try {
-                userService.save(user);
-                status.setComplete();
-                return "redirect:login?message=app.registered";
-            } catch (DataIntegrityViolationException ex) {
-                result.rejectValue("email", "exception.duplicate_email");
-            }
-        }
-        model.addAttribute("register", true);
-        return "register";
-    }
 }

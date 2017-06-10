@@ -21,6 +21,8 @@ import java.util.Set;
 public class User {
 
     @Id
+    @SequenceGenerator(name = "global_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "nickname", nullable = false, unique = true)
     private String nickName;
@@ -128,5 +130,10 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public User() {
+        this.enabled=true;
+        this.registered=LocalDate.now();
     }
 }

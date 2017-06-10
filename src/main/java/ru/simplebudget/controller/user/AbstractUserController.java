@@ -6,7 +6,7 @@ import ru.simplebudget.service.user.UserService;
 
 import java.util.List;
 
-public class AbstractUserController {
+public abstract class AbstractUserController {
 
     private final
     UserService service;
@@ -20,13 +20,13 @@ public class AbstractUserController {
         return service.getAll();
     }
 
-    User getById(Long id){
+    public User getById(Long id){
         return service.getById(id);
     }
-    User getByEmail(String email){return service.getByEmail(email);}
-    User getByNickName(String nickName){return service.getByNickName(nickName);}
-    User saveOrUpdate(User user){
-       return service.save(user);
+    public User getByEmail(String email){return service.getByEmail(email);}
+    public User getByNickName(String nickName){return service.getByNickName(nickName);}
+    public void saveOrUpdate(User user){
+        service.save(user);
     }
     boolean delete(Long id){
         return service.delete(id);

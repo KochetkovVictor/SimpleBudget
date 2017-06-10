@@ -2,7 +2,7 @@ var ajaxUrl = 'ajax/incomes/';
 var datatableApi;
 
 function updateTable() {
-   $.ajax({
+    $.ajax({
         type: "POST",
         url: ajaxUrl + 'filter',
         data: $('#filter').serialize(),

@@ -30,7 +30,7 @@ CREATE TABLE users(
   nickname VARCHAR(20) NOT NULL,
   password VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
-  firsName VARCHAR,
+  firstName VARCHAR,
   lastName VARCHAR,
   dateOfBirth TIMESTAMP,
   register TIMESTAMP DEFAULT now(),

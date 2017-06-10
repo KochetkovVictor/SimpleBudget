@@ -73,7 +73,7 @@
         </div>
 
         <div class="col-md-3">
-            <button <%--onclick="transfer()"--%>type="submit">Transfer</button>
+            <button type="submit">Transfer</button>
         </div>
     </div>
 </form>
