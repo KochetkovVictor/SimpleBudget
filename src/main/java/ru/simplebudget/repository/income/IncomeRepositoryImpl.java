@@ -1,6 +1,7 @@
 package ru.simplebudget.repository.income;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
@@ -75,8 +76,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         Path<User> user = root.get(Income_.user);
         Predicate condition = cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), incomeId));
         cq.where(condition);
-        TypedQuery<Income> query = em.createQuery(cq);
-        return query.getSingleResult();
+        return DataAccessUtils.singleResult(em.createQuery(cq).getResultList());
     }
 
     @Override

@@ -92,7 +92,7 @@
                     <div class="form-group">
                         <label for="purse" class="control-label col-xs-3">Purse</label>
                         <div class="col-xs-9">
-                            <select required id="purse" name="editedPurse">
+                            <select required id="purse" name=purseid>
                                 <option selected disabled>Choose a purse</option>
                                 <c:forEach items="${purseList}" var="purse">
                                     <option value="${purse.id}">

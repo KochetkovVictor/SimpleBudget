@@ -1,6 +1,7 @@
 package ru.simplebudget.repository.purse;
 
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.exceptions.NotEnoughMoneyException;
@@ -48,7 +49,8 @@ public class PurseRepositoryImpl implements PurseRepository {
         Path<User> user=root.get(Purse_.user);
         Predicate condition=cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), id));
         cq.where(condition);
-        return em.createQuery(cq).getSingleResult();
+
+        return DataAccessUtils.singleResult(em.createQuery(cq).getResultList());
     }
 
     @Override

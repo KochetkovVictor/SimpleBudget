@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -48,7 +49,6 @@ public class User {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
-   // @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Role> roles;
 
     @Column(name = "enabled", nullable = false)
@@ -135,5 +135,8 @@ public class User {
     public User() {
         this.enabled=true;
         this.registered=LocalDate.now();
+        Set<Role> roles=new HashSet<>();
+        roles.add(Role.ROLE_USER);
+        this.roles=roles;
     }
 }

@@ -21,7 +21,6 @@ public class LoggedUser extends org.springframework.security.core.userdetails.Us
             return null;
         }
         Object authUser = auth.getPrincipal();
-        System.out.println("&&&&&&&&&&&&&&&&&&&&"+authUser.getClass());
         return (authUser instanceof LoggedUser) ? (LoggedUser) authUser : null;
     }
 
