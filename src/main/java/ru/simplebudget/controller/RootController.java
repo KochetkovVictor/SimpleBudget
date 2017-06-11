@@ -36,7 +36,7 @@ public class RootController{
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
-        return "index";
+        return "purses";
     }
 
     @RequestMapping(value = "/purses", method = RequestMethod.GET)

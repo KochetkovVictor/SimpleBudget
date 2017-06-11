@@ -25,7 +25,7 @@ public abstract class AbstractUserController {
     }
     public User getByEmail(String email){return service.getByEmail(email);}
     public User getByNickName(String nickName){return service.getByNickName(nickName);}
-    public void saveOrUpdate(User user){
+    protected void saveOrUpdate(User user){
         service.save(user);
     }
     boolean delete(Long id){

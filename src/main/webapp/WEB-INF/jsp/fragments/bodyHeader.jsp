@@ -3,6 +3,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/panel.js"></script>
+<script type="text/javascript" src="resources/js/tabSlideOut/jquery.tabSlideOut.v.1.3.katowulf.js"></script>
 <sec:authorize access="isAuthenticated()">
     <div id="panel">
         <div id="hidden_panel">

@@ -40,8 +40,8 @@
     left: -120px; /* отступ слева */
     background: lavender; /* цвет фона */
     color: #000; /* цвет текста */
-    width: 200px; /* ширина блока */
-    height: 150px; /* высота блока */
+    width: 120px; /* ширина блока */
+    height: 100px; /* высота блока */
     padding: 10px; /* отступы от границ внутри блока */
     text-align: left; /* выравнивание текста */
 
@@ -55,8 +55,17 @@
     border-radius: 0 5px 5px 0;
 }
 #panel:hover {
-    left: 120px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
+    left: 120px; /* при наведении выдвигается на скрытые 100px + 20px отступы */
+    z-index:99999999;
 }
 #panel:hover #hidden_panel {
     left: 0; /* отступ слева */
 }
+/*
+.panel {
+    padding: 20px;
+    width: 250px;
+    background: #eeeeee;
+    border: #282828 2px solid;
+    font-family: Georgia, sans-serif;
+}*/
