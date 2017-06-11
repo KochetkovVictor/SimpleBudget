@@ -10,23 +10,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="messages.app.title"/></div>
-        <div class="navbar-collapse collapse">
-            <%-- <ul class="nav navbar-nav navbar-right">
-                 &lt;%&ndash;<li>
-                     <form:form class="navbar-form" role="form" action="${pageContext.request.contextPath}/spring_security_check"
-                                method="post">
-                         <div class="form-group">
-                             <input type="text" placeholder="Email or Login" class="form-control" name='username'>
-                         </div>
-                         <div class="form-group">
-                             <input type="password" placeholder="Password" class="form-control" name='password'>
-                         </div>
-                         <button type="submit" class="btn btn-success"><spring:message code="app.login"/></button>
-                     </form:form>
-                 </li>&ndash;%&gt;
-                 <!--jsp:include page="fragments/lang.jsp"/-->
-             </ul>--%>
-        </div>
     </div>
 </div>
 
