@@ -43,13 +43,13 @@ public abstract class AbstractIncomeController {
         income.setId(null);
         service.addIncome(income, LoggedUser.id());
     }
-
+    void update(Income income) {
+        service.changeIncome(income, LoggedUser.id());
+    }
     public List<Income> getByPeriod(LocalDate startDate, LocalDate endDate) {
         return
                 service.getIncomesPerAPeriod(LoggedUser.id(), startDate == null ? TimeUtil.MIN_DATE : startDate, endDate == null ? TimeUtil.MAX_DATE : endDate);
     }
 
-    void update(Income income) {
-        service.changeIncome(income, LoggedUser.id());
-    }
+
 }

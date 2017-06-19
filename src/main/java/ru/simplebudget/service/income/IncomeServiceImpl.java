@@ -3,6 +3,7 @@ package ru.simplebudget.service.income;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.repository.income.IncomeRepository;
 
@@ -23,6 +24,7 @@ public class IncomeServiceImpl implements IncomeService {
 
 
     @Override
+    @Transactional
     public Income addIncome(Income income, Long userId) {
         return incomeRepository.addIncome(income, userId);
     }
@@ -43,12 +45,14 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
+    @Transactional
     public Income changeIncome(Income income, Long userId) {
 
         return incomeRepository.changeIncome(income, userId);
     }
 
     @Override
+    @Transactional
     public void deleteIncome(Long id, Long userId) {
         incomeRepository.delete(id, userId);
     }

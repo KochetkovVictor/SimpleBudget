@@ -2,14 +2,20 @@ package ru.simplebudget.controller.income;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.income.IncomeService;
 import ru.simplebudget.service.purse.PurseService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 import java.util.List;
@@ -48,24 +54,22 @@ public class AjaxIncomeController extends AbstractIncomeController {
         return super.getByPeriod(startDate, endDate);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestParam (value = "incomeDate") LocalDate date,
-                               @RequestParam(value="description") String description,
-                               @RequestParam(value="value")Double value,
-                               @RequestParam(value="purseid")Long purseId,
-                               @RequestParam(value="id")Long id) {
-        Income income=new Income();
-        income.setId(id);
-        income.setPurse(purseService.getById(purseId, LoggedUser.id()));
-        income.setValue(value==null? 0.0:value);
-        income.setDescription(description);
-        income.setIncomeDate(date==null? LocalDate.now():date);
-        if (income.getId() == 0L) {
+   @RequestMapping(method = RequestMethod.POST)
+   public String saveIncome(@Valid Income income, BindingResult result, SessionStatus status, HttpServletRequest request) {
+       if (!result.hasErrors()) {
+           try {
+               System.out.println(income);
+               income.setPurse(purseService.getById(Long.valueOf(request.getParameter("purseid")), LoggedUser.id()));
+               if (income.getId() == 0) {
+                   super.add(income);
+               } else super.update(income);
+               status.setComplete();
+           } catch (DataIntegrityViolationException ex) {
+               result.rejectValue("description", "exception.duplicate_description");
+           }
+       }
+       return "redirect:incomes";
+   }
 
-            super.add(income);
-        } else {
-            super.update(income);
-        }
-    }
 }
 

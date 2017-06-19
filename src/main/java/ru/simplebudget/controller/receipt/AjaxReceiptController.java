@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/ajax/receipts")
-public class ReceiptController extends AbstractReceiptController {
+public class AjaxReceiptController extends AbstractReceiptController {
 
     private final
     ShopService shopService;
@@ -25,7 +25,7 @@ public class ReceiptController extends AbstractReceiptController {
     PurseService purseService;
 
     @Autowired
-    public ReceiptController(ReceiptService service, ShopService shopService, PurseService purseService) {
+    public AjaxReceiptController(ReceiptService service, ShopService shopService, PurseService purseService) {
         super(service);
         this.shopService = shopService;
         this.purseService = purseService;

@@ -113,7 +113,10 @@
                         <label for="active" class="control-label col-xs-3">Active</label>
 
                         <div class="col-xs-9">
-                            <input required class="form-control" id="active" name="active" placeholder="true">
+                            <select required class="form-control" id="active" name="active">
+                                <option>true</option>
+                                <option>false</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

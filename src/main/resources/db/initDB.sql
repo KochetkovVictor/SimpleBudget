@@ -66,7 +66,7 @@ CREATE TABLE income(
   FOREIGN KEY (purseId) REFERENCES purse (id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX income_id_index ON income(id);
+CREATE UNIQUE INDEX income_unique_description_index ON income(description);
 
 CREATE TABLE receipt(
   id BIGINT PRIMARY KEY DEFAULT nextval('global_seq'),

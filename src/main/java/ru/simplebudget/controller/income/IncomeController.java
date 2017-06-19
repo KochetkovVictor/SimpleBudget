@@ -26,20 +26,20 @@ public class IncomeController extends AbstractIncomeController {
         this.purseService=purseService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    /*@RequestMapping(method = RequestMethod.POST)
     public String saveIncome(@Valid Income income, BindingResult result, SessionStatus status, HttpServletRequest request) {
         if (!result.hasErrors()) {
             try {
+                System.out.println(income);
                 income.setPurse(purseService.getById(Long.valueOf(request.getParameter("purseid")), LoggedUser.id()));
                 if (income.getId() == 0) {
                     super.add(income);
                 } else super.update(income);
                 status.setComplete();
-                /*return "incomes";*/
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("description", "exception.duplicate_description");
             }
         }
         return "redirect:incomes";
-    }
+    }*/
 }

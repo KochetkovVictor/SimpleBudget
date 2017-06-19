@@ -3,6 +3,7 @@ package ru.simplebudget.repository.income;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
@@ -20,7 +21,7 @@ import java.util.Objects;
 
 
 @Repository("incomeRepository")
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class IncomeRepositoryImpl implements IncomeRepository {
 
     @PersistenceContext

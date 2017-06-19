@@ -139,4 +139,11 @@ public class User {
         roles.add(Role.ROLE_USER);
         this.roles=roles;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "nickName='" + nickName + '\'' +
+                '}';
+    }
 }

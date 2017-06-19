@@ -21,19 +21,19 @@ public class PurseController extends AbstractPurseController {
         super(service);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    /*@RequestMapping(method = RequestMethod.POST)
     public String savePurse(@Valid Purse purse, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
+                System.out.println("------> Purse: "+purse);
                 if (purse.getId() == 0) {
                     super.addPurse(purse);
                 } else super.update(purse);
                 status.setComplete();
-                /*return "purses";*/
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("description", "exception.duplicate_description");
             }
         }
         return "redirect:purses";
-    }
+    }*/
 }

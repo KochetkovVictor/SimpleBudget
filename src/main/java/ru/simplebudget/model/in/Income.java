@@ -28,7 +28,7 @@ public class Income {
     private String description;
 
     @JoinColumn(name = "purseId")
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private
     Purse purse;
 
@@ -58,6 +58,8 @@ public class Income {
     }
 
     public void setIncomeDate(LocalDate incomeDate) {
+        if (incomeDate==null)
+            incomeDate=LocalDate.now();
         this.incomeDate = incomeDate;
     }
 
@@ -101,11 +103,12 @@ public class Income {
     @Override
     public String toString() {
         return "Income{" +
-                "incomeId=" + id +
+                "id=" + id +
                 ", incomeDate=" + incomeDate +
                 ", value=" + value +
                 ", description='" + description + '\'' +
                 ", purse=" + purse +
+                ", user=" + user +
                 '}';
     }
 }
