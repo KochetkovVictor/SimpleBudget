@@ -16,7 +16,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 
-@Repository
+@Repository("purseRepository")
 @Transactional(readOnly = true)
 public class PurseRepositoryImpl implements PurseRepository {
 
@@ -25,8 +25,9 @@ public class PurseRepositoryImpl implements PurseRepository {
     EntityManager em;
 
 
-    @Transactional
+
     @Override
+    @Transactional
     public Purse save(Purse purse, Long userId) {
         if (purse.getId() != null && get(purse.getId(), userId) == null) {
             return null;

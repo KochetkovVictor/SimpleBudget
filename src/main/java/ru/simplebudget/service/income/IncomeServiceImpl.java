@@ -26,7 +26,7 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     @Transactional
     public Income addIncome(Income income, Long userId) {
-        return incomeRepository.addIncome(income, userId);
+        return incomeRepository.addIncome(income, userId, income.getPurse().getId());
     }
 
     @Override

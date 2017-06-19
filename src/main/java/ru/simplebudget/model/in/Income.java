@@ -28,7 +28,7 @@ public class Income {
     private String description;
 
     @JoinColumn(name = "purseId")
-    @ManyToOne(cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private
     Purse purse;
 

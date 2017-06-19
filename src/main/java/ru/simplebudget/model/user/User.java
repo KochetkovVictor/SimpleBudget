@@ -5,6 +5,7 @@ package ru.simplebudget.model.user;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import ru.simplebudget.model.common.Purse;
 
 
 import javax.persistence.*;
@@ -53,6 +54,19 @@ public class User {
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private
+    Set<Purse> purses;
+    public Set<Purse> getPurses() {
+        return purses;
+    }
+
+    public void setPurses(Set<Purse> purses) {
+        this.purses = purses;
+    }
+
+
 
     public Long getId() {
         return id;

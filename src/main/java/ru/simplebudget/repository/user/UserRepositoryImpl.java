@@ -1,15 +1,17 @@
 package ru.simplebudget.repository.user;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.user.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
-import javax.transaction.Transactional;
+
 import java.util.List;
 
-@Repository
+@Repository("userRepository")
+@Transactional(readOnly=true)
 public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext

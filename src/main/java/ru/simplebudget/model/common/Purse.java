@@ -1,10 +1,13 @@
 package ru.simplebudget.model.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import java.util.Set;
 
 
 @Entity
@@ -30,10 +33,25 @@ public class Purse {
     private
     boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private
     User user;
+
+
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private
+    Set<Income> incomes;
+
+    public Set<Income> getIncomes() {
+        return incomes;
+    }
+
+    public void setIncomes(Set<Income> incomes) {
+        this.incomes = incomes;
+    }
+
 
     public User getUser() {
         return user;

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IncomeRepository {
 
-    Income addIncome(Income income, Long userId);
+    Income addIncome(Income income, Long userId, Long purseId);
     List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate, Long userId);
     Income getIncome(Long incomeId, Long userId);
     List<Income> getAll(Long userId);

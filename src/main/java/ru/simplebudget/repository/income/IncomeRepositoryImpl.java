@@ -21,7 +21,7 @@ import java.util.Objects;
 
 
 @Repository("incomeRepository")
-@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+@Transactional(readOnly = true)
 public class IncomeRepositoryImpl implements IncomeRepository {
 
     @PersistenceContext
@@ -38,15 +38,15 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Transactional
     @Override
-    public Income addIncome(Income income, Long userId) {
+    public Income addIncome(Income income, Long userId, Long purseId) {
         if (!income.isNew() && getIncome(income.getId(), userId) == null) {
             return null;
         }
         income.setUser(em.getReference(User.class, userId));
+        income.setPurse(em.getReference(Purse.class, purseId));
         if (income.isNew()) {
             em.persist(income);
-            em.flush();
-            purseRepository.addPurseAmount(income.getPurse().getId(), userId, income.getValue());
+          //  purseRepository.addPurseAmount(income.getPurse().getId(), userId, income.getValue());
             return income;
         } else {
             return em.merge(income);
