@@ -32,7 +32,7 @@ public class UserRootController extends AbstractUserController{
             try {
                 user.setId(LoggedUser.id());
                 super.saveOrUpdate(user);
-                LoggedUser.get().update(user);
+                LoggedUser.getById().update(user);
                 status.setComplete();
                 return "redirect:meals";
             } catch (DataIntegrityViolationException ex) {

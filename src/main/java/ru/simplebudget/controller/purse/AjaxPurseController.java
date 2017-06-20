@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@RestController("ajaxPurseController")
 @RequestMapping("/ajax/purses")
 public class AjaxPurseController extends AbstractPurseController {
 
@@ -52,9 +52,7 @@ public class AjaxPurseController extends AbstractPurseController {
     public String savePurse(@Valid Purse purse, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
-                if (purse.getId() == 0) {
-                    super.addPurse(purse);
-                } else super.update(purse);
+                super.saveOrUpdate(purse);
                 status.setComplete();
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("description", "exception.duplicate_description");

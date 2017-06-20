@@ -33,13 +33,13 @@ public class Purse {
     private
     boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "user_id")
     private
     User user;
 
 
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
     private
     Set<Income> incomes;
@@ -72,6 +72,7 @@ public class Purse {
     public Purse() {
         this.id=null;
         this.amount=0.0;
+        this.active=true;
     }
 
     public Purse(Long id) {

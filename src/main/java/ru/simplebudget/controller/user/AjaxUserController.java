@@ -42,11 +42,12 @@ public class AjaxUserController extends AbstractUserController {
         super.saveOrUpdate(user);
     }
 
-    @RequestMapping(value="/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByEmail(@RequestParam("email") String email) {
         return super.getByEmail(email);
     }
-    @RequestMapping(value="/byNickName",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "/byNickName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByNickName(@RequestParam("nickName") String nickName) {
         return super.getByNickName(nickName);
     }

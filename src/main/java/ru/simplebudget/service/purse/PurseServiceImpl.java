@@ -8,7 +8,7 @@ import ru.simplebudget.repository.purse.PurseRepository;
 import java.util.List;
 
 
-@Service
+@Service("purseService")
 public class PurseServiceImpl implements PurseService {
 
     private final
@@ -25,22 +25,38 @@ public class PurseServiceImpl implements PurseService {
     }
 
     @Override
-    public Double getTotalAmount(Long userId) {
-
-        return repository.getTotalAmount(getAll(userId), userId);
-    }
-
-    @Override
     public Purse getById(Long id, Long userId) {
-        return repository.get(id, userId);
+        return repository.getById(id, userId);
     }
 
     @Override
     public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount, Long userId) {
-        repository.transferAmount(fromPurseId, toPurseId, transferAmount, userId);
+        Purse fromPurse = getById(fromPurseId, userId);
+        Purse toPurse = getById(toPurseId, userId);
+        fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
+        toPurse.setAmount(toPurse.getAmount() + transferAmount);
+        saveOrUpdate(fromPurse, userId);
+        saveOrUpdate(toPurse, userId);
     }
 
     @Override
+    public Purse saveOrUpdate(Purse purse, Long userId) {
+        return repository.save(purse, userId);
+    }
+    /*@Override
+    public Double getTotalAmount(Long userId) {
+        List<Purse> purses=getAll(userId);
+        Double totalAmount=0.0;
+        for (Purse p:purses
+             ) {
+            if (p.isActive()) totalAmount+=p.getAmount();
+        }
+        return totalAmount;
+    }*/
+
+
+
+    /*@Override
     public Purse addPurse(Purse purse, Long userId) {
         return repository.save(purse, userId);
     }
@@ -52,12 +68,10 @@ public class PurseServiceImpl implements PurseService {
         boolean active = purse.isActive();
         Double amount = purse.getAmount();
         repository.changeName(id, userId, description, amount, active);
-    }
+    }*/
 
     @Override
     public void delete(Long id, Long userId) {
         repository.deletePurse(id, userId);
     }
-
-
 }

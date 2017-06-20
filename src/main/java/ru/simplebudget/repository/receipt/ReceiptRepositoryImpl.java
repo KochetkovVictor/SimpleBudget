@@ -46,7 +46,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         receipt.setUser(em.getReference(User.class, userId));
         if (receipt.getId() == null) {
             em.persist(receipt);
-            purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, -receipt.getAmount());
+            //purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, -receipt.getAmount());
             return receipt;
         } else {
             return em.merge(receipt);
@@ -59,7 +59,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         Receipt receipt = get(id, userId);
         if (receipt != null && receipt.isActive()) {
             receipt.setActive(false);
-            purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, receipt.getAmount());
+            //purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, receipt.getAmount());
             //save(receipt, userId);
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaDelete<Receipt> cd = cb.createCriteriaDelete(Receipt.class);
@@ -138,15 +138,15 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
         if (!Objects.equals(oldAmount, changeReceipt.getAmount())) {
             receipt.setAmount(changeReceipt.getAmount());
             if (Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount() - oldAmount);
+                //purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount() - oldAmount);
             } else {
-                purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
+               // purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
+              //  purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
                 receipt.setPurse(changeReceipt.getPurse());
             }
         } else if (!Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
-            purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
-            purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
+          //  purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
+           // purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
             receipt.setPurse(changeReceipt.getPurse());
         }
         return em.merge(receipt);

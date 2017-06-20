@@ -37,22 +37,14 @@ public abstract class AbstractPurseController {
         service.delete(id, LoggedUser.id());
     }
 
-    void update(Purse purse) {
-        service.updatePurse(purse, LoggedUser.id());
-    }
-
-    void addPurse(Purse purse) {
-        purse.setId(null);
-        service.addPurse(purse, LoggedUser.id());
+    Purse saveOrUpdate(Purse purse) {
+        if (purse.getId() == 0)
+            purse.setId(null);
+        return service.saveOrUpdate(purse, LoggedUser.id());
     }
 
     void transferAmount(Long from, Long to, Double amount) {
 
         service.transferAmount(from, to, amount, LoggedUser.id());
     }
-
-    AmountWrapper getTotalAmount() {
-        return new AmountWrapper(service.getTotalAmount(LoggedUser.id()));
-    }
-
 }

@@ -60,12 +60,14 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean delete(Long id) {
         User user = getById(id);
         if (user != null && user.isEnabled()) {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
+            /*CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaDelete<User> cd = cb.createCriteriaDelete(User.class);
             Root<User> root = cd.from(User.class);
-            Predicate condition = cb.equal(root.get("id"), id);
+            Predicate condition = cb.equal(root.getById("id"), id);
             cd.where(condition);
-            em.createQuery(cd).executeUpdate();
+            em.createQuery(cd).executeUpdate();*/
+            user.setEnabled(false);
+            save(user);
             return true;
         }
         return false;
@@ -75,7 +77,7 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
-        Root<User> user = cq.from(User.class);
+        //Root<User> user = cq.from(User.class);
         return em.createQuery(cq).getResultList();
     }
 }

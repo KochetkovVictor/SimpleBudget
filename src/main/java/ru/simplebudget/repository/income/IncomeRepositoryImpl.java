@@ -107,15 +107,15 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         if (!Objects.equals(oldValue, changeIncome.getValue())) {
             income.setValue(changeIncome.getValue());
             if (Objects.equals(oldPurse.getId(), changeIncome.getPurse().getId())) {
-                purseRepository.addPurseAmount(changeIncome.getPurse().getId(), userId, changeIncome.getValue() - oldValue);
+               // purseRepository.addPurseAmount(changeIncome.getPurse().getId(), userId, changeIncome.getValue() - oldValue);
             } else {
-                purseRepository.addPurseAmount(oldPurse.getId(), userId, -oldValue);
-                purseRepository.addPurseAmount(changeIncome.getPurse().getId(), userId, changeIncome.getValue());
+            //    purseRepository.addPurseAmount(oldPurse.getId(), userId, -oldValue);
+            //    purseRepository.addPurseAmount(changeIncome.getPurse().getId(), userId, changeIncome.getValue());
                 income.setPurse(changeIncome.getPurse());
             }
         } else if (!Objects.equals(oldPurse.getId(), changeIncome.getPurse().getId())) {
-            purseRepository.addPurseAmount(oldPurse.getId(), userId, -oldValue);
-            purseRepository.addPurseAmount(changeIncome.getPurse().getId(), userId, changeIncome.getValue());
+        //    purseRepository.addPurseAmount(oldPurse.getId(), userId, -oldValue);
+        //    purseRepository.addPurseAmount(changeIncome.getPurse().getId(), userId, changeIncome.getValue());
             income.setPurse(changeIncome.getPurse());
         }
         return em.merge(income);
@@ -129,8 +129,8 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         Root<Income> root = cdIncome.from(Income.class);
         Path<User> user=root.get(Income_.user);
         cdIncome.where(cb.and(cb.equal(user.get("id"), userId),cb.equal(root.get("id"), id)));
-        purseRepository.addPurseAmount(getIncome(id, userId).getPurse().getId(), userId,
-                -getIncome(id, userId).getValue());
+       // purseRepository.addPurseAmount(getIncome(id, userId).getPurse().getId(), userId,
+    //            -getIncome(id, userId).getValue());
         this.em.createQuery(cdIncome).executeUpdate();
     }
 }
