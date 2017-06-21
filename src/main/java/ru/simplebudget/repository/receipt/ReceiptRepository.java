@@ -1,6 +1,5 @@
 package ru.simplebudget.repository.receipt;
 
-import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.out.Receipt;
 
 import java.time.LocalDate;
@@ -12,9 +11,9 @@ public interface ReceiptRepository {
 
     List<Receipt> getUserReceiptsByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime);
 
-    List<Receipt> getAllByShop(Long userId, Shop shop);
+    List<Receipt> getAllByShopId(Long userId, Long shopId);
 
-    List<Receipt> getAllByShopNet(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate);
+    List<Receipt> getAllByShopNetId(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate);
 
     List<Receipt> getAllByUser(Long userId);
 

@@ -43,19 +43,19 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public List<Receipt> getAllByShop(Long userId, Shop shop) {
+    public List<Receipt> getAllByShopId(Long userId, Long shopId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
         Root<Receipt> root = cq.from(Receipt.class);
         Path<Shop> shopPath = root.get(Receipt_.shop);
         Path<User> user = root.get(Receipt_.user);
-        Predicate condition = cb.and(cb.equal(user.get("id"), userId), cb.equal(shopPath.get("id"), shop.getId()));
+        Predicate condition = cb.and(cb.equal(user.get("id"), userId), cb.equal(shopPath.get("id"), shopId));
         cq.where(condition);
         return em.createQuery(cq).getResultList();
     }
 
     @Override
-    public List<Receipt> getAllByShopNet(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
+    public List<Receipt> getAllByShopNetId(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
         return em.createNamedQuery(Receipt.JOIN_SHOPNET_GET_BETWEEN_DATETIME, Receipt.class)
                 .setParameter("userId", userId)
                 .setParameter("shopNetId", shopNetId)

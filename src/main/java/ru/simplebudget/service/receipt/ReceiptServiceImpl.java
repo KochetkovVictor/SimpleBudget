@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ReceiptServiceImpl implements ReceiptService{
+public class ReceiptServiceImpl implements ReceiptService {
 
     private final ReceiptRepository receiptRepository;
 
@@ -19,30 +19,37 @@ public class ReceiptServiceImpl implements ReceiptService{
     }
 
     @Override
-    public List<Receipt> getAll(Long userId) {
-        return receiptRepository.getAllByUser(userId);
-    }
-
-    @Override
-    public Receipt getById(Long id, Long userId) {
+    public Receipt getUserReceiptById(Long id, Long userId) {
         return receiptRepository.getUserReceiptById(id, userId);
     }
 
     @Override
-    public List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime) {
-        return receiptRepository.getUserReceiptsByPeriod(userId, startDateTime,endDateTime);
+    public List<Receipt> getUserReceiptsByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime) {
+        return receiptRepository.getUserReceiptsByPeriod(userId, startDateTime, endDateTime);
     }
 
     @Override
-    public Receipt addReceipt(Receipt receipt, Long userId) {
+    public List<Receipt> getAllByUser(Long userId) {
+        return receiptRepository.getAllByUser(userId);
+    }
 
+    @Override
+    public List<Receipt> getAllByShopId(Long userId, Long shopId) {
+        return receiptRepository.getAllByShopId(userId, shopId);
+    }
+
+    @Override
+    public List<Receipt> getAllByShopNetId(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
+        return receiptRepository.getAllByShopNetId(userId, shopNetId, startDate, endDate);
+    }
+
+    @Override
+    public Receipt saveOrUpdate(Receipt receipt, Long userId) {
         return receiptRepository.saveOrUpdate(receipt, userId);
     }
 
-
-
     @Override
-    public void deleteReceipt(Long id, Long userId) {
-        receiptRepository.delete(id, userId);
+    public boolean delete(Long id, Long userId) {
+        return receiptRepository.delete(id, userId);
     }
 }

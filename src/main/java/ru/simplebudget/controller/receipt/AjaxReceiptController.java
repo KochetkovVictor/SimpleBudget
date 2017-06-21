@@ -9,6 +9,7 @@ import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
+import ru.simplebudget.service.user.UserService;
 
 import java.time.LocalDate;
 
@@ -19,16 +20,8 @@ import java.util.List;
 @RequestMapping(value = "/ajax/receipts")
 public class AjaxReceiptController extends AbstractReceiptController {
 
-    private final
-    ShopService shopService;
-    private final
-    PurseService purseService;
-
-    @Autowired
-    public AjaxReceiptController(ReceiptService service, ShopService shopService, PurseService purseService) {
-        super(service);
-        this.shopService = shopService;
-        this.purseService = purseService;
+    public AjaxReceiptController(ReceiptService receiptService, PurseService purseService, UserService userService) {
+        super(receiptService, purseService, userService);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -8,6 +8,7 @@ import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.income.IncomeService;
 import ru.simplebudget.service.purse.PurseService;
+import ru.simplebudget.service.shop.ShopService;
 import ru.simplebudget.service.user.UserService;
 import ru.simplebudget.utils.TimeUtil;
 
@@ -51,10 +52,10 @@ public abstract class AbstractIncomeController {
             income.setId(null);
 
         } else {
-            Income oldIncome=getById(income.getId());
+            Income oldIncome = getById(income.getId());
             Purse oldPurse = oldIncome.getPurse();
             if (!oldPurse.getId().equals(purseId)) {
-                oldPurse.setAmount(oldPurse.getAmount()-oldIncome.getValue());
+                oldPurse.setAmount(oldPurse.getAmount() - oldIncome.getValue());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
             }
         }
