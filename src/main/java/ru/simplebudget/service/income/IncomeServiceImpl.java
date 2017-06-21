@@ -22,38 +22,30 @@ public class IncomeServiceImpl implements IncomeService {
         this.incomeRepository = incomeRepository;
     }
 
-
-    @Override
-    @Transactional
-    public Income addIncome(Income income, Long userId) {
-        return incomeRepository.addIncome(income, userId, income.getPurse().getId());
-    }
-
-    @Override
-    public List<Income> getIncomesPerAPeriod(Long userId, LocalDate startDate, LocalDate endDate) {
-        return incomeRepository.getIncomesPerAPeriod(startDate, endDate, userId);
-    }
-
     @Override
     public List<Income> getAll(Long userId) {
-        return incomeRepository.getAll(userId);
+        return incomeRepository.getAllByUser(userId);
     }
 
     @Override
-    public Income getById(Long id, Long userId) {
-        return incomeRepository.getIncome(id, userId);
+    public Income getUserIncomeById(Long id, Long userId) {
+        return incomeRepository.getUserIncomeById(id, userId);
+    }
+
+    @Override
+    public List<Income> getUserIncomesPerAPeriod(Long userId, LocalDate startDate, LocalDate endDate) {
+        return incomeRepository.getUserIncomesPerAPeriod(startDate, endDate, userId);
     }
 
     @Override
     @Transactional
-    public Income changeIncome(Income income, Long userId) {
-
-        return incomeRepository.changeIncome(income, userId);
+    public Income saveOrUpdate(Income income, Long userId) {
+        return incomeRepository.saveOrUpdate(income, userId);
     }
 
     @Override
     @Transactional
-    public void deleteIncome(Long id, Long userId) {
+    public void delete(Long id, Long userId) {
         incomeRepository.delete(id, userId);
     }
 

@@ -3,6 +3,7 @@ package ru.simplebudget.model.common;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import ru.simplebudget.model.in.Income;
+import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
@@ -38,11 +39,23 @@ public class Purse {
     private
     User user;
 
-
     @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
     private
     Set<Income> incomes;
+
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    private
+    Set<Receipt> receipts;
+
+    public Set<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(Set<Receipt> receipts) {
+        this.receipts = receipts;
+    }
 
     public Set<Income> getIncomes() {
         return incomes;
@@ -70,9 +83,9 @@ public class Purse {
     }
 
     public Purse() {
-        this.id=null;
-        this.amount=0.0;
-        this.active=true;
+        this.id = null;
+        this.amount = 0.0;
+        this.active = true;
     }
 
     public Purse(Long id) {
@@ -103,6 +116,12 @@ public class Purse {
     }
 
     public Double getAmount() {
+       /* for (Income i : incomes) {
+            amount += i.getValue();
+        }
+        for (Receipt r : receipts) {
+            amount -= r.getAmount();
+        }*/
         return amount;
     }
 

@@ -79,7 +79,7 @@ public class PurseRepositoryImpl implements PurseRepository {
 
     /*@Override
     public Double getPurseAmount(Long id, Long userId) {
-        Purse purse = getById(id,userId);
+        Purse purse = getUserIncomeById(id,userId);
         return purse.getAmount();
     }
 
@@ -87,7 +87,7 @@ public class PurseRepositoryImpl implements PurseRepository {
     @Transactional
     @Override
     public void addPurseAmount(Long id, Long userId, Double amount) {
-        Purse purse = getById(id,userId);
+        Purse purse = getUserIncomeById(id,userId);
         purse.setAmount(purse.getAmount() + amount);
         em.merge(purse);
     }
@@ -95,7 +95,7 @@ public class PurseRepositoryImpl implements PurseRepository {
     @Transactional
     @Override
     public void setPurseAmount(Long id, Long userId, Double amount) {
-        Purse purse = getById(id,userId);
+        Purse purse = getUserIncomeById(id,userId);
         purse.setAmount(amount);
         em.merge(purse);
     }
@@ -116,7 +116,7 @@ public class PurseRepositoryImpl implements PurseRepository {
    /* @Transactional
     @Override
     public boolean changeName(Long id, Long userId, String newDescription, Double amount, boolean active) {
-        Purse purse = getById(id, userId);
+        Purse purse = getUserIncomeById(id, userId);
         if (purse != null) {
             purse.setDescription(newDescription);
             purse.setActive(active);
@@ -132,8 +132,8 @@ public class PurseRepositoryImpl implements PurseRepository {
     /*@Override
     @Transactional
     public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount, Long userId) {
-        Purse fromPurse = getById(fromPurseId, userId);
-        Purse toPurse= getById(toPurseId, userId);
+        Purse fromPurse = getUserIncomeById(fromPurseId, userId);
+        Purse toPurse= getUserIncomeById(toPurseId, userId);
         if (fromPurse.getAmount() - transferAmount < 0 || fromPurse.getAmount() == 0)
             throw new NotEnoughMoneyException("Not enough money");
         else {

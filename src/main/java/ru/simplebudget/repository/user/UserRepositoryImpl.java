@@ -63,7 +63,7 @@ public class UserRepositoryImpl implements UserRepository {
             /*CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaDelete<User> cd = cb.createCriteriaDelete(User.class);
             Root<User> root = cd.from(User.class);
-            Predicate condition = cb.equal(root.getById("id"), id);
+            Predicate condition = cb.equal(root.getUserIncomeById("id"), id);
             cd.where(condition);
             em.createQuery(cd).executeUpdate();*/
             user.setEnabled(false);
