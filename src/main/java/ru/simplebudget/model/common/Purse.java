@@ -116,12 +116,6 @@ public class Purse {
     }
 
     public Double getAmount() {
-       /* for (Income i : incomes) {
-            amount += i.getValue();
-        }
-        for (Receipt r : receipts) {
-            amount -= r.getAmount();
-        }*/
         return amount;
     }
 

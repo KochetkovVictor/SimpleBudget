@@ -42,7 +42,5 @@ public abstract class AbstractReceiptController {
                 service.getByPeriod(LoggedUser.id(), startDate == null ? TimeUtil.MIN_DATE : startDate, endDate == null ? TimeUtil.MAX_DATE : endDate);
     }
 
-    void updateReceipt(Receipt receipt) {
-        service.changeReceipt(receipt, LoggedUser.id());
-    }
+
 }

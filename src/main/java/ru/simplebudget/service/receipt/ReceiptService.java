@@ -12,6 +12,6 @@ public interface ReceiptService {
     Receipt getById(Long id, Long userId);
     List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime);
     Receipt addReceipt(Receipt receipt, Long userId);
-    Receipt changeReceipt(Receipt receipt, Long userId);
+
     void deleteReceipt(Long id, Long userId);
 }

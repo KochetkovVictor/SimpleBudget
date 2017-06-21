@@ -49,7 +49,7 @@ public class Receipt {
     boolean active;
 
     @JoinColumn(name="purseId")
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private
     Purse purse;
     public Purse getPurse() {
@@ -150,6 +150,7 @@ public class Receipt {
                 ", receiptDate=" + receiptDate +
                 ", shop=" + shop +
                 ", active=" + active +
+                ", purse=" +purse+
                 '}';
     }
 }

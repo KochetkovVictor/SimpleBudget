@@ -64,11 +64,13 @@ public class AjaxReceiptController extends AbstractReceiptController {
         receipt.setAmount(amount==null? 0.0:amount);
         receipt.setShop(shopService.getById(shopId));
         receipt.setPurse(purseService.getById(purseId, LoggedUser.id()));
-        if (receipt.getId() == 0L) {
+
+        super.addReceipt(receipt);
+        /*if (receipt.getId() == 0L) {
             receipt.setActive(true);
             super.addReceipt(receipt);
         } else {
             super.updateReceipt(receipt);
-        }
+        }*/
     }
 }

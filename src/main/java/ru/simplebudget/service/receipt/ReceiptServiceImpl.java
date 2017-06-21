@@ -20,29 +20,26 @@ public class ReceiptServiceImpl implements ReceiptService{
 
     @Override
     public List<Receipt> getAll(Long userId) {
-        return receiptRepository.getAll(userId);
+        return receiptRepository.getAllByUser(userId);
     }
 
     @Override
     public Receipt getById(Long id, Long userId) {
-        return receiptRepository.get(id, userId);
+        return receiptRepository.getUserReceiptById(id, userId);
     }
 
     @Override
     public List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime) {
-        return receiptRepository.getByPeriod(userId, startDateTime,endDateTime);
+        return receiptRepository.getUserReceiptsByPeriod(userId, startDateTime,endDateTime);
     }
 
     @Override
     public Receipt addReceipt(Receipt receipt, Long userId) {
 
-        return receiptRepository.save(receipt, userId);
+        return receiptRepository.saveOrUpdate(receipt, userId);
     }
 
-    @Override
-    public Receipt changeReceipt(Receipt receipt, Long userId) {
-        return receiptRepository.changeReceipt(receipt, userId);
-    }
+
 
     @Override
     public void deleteReceipt(Long id, Long userId) {
