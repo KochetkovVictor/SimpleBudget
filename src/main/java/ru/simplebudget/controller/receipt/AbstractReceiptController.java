@@ -2,8 +2,11 @@ package ru.simplebudget.controller.receipt;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.simplebudget.model.common.Purse;
+import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.model.user.LoggedUser;
+import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
@@ -32,26 +35,51 @@ public abstract class AbstractReceiptController {
     }
 
     public List<Receipt> getAll() {
-        return receiptService.getAll(LoggedUser.id());
+        return receiptService.getAllByUser(LoggedUser.id());
     }
 
-    Receipt getReceipt(Long id) {
-        return receiptService.getById(id, LoggedUser.id());
+    Receipt getById(Long id) {
+        return receiptService.getUserReceiptById(id, LoggedUser.id());
+    }
+    public List<Receipt> getByPeriod(LocalDate startDate, LocalDate endDate) {
+        return receiptService.getUserReceiptsByPeriod(LoggedUser.id(), startDate == null ? TimeUtil.MIN_DATE : startDate, endDate == null ? TimeUtil.MAX_DATE : endDate);
+    }
+    public List<Receipt> getAllByShopId(Long shopId)
+    {
+        return receiptService.getAllByShopId(LoggedUser.id(), shopId);
     }
 
     public void deleteReceipt(Long id) {
-        receiptService.deleteReceipt(id, LoggedUser.id());
+        receiptService.delete(id, LoggedUser.id());
     }
 
-    void addReceipt(Receipt receipt) {
-        receipt.setId(null);
-        receiptService.addReceipt(receipt, LoggedUser.id());
+    public Receipt saveOrUpdate(Receipt receipt, Long purseId, Long shopId){
+        User user = userService.getById(LoggedUser.id());
+        Purse purse = purseService.getById(purseId, LoggedUser.id());
+        Shop shop = shopService.getById(shopId);
+
+        if (receipt.getId() == 0) {
+            receipt.setId(null);
+
+        } else {
+            Receipt oldReceipt = getById(receipt.getId());
+            Purse oldPurse = oldReceipt.getPurse();
+            if (!oldPurse.getId().equals(purseId)) {
+                oldPurse.setAmount(oldPurse.getAmount() + oldReceipt.getAmount());
+                purseService.saveOrUpdate(oldPurse, LoggedUser.id());
+            }
+        }
+        receipt.setUser(user);
+        receipt.setPurse(purse);
+        receipt.setShop(shop);
+        purse.setAmount(purse.getAmount() - receipt.getAmount());
+        purse.getReceipts().add(receipt);
+        purseService.saveOrUpdate(purse, LoggedUser.id());
+
+        return receipt;
     }
 
-    public List<Receipt> getByPeriod(LocalDate startDate, LocalDate endDate) {
-        return
-                receiptService.getByPeriod(LoggedUser.id(), startDate == null ? TimeUtil.MIN_DATE : startDate, endDate == null ? TimeUtil.MAX_DATE : endDate);
-    }
+
 
 
 }

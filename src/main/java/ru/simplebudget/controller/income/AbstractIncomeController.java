@@ -47,7 +47,6 @@ public abstract class AbstractIncomeController {
         User user = userService.getById(LoggedUser.id());
         Purse purse = purseService.getById(purseId, LoggedUser.id());
 
-
         if (income.getId() == 0) {
             income.setId(null);
 
@@ -61,6 +60,7 @@ public abstract class AbstractIncomeController {
         }
         income.setUser(user);
         income.setPurse(purse);
+        income.setDescription(income.getDescription());
         purse.setAmount(purse.getAmount() + income.getValue());
         purse.getIncomes().add(income);
         purseService.saveOrUpdate(purse, LoggedUser.id());
@@ -71,6 +71,4 @@ public abstract class AbstractIncomeController {
     public void delete(Long id) {
         incomeService.delete(id, LoggedUser.id());
     }
-
-
 }

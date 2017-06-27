@@ -43,18 +43,19 @@ public class AjaxIncomeController extends AbstractIncomeController {
         return super.getByPeriod(startDate, endDate);
     }
 
-   @RequestMapping(method = RequestMethod.POST)
-   public String saveOrUpdate(@Valid Income income, BindingResult result, SessionStatus status, HttpServletRequest request) {
-       if (!result.hasErrors()) {
-           try {
-               super.saveOrUpdate(income, Long.valueOf(request.getParameter("purseid")));
-               status.setComplete();
-           } catch (DataIntegrityViolationException ex) {
-               result.rejectValue("description", "exception.duplicate_description");
-           }
-       }
-       return "redirect:incomes";
-   }
+    @RequestMapping(method = RequestMethod.POST)
+    public String saveOrUpdate(@Valid Income income, BindingResult result, SessionStatus status, HttpServletRequest request) {
+        if (!result.hasErrors()) {
+            try {
+                super.saveOrUpdate(income, Long.valueOf(request.getParameter("purseid")));
+                status.setComplete();
+            } catch (DataIntegrityViolationException ex) {
+                result.rejectValue("description", "exception.duplicate_description");
+            }
+        }
+        return "incomes";
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
         super.delete(id);

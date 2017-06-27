@@ -101,7 +101,6 @@
                         <label for="purse" class="control-label col-xs-3">Purse</label>
 
                         <div class="col-xs-9">
-                            <%--<input type="text" class="form-control" id="purse" name="purse.id">--%>
                             <select required id="purse" name="editedPurse">
                                 <option selected disabled>Choose a purse</option>
                                 <c:forEach items="${purseList}" var="purse">

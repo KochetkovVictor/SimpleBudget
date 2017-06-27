@@ -39,11 +39,12 @@ public class Receipt {
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
     private
     LocalDate receiptDate;
-    @ManyToOne
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name="shopid")
     private
-
     Shop shop;
+
     @Column(name= "active")
     private
     boolean active;
@@ -52,11 +53,9 @@ public class Receipt {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private
     Purse purse;
-    public Purse getPurse() {
-        return purse;
-    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private
     User user;
@@ -64,9 +63,12 @@ public class Receipt {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Purse getPurse() {
+        return purse;
     }
     public void setPurse(Purse purse) {
         this.purse = purse;
@@ -77,7 +79,13 @@ public class Receipt {
     @OneToMany(mappedBy = "id", fetch=FetchType.EAGER)
     @JoinColumn(name="product")
     private List<Product> products;*/
+/* public List<Product> getProducts() {
+        return products;
+    }
 
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }*/
     public boolean isActive() {
         return active;
     }
@@ -93,19 +101,6 @@ public class Receipt {
     public void setShop(Shop shop) {
         this.shop = shop;
     }
-
-
-    public Receipt() {
-        this.receiptDate =LocalDateTime.now().toLocalDate();
-    }
-
-   /* public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }*/
 
     public Long getId() {
         return id;
@@ -132,6 +127,10 @@ public class Receipt {
     }
 
     public Receipt(Long id){this.id=id;}
+    public Receipt() {
+        this.receiptDate =LocalDateTime.now().toLocalDate();
+        this.active=true;
+    }
 
     public Receipt(Long id, Shop shop, LocalDate receiptDate, Double amount,Purse purse, boolean active)
     {
