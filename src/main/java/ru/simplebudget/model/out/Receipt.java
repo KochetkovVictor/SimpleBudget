@@ -55,7 +55,7 @@ public class Receipt {
     Purse purse;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private
     User user;
@@ -151,5 +151,20 @@ public class Receipt {
                 ", active=" + active +
                 ", purse=" +purse+
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Receipt receipt = (Receipt) o;
+
+        return id.equals(receipt.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id==null ? 0:id.hashCode();
     }
 }

@@ -31,7 +31,7 @@ public abstract class AbstractReceiptController {
         this.receiptService = receiptService;
         this.purseService = purseService;
         this.userService = userService;
-        this.shopService=shopService;
+        this.shopService = shopService;
     }
 
     public List<Receipt> getAll() {
@@ -41,45 +41,53 @@ public abstract class AbstractReceiptController {
     Receipt getById(Long id) {
         return receiptService.getUserReceiptById(id, LoggedUser.id());
     }
+
     public List<Receipt> getByPeriod(LocalDate startDate, LocalDate endDate) {
         return receiptService.getUserReceiptsByPeriod(LoggedUser.id(), startDate == null ? TimeUtil.MIN_DATE : startDate, endDate == null ? TimeUtil.MAX_DATE : endDate);
     }
-    public List<Receipt> getAllByShopId(Long shopId)
-    {
+
+    public List<Receipt> getAllByShopId(Long shopId) {
         return receiptService.getAllByShopId(LoggedUser.id(), shopId);
     }
 
     public void deleteReceipt(Long id) {
-        receiptService.delete(id, LoggedUser.id());
+        Receipt receipt = getById(id);
+        Purse purse = receipt.getPurse();
+        purse.setAmount(purse.getAmount() + receipt.getAmount());
+        purse.getReceipts().remove(receipt);
+        purseService.saveOrUpdate(purse, LoggedUser.id());
     }
 
-    public Receipt saveOrUpdate(Receipt receipt, Long purseId, Long shopId){
+    public Receipt saveOrUpdate(Receipt receipt, Long purseId, Long shopId) {
         User user = userService.getById(LoggedUser.id());
         Purse purse = purseService.getById(purseId, LoggedUser.id());
         Shop shop = shopService.getById(shopId);
 
         if (receipt.getId() == 0) {
             receipt.setId(null);
+            purse.setAmount(purse.getAmount() - receipt.getAmount());
 
         } else {
             Receipt oldReceipt = getById(receipt.getId());
             Purse oldPurse = oldReceipt.getPurse();
             if (!oldPurse.getId().equals(purseId)) {
+                oldPurse.getReceipts().remove(oldReceipt);
                 oldPurse.setAmount(oldPurse.getAmount() + oldReceipt.getAmount());
+                purse.setAmount(purse.getAmount() - oldReceipt.getAmount());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
+            } else {
+                purse.getReceipts().remove(oldReceipt);
+                purse.setAmount(purse.getAmount() + oldReceipt.getAmount() - receipt.getAmount());
             }
         }
         receipt.setUser(user);
-        receipt.setPurse(purse);
         receipt.setShop(shop);
-        purse.setAmount(purse.getAmount() - receipt.getAmount());
         purse.getReceipts().add(receipt);
+        receipt.setPurse(purse);
         purseService.saveOrUpdate(purse, LoggedUser.id());
 
         return receipt;
     }
-
-
 
 
 }
