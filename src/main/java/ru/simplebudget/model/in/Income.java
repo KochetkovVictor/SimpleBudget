@@ -111,4 +111,19 @@ public class Income {
                 /*", user=" + user +*/
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Income income = (Income) o;
+
+        return id.equals(income.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id==null ? 0:id.hashCode();
+    }
 }

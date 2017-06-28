@@ -39,12 +39,12 @@ public class Purse {
     private
     User user;
 
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JsonIgnore
     private
     Set<Income> incomes;
 
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JsonIgnore
     private
     Set<Receipt> receipts;
@@ -126,5 +126,20 @@ public class Purse {
     @Override
     public String toString() {
         return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Purse purse = (Purse) o;
+
+        return id.equals(purse.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id==null ? 0:id.hashCode();
     }
 }

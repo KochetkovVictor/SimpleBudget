@@ -15,6 +15,8 @@ import ru.simplebudget.utils.TimeUtil;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public abstract class AbstractIncomeController {
 
@@ -46,29 +48,39 @@ public abstract class AbstractIncomeController {
     Income saveOrUpdate(Income income, Long purseId) {
         User user = userService.getById(LoggedUser.id());
         Purse purse = purseService.getById(purseId, LoggedUser.id());
+        Set<Income> purseIncomes = purse.getIncomes();
 
         if (income.getId() == 0) {
             income.setId(null);
-
+            purse.setAmount(purse.getAmount() + income.getValue());
         } else {
+
             Income oldIncome = getById(income.getId());
             Purse oldPurse = oldIncome.getPurse();
-            if (!oldPurse.getId().equals(purseId)) {
+            if (!oldPurse.equals(purse)) {
+                oldPurse.getIncomes().remove(income);
                 oldPurse.setAmount(oldPurse.getAmount() - oldIncome.getValue());
+                purse.setAmount(purse.getAmount()+income.getValue());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
+            } else {
+                purseIncomes.remove(oldIncome);
+                purse.setAmount(purse.getAmount() - oldIncome.getValue() + income.getValue());
             }
         }
         income.setUser(user);
-        income.setPurse(purse);
         income.setDescription(income.getDescription());
-        purse.setAmount(purse.getAmount() + income.getValue());
-        purse.getIncomes().add(income);
+        purseIncomes.add(income);
+        income.setPurse(purse);
         purseService.saveOrUpdate(purse, LoggedUser.id());
 
         return income;
     }
 
     public void delete(Long id) {
-        incomeService.delete(id, LoggedUser.id());
+        Income income=getById(id);
+        Purse purse=income.getPurse();
+        purse.setAmount(purse.getAmount()-income.getValue());
+        purse.getIncomes().remove(income);
+        purseService.saveOrUpdate(purse, LoggedUser.id());
     }
 }
