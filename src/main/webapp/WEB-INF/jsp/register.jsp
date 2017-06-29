@@ -13,10 +13,11 @@
     <div class="container">
         <div class="shadow">
             <h2>${register ? 'Register new' : user.nickName.concat(' profile')}</h2>
-            <%--<jsp:useBean id="user" class="ru.simplebudget.model.user.User" scope="request"/>--%>
 
             <div class="view-box">
-                <form:form method="post" class="form-horizontal" role="form" id="register">
+                <form:form method="post" class="form-horizontal" role="form" id="register"
+                           modelAttribute="user" action="${register ? 'register' : 'profile'}" charset="utf-8"
+                           accept-charset="UTF-8">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="userFirstName">First Name:</label>
 

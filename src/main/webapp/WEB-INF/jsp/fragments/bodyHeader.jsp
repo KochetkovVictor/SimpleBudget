@@ -6,8 +6,6 @@
 
 <script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/panel.js"></script>
-<script type="text/javascript" src="resources/js/tabSlideOut/jquery.tabSlideOut.v.1.3.katowulf.js"></script>
 <sec:authorize access="isAuthenticated()">
     <div id="panel">
         <div id="hidden_panel">
@@ -15,7 +13,7 @@
                 <li><a href="${pageContext.request.contextPath}/purses"><fmt:message key="purses.title"/></a></li>
                 <li><a href="${pageContext.request.contextPath}/incomes"><fmt:message key="incomes.title"/></a></li>
                 <li><a href="${pageContext.request.contextPath}/receipts"><fmt:message key="receipts.title"/></a></li>
-                <li><a href="${pageContext.request.contextPath}/profile"><fmt:message key="profile.title"/></a></li>
+               <%-- <li><a href="${pageContext.request.contextPath}/profile"><fmt:message key="profile.title"/></a></li>--%>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li><a href="${pageContext.request.contextPath}/users"><fmt:message key="users.title"/></a></li>
                 </sec:authorize>
@@ -29,6 +27,7 @@
         <form:form class="navbar-form" action="logout" method="post">
             <sec:authorize access="isAuthenticated()">
                 <div class="nav navbar-nav navbar-right">
+                    <a class="btn btn-info" role="button" href="profile">${user.nickName} profile</a>
                     <input type="submit" class="btn btn-primary" value="<spring:message code="app.logout"/>">
                 </div>
             </sec:authorize>

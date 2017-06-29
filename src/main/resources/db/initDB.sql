@@ -36,7 +36,8 @@ CREATE TABLE users(
   register TIMESTAMP DEFAULT now(),
   enabled BOOLEAN DEFAULT TRUE
 );
-CREATE UNIQUE INDEX users_unique_email_nickname_index ON users (nickname, email);
+CREATE UNIQUE INDEX user_unique_nickName_index on users (nickname);
+CREATE UNIQUE INDEX users_unique_email_index ON users (email);
 
 CREATE TABLE user_roles
 (

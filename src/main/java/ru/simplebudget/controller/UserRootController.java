@@ -1,6 +1,5 @@
 package ru.simplebudget.controller;
 
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.simplebudget.controller.user.AbstractUserController;
+import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.user.UserService;
 
@@ -24,23 +24,22 @@ public class UserRootController extends AbstractUserController{
     public String profile() {
         return "register";
     }
-/*
+
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String updateProfile(@Valid User user, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
                 user.setId(LoggedUser.id());
                 super.saveOrUpdate(user);
-                LoggedUser.getUserIncomeById().update(user);
+                LoggedUser.get().update(user);
                 status.setComplete();
-                return "redirect:meals";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("email", "exception.duplicate_email");
             }
         }
-        return "register";
+        return "purses";
     }
-*/
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
         model.addAttribute("user", new User());
@@ -50,6 +49,7 @@ public class UserRootController extends AbstractUserController{
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
+        System.out.println("**************************" + user);
         if (!result.hasErrors()) {
             try {
                 super.saveOrUpdate(user);
@@ -60,6 +60,6 @@ public class UserRootController extends AbstractUserController{
             }
         }
         model.addAttribute("register", true);
-        return "register";
+        return "purses";
     }
 }

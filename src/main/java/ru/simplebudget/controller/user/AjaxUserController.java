@@ -34,8 +34,8 @@ public class AjaxUserController extends AbstractUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveOrUpdate(User user, HttpServletRequest request) {
-        System.out.println(request.getParameter("nickname"));
+    public void saveOrUpdate(User user) {
+        System.out.println("******************************** "+user);
         if (user.getId() == 0) {
             user.setId(null);
         }

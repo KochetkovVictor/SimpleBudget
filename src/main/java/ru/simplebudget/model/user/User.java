@@ -149,9 +149,9 @@ public class User {
     public User() {
         this.enabled=true;
         this.registered=LocalDate.now();
-        Set<Role> roles=new HashSet<>();
+        Set<Role> roles=
+        this.roles=new HashSet<>();
         roles.add(Role.ROLE_USER);
-        this.roles=roles;
     }
 
     @Override
