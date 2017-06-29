@@ -8,14 +8,12 @@ import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.income.IncomeService;
 import ru.simplebudget.service.purse.PurseService;
-import ru.simplebudget.service.shop.ShopService;
 import ru.simplebudget.service.user.UserService;
 import ru.simplebudget.utils.TimeUtil;
 
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public abstract class AbstractIncomeController {

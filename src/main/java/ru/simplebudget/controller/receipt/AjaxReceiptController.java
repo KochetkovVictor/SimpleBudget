@@ -5,9 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.out.Receipt;
-import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
@@ -61,20 +59,4 @@ public class AjaxReceiptController extends AbstractReceiptController {
         }
         return "redirect:receipts";
     }
-
-    /*@RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestParam(value = "editedShop") Long shopId,
-                               @RequestParam(value="receiptDate")LocalDate receiptDate,
-                               @RequestParam(value="amount")Double amount,
-                               @RequestParam(value="editedPurse") Long purseId,
-                               @RequestParam(value="id")Long id) {
-        Receipt receipt=new Receipt();
-        receipt.setId(id);
-        receipt.setReceiptDate(receiptDate==null? LocalDate.now():receiptDate);
-        receipt.setAmount(amount==null? 0.0:amount);
-        receipt.setShop(shopService.getById(shopId));
-        receipt.setPurse(purseService.getById(purseId, LoggedUser.id()));
-
-        super.addReceipt(receipt);
-    }*/
 }

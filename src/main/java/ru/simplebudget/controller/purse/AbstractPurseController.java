@@ -1,18 +1,9 @@
 package ru.simplebudget.controller.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
 import ru.simplebudget.model.common.Purse;
-import ru.simplebudget.model.to.AmountWrapper;
 import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
-
-import javax.validation.Valid;
 import java.util.List;
 
 
