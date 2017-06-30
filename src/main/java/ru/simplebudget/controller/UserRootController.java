@@ -27,6 +27,7 @@ public class UserRootController extends AbstractUserController{
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String updateProfile(@Valid User user, BindingResult result, SessionStatus status) {
+        System.out.println("************************ UPDATE PROFILE");
         if (!result.hasErrors()) {
             try {
                 user.setId(LoggedUser.id());
@@ -49,7 +50,6 @@ public class UserRootController extends AbstractUserController{
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
-        System.out.println("**************************" + user);
         if (!result.hasErrors()) {
             try {
                 super.saveOrUpdate(user);

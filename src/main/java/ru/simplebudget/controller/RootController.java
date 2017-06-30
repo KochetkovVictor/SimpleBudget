@@ -55,11 +55,6 @@ public class RootController{
         return "receipts";
     }
 
-    @RequestMapping("/amount")
-    public String amount() {
-        return "amount";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model,
                         @RequestParam(value = "error", required = false) boolean error,

@@ -2,11 +2,11 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<jsp:include page="fragments/head.jsp"/>
+<jsp:include page="../fragments/head.jsp"/>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="../fragments/bodyHeader.jsp"/>
 </body>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/>
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
