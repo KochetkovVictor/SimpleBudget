@@ -33,14 +33,13 @@ public class AjaxUserController extends AbstractUserController {
         return super.getById(id);
     }
 
-    /*@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void saveOrUpdate(User user) {
-        System.out.println("******************************** AJAX UPDATE "+user);
         if (user.getId() == 0) {
             user.setId(null);
         }
         super.saveOrUpdate(user);
-    }*/
+    }
 
     @RequestMapping(value = "/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByEmail(@RequestParam("email") String email) {

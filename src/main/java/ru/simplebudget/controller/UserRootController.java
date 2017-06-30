@@ -27,10 +27,10 @@ public class UserRootController extends AbstractUserController{
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String updateProfile(@Valid User user, BindingResult result, SessionStatus status) {
-        System.out.println("************************ UPDATE PROFILE");
         if (!result.hasErrors()) {
             try {
                 user.setId(LoggedUser.id());
+                user.setEmail(user.getEmail().toLowerCase());
                 super.saveOrUpdate(user);
                 LoggedUser.get().update(user);
                 status.setComplete();
@@ -52,6 +52,7 @@ public class UserRootController extends AbstractUserController{
     public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
         if (!result.hasErrors()) {
             try {
+                user.setEmail(user.getEmail().toLowerCase());
                 super.saveOrUpdate(user);
                 status.setComplete();
                 return "redirect:login?message=app.registered";
@@ -60,6 +61,6 @@ public class UserRootController extends AbstractUserController{
             }
         }
         model.addAttribute("register", true);
-        return "purses";
+        return "register";
     }
 }

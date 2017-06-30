@@ -7,14 +7,15 @@
 
 <html>
 <jsp:include page="fragments/head.jsp"/>
-
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
+<link rel="stylesheet" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css">
 
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h2>${register ? 'Register new' : user.nickName.concat(' profile')}</h2>
+            <c:set var="userName">${!empty(user.lastName) && !empty(user.firstName) ? user.lastName.concat(" ").concat(user.firstName):user.nickName}</c:set>
+            <h2>${register ? 'Register new' : userName.concat(' profile')}</h2>
 
             <div class="view-box">
                 <form:form modelAttribute="user" class="form-horizontal" method="post"
@@ -23,11 +24,10 @@
 
                     <myTag:inputField label="First Name:" name="firstName"/>
                     <myTag:inputField label="Last Name:" name="lastName"/>
-                    <myTag:inputField label="Date of Birth:" name="dateOfBirth" id="userDOB"/>
+                    <myTag:inputField label="Date of Birth:" name="dateOfBirth"/>
                     <myTag:inputField label="Email:" name="email"/>
                     <myTag:inputField label="NickName:" name="nickName"/>
                     <myTag:inputField label="Password" name="password" inputType="password"/>
-
 
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
@@ -39,3 +39,7 @@
         </div>
     </div>
 </div>
+</body>
+<script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript" src="resources/js/userregister.js"></script>
+</html>

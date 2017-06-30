@@ -5,7 +5,6 @@
 <%@ attribute name="name" required="true" description="Name of corresponding property in bean object" %>
 <%@ attribute name="label" required="true" description="Field label" %>
 <%@ attribute name="inputType" required="false" description="Input type" %>
-<%@ attribute name="id" required="false" description="Input id" %>
 
 <spring:bind path="${name}">
     <c:set var="cssGroup" value="form-group ${status.error ? 'error' : '' }"/>

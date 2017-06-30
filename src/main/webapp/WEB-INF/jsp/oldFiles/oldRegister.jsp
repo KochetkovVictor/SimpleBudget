@@ -5,9 +5,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
-<jsp:include page="fragments/head.jsp"/>
+<jsp:include page="../fragments/head.jsp"/>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="../fragments/bodyHeader.jsp"/>
 <link rel="stylesheet" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css">
 <div class="jumbotron">
     <div class="container">
@@ -64,10 +64,11 @@
             </div>
         </div>
     </div>
-    <jsp:include page="fragments/footer.jsp"/>
+    <jsp:include page="../fragments/footer.jsp"/>
 </body>
 <script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/userregister.js"></script>
 </html>
+
 
 

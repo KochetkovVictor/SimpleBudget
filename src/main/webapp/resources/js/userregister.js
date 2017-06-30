@@ -1,5 +1,5 @@
 var ajaxUrl='ajax/users';
-$('#userDOB').datetimepicker({
+$('#dateOfBirth').datetimepicker({
     timepicker: false,
     format: 'Y-m-d',
     lang: 'ru',
