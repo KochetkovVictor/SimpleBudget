@@ -6,6 +6,7 @@ import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -23,8 +24,13 @@ public class Income {
     Long id;
 
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
+    @NotNull
     private LocalDate incomeDate;
+
+    @NotNull
     private Double value;
+
+    @NotNull
     private String description;
 
     @JoinColumn(name = "purseId")

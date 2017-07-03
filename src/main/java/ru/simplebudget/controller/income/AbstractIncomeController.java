@@ -48,17 +48,16 @@ public abstract class AbstractIncomeController {
         Purse purse = purseService.getById(purseId, LoggedUser.id());
         Set<Income> purseIncomes = purse.getIncomes();
 
-        if (income.getId() == 0) {
+        if (income.getId() == 0) { //save new Income
             income.setId(null);
             purse.setAmount(purse.getAmount() + income.getValue());
-        } else {
+        } else {//update an existing Income
 
             Income oldIncome = getById(income.getId());
             Purse oldPurse = oldIncome.getPurse();
             if (!oldPurse.equals(purse)) {
-                oldPurse.getIncomes().remove(income);
                 oldPurse.setAmount(oldPurse.getAmount() - oldIncome.getValue());
-                purse.setAmount(purse.getAmount()+income.getValue());
+                purse.setAmount(purse.getAmount() + income.getValue());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
             } else {
                 purseIncomes.remove(oldIncome);
@@ -68,17 +67,17 @@ public abstract class AbstractIncomeController {
         income.setUser(user);
         income.setDescription(income.getDescription());
         purseIncomes.add(income);
+        purse.getIncomes().addAll(purseIncomes);
         income.setPurse(purse);
         purseService.saveOrUpdate(purse, LoggedUser.id());
-
         return income;
     }
 
     public void delete(Long id) {
-        Income income=getById(id);
-        Purse purse=income.getPurse();
-        purse.setAmount(purse.getAmount()-income.getValue());
-        purse.getIncomes().remove(income);
+        Income income = getById(id);
+        Purse purse = income.getPurse();
+        incomeService.delete(id,LoggedUser.id());
+        purse.setAmount(purse.getAmount() - income.getValue());
         purseService.saveOrUpdate(purse, LoggedUser.id());
     }
 }

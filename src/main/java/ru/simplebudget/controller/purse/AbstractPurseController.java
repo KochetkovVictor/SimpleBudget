@@ -35,7 +35,6 @@ public abstract class AbstractPurseController {
     }
 
     void transferAmount(Long from, Long to, Double amount) {
-
         service.transferAmount(from, to, amount, LoggedUser.id());
     }
 }

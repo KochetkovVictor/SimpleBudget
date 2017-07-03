@@ -6,6 +6,7 @@ import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -33,10 +34,14 @@ public class Receipt {
     @Column(name = "id")
     private
     Long id;
+
     @Column(name = "amount")
+    @NotNull
     private
     Double amount;
+
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
+    @NotNull
     private
     LocalDate receiptDate;
 

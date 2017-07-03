@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.metamodel.StaticMetamodel;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,18 +27,26 @@ public class User {
     @SequenceGenerator(name = "global_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "nickname", nullable = false, unique = true)
+    @NotEmpty
+
     private String nickName;
+
     @Column(name = "password", nullable = false)
     @NotEmpty
-    @Length(min = 5)
+    @Size(min=5, max=15, message = "must be between 5 and 15 characters")
     private String password;
+
     @Column(name = "dateOfBirth", columnDefinition = "timestamp default now()")
     private LocalDate dateOfBirth;
+
     @Column
     private String firstName;
+
     @Column
     private String lastName;
+
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotEmpty

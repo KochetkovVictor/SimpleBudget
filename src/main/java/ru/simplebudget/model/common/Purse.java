@@ -8,6 +8,8 @@ import ru.simplebudget.model.user.User;
 
 import javax.persistence.*;
 import javax.persistence.metamodel.StaticMetamodel;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -22,15 +24,19 @@ public class Purse {
     @Column(name = "id")
     private
     Long id;
+
     @Column(name = "description", unique = true)
     @NotEmpty
     private
     String description;
+
     @Column(name = "amount", columnDefinition = "default 0.0")
+    @NotNull
     private
     Double amount;
 
     @Column(name = "active")
+    @NotNull
     private
     boolean active;
 
@@ -42,12 +48,12 @@ public class Purse {
     @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JsonIgnore
     private
-    Set<Income> incomes;
+    Set<Income> incomes =new HashSet<>();
 
     @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JsonIgnore
     private
-    Set<Receipt> receipts;
+    Set<Receipt> receipts=new HashSet<>();
 
     public Set<Receipt> getReceipts() {
         return receipts;
@@ -56,7 +62,6 @@ public class Purse {
     public void setReceipts(Set<Receipt> receipts) {
         this.receipts = receipts;
     }
-
     public Set<Income> getIncomes() {
         return incomes;
     }

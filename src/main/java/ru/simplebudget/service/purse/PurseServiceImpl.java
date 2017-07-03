@@ -43,32 +43,6 @@ public class PurseServiceImpl implements PurseService {
     public Purse saveOrUpdate(Purse purse, Long userId) {
         return repository.save(purse, userId);
     }
-    /*@Override
-    public Double getTotalAmount(Long userId) {
-        List<Purse> purses=getAll(userId);
-        Double totalAmount=0.0;
-        for (Purse p:purses
-             ) {
-            if (p.isActive()) totalAmount+=p.getAmount();
-        }
-        return totalAmount;
-    }*/
-
-
-
-    /*@Override
-    public Purse addPurse(Purse purse, Long userId) {
-        return repository.save(purse, userId);
-    }
-
-    @Override
-    public void updatePurse(Purse purse, Long userId) {
-        String description = purse.getDescription();
-        Long id = purse.getId();
-        boolean active = purse.isActive();
-        Double amount = purse.getAmount();
-        repository.changeName(id, userId, description, amount, active);
-    }*/
 
     @Override
     public void delete(Long id, Long userId) {
