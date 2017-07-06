@@ -56,21 +56,30 @@ public abstract class AbstractIncomeController {
             purse.setAmount(purse.getAmount() + income.getValue());
             purseService.saveOrUpdate(purse, LoggedUser.id());
         }
-        else {
+        else { // update income
+
+            System.out.println("1**");
+            System.out.println(income);
             Income oldIncome = getById(income.getId());
             Purse oldPurse = oldIncome.getPurse();
             if (!oldPurse.equals(purse)){ // if we want to transfer from old purse to new one
                 oldPurse.setAmount(oldPurse.getAmount() - oldIncome.getValue());
-                income.setPurse(purse);
                 purse.setAmount(purse.getAmount() + income.getValue());
+                income.setPurse(purse);
+                income.setUser(user);
+                purse.getIncomes().add(income);
+                oldPurse.getIncomes().remove(income);
+                purseService.saveOrUpdate(purse,LoggedUser.id());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
-
             }
-            else{// if we correct the value of income
+            else{// if we correct the value or description of income
                 purse.setAmount(purse.getAmount()-oldIncome.getValue()+income.getValue());
+                income.setPurse(purse);
+                income.setUser(user);
+                purse.getIncomes().remove(income);
+                purse.getIncomes().add(income);
+                purseService.saveOrUpdate(purse, LoggedUser.id());
             }
-            purseIncomes.add(income);
-            purseService.saveOrUpdate(purse, LoggedUser.id());
         }
         return income;
 
