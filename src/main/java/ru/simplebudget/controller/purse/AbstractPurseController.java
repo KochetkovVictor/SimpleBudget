@@ -5,6 +5,7 @@ import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
+
 import java.util.List;
 import java.util.Set;
 
@@ -34,12 +35,9 @@ public abstract class AbstractPurseController {
         if (purse.getId() == 0)
             purse.setId(null);
         else {
-            System.out.println("*****");
-            System.out.println(purse.getIncomes()==null);
-//            purse.getIncomes().forEach(System.out::println);
-            System.out.println();
-            get(purse.getId()).getIncomes().forEach(System.out::println);
-        purse.getIncomes().addAll(get(purse.getId()).getIncomes());}
+            purse.setIncomes(service.getById(purse.getId(), LoggedUser.id()).getIncomes());
+            purse.setReceipts(service.getById(purse.getId(), LoggedUser.id()).getReceipts());
+        }
         return service.saveOrUpdate(purse, LoggedUser.id());
     }
 

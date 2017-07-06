@@ -44,15 +44,15 @@ public class Purse {
     @JoinColumn(name = "user_id")
     private
     User user;
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     @JsonIgnore
     private
     Set<Income> incomes;
 
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     @JsonIgnore
     private
-    Set<Receipt> receipts=new HashSet<>();
+    Set<Receipt> receipts;
 
     public Set<Receipt> getReceipts() {
         return receipts==null ? new HashSet<>():receipts;
