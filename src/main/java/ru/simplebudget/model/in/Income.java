@@ -26,7 +26,6 @@ public class Income {
     @Column(name = "datetime", columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDate incomeDate;
-
     @NotNull
     private Double value;
 
@@ -34,7 +33,7 @@ public class Income {
     private String description;
 
     @JoinColumn(name = "purseId")
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private
     Purse purse;
 

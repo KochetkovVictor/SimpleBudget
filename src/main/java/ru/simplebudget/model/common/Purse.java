@@ -44,26 +44,25 @@ public class Purse {
     @JoinColumn(name = "user_id")
     private
     User user;
-
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonIgnore
     private
-    Set<Income> incomes =new HashSet<>();
+    Set<Income> incomes;
 
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonIgnore
     private
     Set<Receipt> receipts=new HashSet<>();
 
     public Set<Receipt> getReceipts() {
-        return receipts;
+        return receipts==null ? new HashSet<>():receipts;
     }
 
     public void setReceipts(Set<Receipt> receipts) {
         this.receipts = receipts;
     }
     public Set<Income> getIncomes() {
-        return incomes;
+        return incomes==null ? new HashSet<>():incomes;
     }
 
     public void setIncomes(Set<Income> incomes) {

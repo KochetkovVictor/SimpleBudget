@@ -47,37 +47,45 @@ public abstract class AbstractIncomeController {
         User user = userService.getById(LoggedUser.id());
         Purse purse = purseService.getById(purseId, LoggedUser.id());
         Set<Income> purseIncomes = purse.getIncomes();
-
-        if (income.getId() == 0) { //save new Income
+        if (income.getId() == 0)// add new income
+        {
             income.setId(null);
+            income.setUser(user);
+            income.setPurse(purse);
+            purseIncomes.add(income);
             purse.setAmount(purse.getAmount() + income.getValue());
-        } else {//update an existing Income
-
+            purseService.saveOrUpdate(purse, LoggedUser.id());
+        }
+        else {
             Income oldIncome = getById(income.getId());
             Purse oldPurse = oldIncome.getPurse();
-            if (!oldPurse.equals(purse)) {
+            if (!oldPurse.equals(purse)){ // if we want to transfer from old purse to new one
                 oldPurse.setAmount(oldPurse.getAmount() - oldIncome.getValue());
+                income.setPurse(purse);
                 purse.setAmount(purse.getAmount() + income.getValue());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
-            } else {
-                purseIncomes.remove(oldIncome);
-                purse.setAmount(purse.getAmount() - oldIncome.getValue() + income.getValue());
+
             }
+            else{// if we correct the value of income
+                purse.setAmount(purse.getAmount()-oldIncome.getValue()+income.getValue());
+            }
+            purseIncomes.add(income);
+            purseService.saveOrUpdate(purse, LoggedUser.id());
         }
-        income.setUser(user);
-        income.setDescription(income.getDescription());
-        purseIncomes.add(income);
-        purse.getIncomes().addAll(purseIncomes);
-        income.setPurse(purse);
-        purseService.saveOrUpdate(purse, LoggedUser.id());
         return income;
+
     }
 
     public void delete(Long id) {
         Income income = getById(id);
         Purse purse = income.getPurse();
-        incomeService.delete(id,LoggedUser.id());
+        System.out.println("*************");
+        purse.getIncomes().forEach(System.out::println);
+        purse.getIncomes().remove(income);
+        purse.getIncomes().forEach(System.out::println);
         purse.setAmount(purse.getAmount() - income.getValue());
         purseService.saveOrUpdate(purse, LoggedUser.id());
+        System.out.println();
+        purseService.getById(purse.getId(), LoggedUser.id()).getIncomes().forEach(System.out::println);
     }
 }

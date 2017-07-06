@@ -66,12 +66,8 @@ public class PurseRepositoryImpl implements PurseRepository {
     public boolean deletePurse(Long id, Long userId) {
         Purse purse = getById(id, userId);
         if (purse != null) {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaDelete<Purse> cd = cb.createCriteriaDelete(Purse.class);
-            Root<Purse> root = cd.from(Purse.class);
-            Predicate condition = cb.equal(root.get("id"), id);
-            cd.where(condition);
-            em.createQuery(cd).executeUpdate();
+            purse.setAmount(0.0);
+            purse.setActive(false);
             return true;
         }
         return false;
