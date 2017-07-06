@@ -53,8 +53,8 @@ public abstract class AbstractReceiptController {
     public void deleteReceipt(Long id) {
         Receipt receipt = getById(id);
         Purse purse = receipt.getPurse();
-        purse.setAmount(purse.getAmount() + receipt.getAmount());
         purse.getReceipts().remove(receipt);
+        purse.setAmount(purse.getAmount() + receipt.getAmount());
         purseService.saveOrUpdate(purse, LoggedUser.id());
     }
 
@@ -65,29 +65,46 @@ public abstract class AbstractReceiptController {
 
         if (receipt.getId() == 0) {
             receipt.setId(null);
+            receipt.setUser(user);
+            receipt.setShop(shop);
+            receipt.setPurse(purse);
+            purse.getReceipts().add(receipt);
             purse.setAmount(purse.getAmount() - receipt.getAmount());
+            purseService.saveOrUpdate(purse, LoggedUser.id());
 
         } else {
             Receipt oldReceipt = getById(receipt.getId());
             Purse oldPurse = oldReceipt.getPurse();
             if (!oldPurse.getId().equals(purseId)) {
-                oldPurse.getReceipts().remove(oldReceipt);
                 oldPurse.setAmount(oldPurse.getAmount() + oldReceipt.getAmount());
                 purse.setAmount(purse.getAmount() - oldReceipt.getAmount());
+                receipt.setPurse(purse);
+                receipt.setUser(user);
+                receipt.setShop(shop);
+                purse.getReceipts().add(receipt);
+                oldPurse.getReceipts().remove(receipt);
+                System.out.println("*** BEFORE RECEIPT CHANGING");
+                purse.getIncomes().forEach(System.out::println);
+                System.out.println("OLD PURSE");
+                oldPurse.getIncomes().forEach(System.out::println);
+                purseService.saveOrUpdate(purse, LoggedUser.id());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
+                System.out.println("*** AFTER RECEIPT CHANGING");
+                purse.getIncomes().forEach(System.out::println);
+                System.out.println("OLD PURSE AFTER");
+                oldPurse.getIncomes().forEach(System.out::println);
             } else {
-                purse.getReceipts().remove(oldReceipt);
                 purse.setAmount(purse.getAmount() + oldReceipt.getAmount() - receipt.getAmount());
+                receipt.setPurse(purse);
+                receipt.setUser(user);
+                receipt.setShop(shop);
+                purse.getReceipts().remove(receipt);
+                purse.getReceipts().add(receipt);
+
+                purseService.saveOrUpdate(purse, LoggedUser.id());
+
             }
         }
-        receipt.setUser(user);
-        receipt.setShop(shop);
-        purse.getReceipts().add(receipt);
-        receipt.setPurse(purse);
-        purseService.saveOrUpdate(purse, LoggedUser.id());
-
         return receipt;
     }
-
-
 }

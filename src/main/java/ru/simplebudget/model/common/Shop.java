@@ -62,4 +62,19 @@ public class Shop {
     public void setNetName(ShopNet netName) {
         this.netName = netName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Shop shop = (Shop) o;
+
+        return id.equals(shop.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id==null ? 0:id.hashCode();
+    }
 }

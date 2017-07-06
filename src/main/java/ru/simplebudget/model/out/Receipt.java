@@ -45,7 +45,7 @@ public class Receipt {
     private
     LocalDate receiptDate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, /*CascadeType.REMOVE, CascadeType.MERGE*/}, fetch = FetchType.EAGER)
     @JoinColumn(name="shopid")
     private
     Shop shop;
