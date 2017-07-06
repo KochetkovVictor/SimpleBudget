@@ -85,14 +85,8 @@ public abstract class AbstractIncomeController {
     public void delete(Long id) {
         Income income = getById(id);
         Purse purse = income.getPurse();
-        System.out.println("*************");
-        purse.getIncomes().forEach(System.out::println);
         purse.getIncomes().remove(income);
-        System.out.println("after removing");
-        purse.getIncomes().forEach(System.out::println);
         purse.setAmount(purse.getAmount() - income.getValue());
         purseService.saveOrUpdate(purse, LoggedUser.id());
-        System.out.println("AFTER Saving");
-        purseService.getById(purse.getId(), LoggedUser.id()).getIncomes().forEach(System.out::println);
     }
 }
