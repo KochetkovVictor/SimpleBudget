@@ -55,7 +55,7 @@ CREATE TABLE purse(
   user_id BIGINT NOT NULL ,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX purse_unique_description_index ON purse(description);
+CREATE UNIQUE INDEX purse_unique_description_user_index ON purse(user_id, description);
 
 CREATE TABLE income(
   id BIGINT PRIMARY KEY DEFAULT nextval('global_seq'),
