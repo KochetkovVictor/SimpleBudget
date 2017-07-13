@@ -1,18 +1,11 @@
 package ru.simplebudget.controller.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
 import ru.simplebudget.model.common.Purse;
-import ru.simplebudget.model.to.AmountWrapper;
+
 import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -37,22 +30,14 @@ public abstract class AbstractPurseController {
         service.delete(id, LoggedUser.id());
     }
 
-    void update(Purse purse) {
-        service.updatePurse(purse, LoggedUser.id());
-    }
+    Purse saveOrUpdate(Purse purse) {
+        if (purse.getId() == 0)
+            purse.setId(null);
 
-    void addPurse(Purse purse) {
-        purse.setId(null);
-        service.addPurse(purse, LoggedUser.id());
+        return service.saveOrUpdate(purse, LoggedUser.id());
     }
 
     void transferAmount(Long from, Long to, Double amount) {
-
         service.transferAmount(from, to, amount, LoggedUser.id());
     }
-
-    AmountWrapper getTotalAmount() {
-        return new AmountWrapper(service.getTotalAmount(LoggedUser.id()));
-    }
-
 }

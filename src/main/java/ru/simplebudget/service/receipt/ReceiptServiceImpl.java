@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ReceiptServiceImpl implements ReceiptService{
+public class ReceiptServiceImpl implements ReceiptService {
 
     private final ReceiptRepository receiptRepository;
 
@@ -19,33 +19,37 @@ public class ReceiptServiceImpl implements ReceiptService{
     }
 
     @Override
-    public List<Receipt> getAll(Long userId) {
-        return receiptRepository.getAll(userId);
+    public Receipt getUserReceiptById(Long id, Long userId) {
+        return receiptRepository.getUserReceiptById(id, userId);
     }
 
     @Override
-    public Receipt getById(Long id, Long userId) {
-        return receiptRepository.get(id, userId);
+    public List<Receipt> getUserReceiptsByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime) {
+        return receiptRepository.getUserReceiptsByPeriod(userId, startDateTime, endDateTime);
     }
 
     @Override
-    public List<Receipt> getByPeriod(Long userId, LocalDate startDateTime, LocalDate endDateTime) {
-        return receiptRepository.getByPeriod(userId, startDateTime,endDateTime);
+    public List<Receipt> getAllByUser(Long userId) {
+        return receiptRepository.getAllByUser(userId);
     }
 
     @Override
-    public Receipt addReceipt(Receipt receipt, Long userId) {
-
-        return receiptRepository.save(receipt, userId);
+    public List<Receipt> getAllByShopId(Long userId, Long shopId) {
+        return receiptRepository.getAllByShopId(userId, shopId);
     }
 
     @Override
-    public Receipt changeReceipt(Receipt receipt, Long userId) {
-        return receiptRepository.changeReceipt(receipt, userId);
+    public List<Receipt> getAllByShopNetId(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
+        return receiptRepository.getAllByShopNetId(userId, shopNetId, startDate, endDate);
     }
 
     @Override
-    public void deleteReceipt(Long id, Long userId) {
-        receiptRepository.delete(id, userId);
+    public Receipt saveOrUpdate(Receipt receipt, Long userId, Long purseId) {
+        return receiptRepository.saveOrUpdate(receipt, userId, purseId);
+    }
+
+    @Override
+    public boolean delete(Long id, Long userId) {
+        return receiptRepository.delete(id, userId);
     }
 }

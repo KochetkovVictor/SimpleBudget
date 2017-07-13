@@ -1,15 +1,20 @@
 package ru.simplebudget.repository.income;
 
 import ru.simplebudget.model.in.Income;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public interface IncomeRepository {
 
-    Income addIncome(Income income, Long userId, Long purseId);
-    List<Income> getIncomesPerAPeriod(LocalDate startDate, LocalDate endDate, Long userId);
-    Income getIncome(Long incomeId, Long userId);
-    List<Income> getAll(Long userId);
-    Income changeIncome(Income income, Long userId);
+    List<Income> getUserIncomesPerAPeriod(LocalDate startDate, LocalDate endDate, Long userId);
+
+    Income getUserIncomeById(Long incomeId, Long userId);
+
+    List<Income> getAllByUser(Long userId);
+
     void delete(Long id, Long userId);
+
+    Income saveOrUpdate(Income income, Long userId, Long purseId);
+
 }

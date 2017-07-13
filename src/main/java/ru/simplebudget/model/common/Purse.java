@@ -38,21 +38,6 @@ public class Purse {
     private
     User user;
 
-
-    @OneToMany(mappedBy = "purse", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private
-    Set<Income> incomes;
-
-    public Set<Income> getIncomes() {
-        return incomes;
-    }
-
-    public void setIncomes(Set<Income> incomes) {
-        this.incomes = incomes;
-    }
-
-
     public User getUser() {
         return user;
     }
@@ -70,8 +55,8 @@ public class Purse {
     }
 
     public Purse() {
-        this.id=null;
-        this.amount=0.0;
+        this.id = null;
+        this.amount = 0.0;
     }
 
     public Purse(Long id) {
@@ -111,6 +96,6 @@ public class Purse {
 
     @Override
     public String toString() {
-        return description;
+        return id + " " + description;
     }
 }

@@ -28,7 +28,7 @@ public class Income {
     private String description;
 
     @JoinColumn(name = "purseId")
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private
     Purse purse;
 
@@ -108,7 +108,6 @@ public class Income {
                 ", value=" + value +
                 ", description='" + description + '\'' +
                 ", purse=" + purse +
-                ", user=" + user +
                 '}';
     }
 }

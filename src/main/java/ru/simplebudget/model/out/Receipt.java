@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 
 
 @NamedQueries({
-        @NamedQuery(name= Receipt.GET_BETWEEN_DATETIME,
+        @NamedQuery(name = Receipt.GET_BETWEEN_DATETIME,
                 query = "SELECT r FROM Receipt r WHERE r.user.id = :userId AND r.receiptDate BETWEEN :startDateTime " +
                         "AND :endDateTime ORDER BY r.receiptDate DESC "),
-        @NamedQuery(name="Receipt.join.ShopNet.BetweenDateTime", query = "SELECT r FROM Receipt r JOIN r.shop.netName " +
+        @NamedQuery(name = "Receipt.join.ShopNet.BetweenDateTime", query = "SELECT r FROM Receipt r JOIN r.shop.netName " +
                 "WHERE r.user.id = :userId AND r.shop.netName.id=:shopNetId AND r.receiptDate BETWEEN :startDateTime AND :endDateTime ORDER BY r.receiptDate DESC ")
 
 })
@@ -25,8 +25,8 @@ import java.time.LocalDateTime;
 @StaticMetamodel(Receipt.class)
 public class Receipt {
 
-    public static  final String GET_BETWEEN_DATETIME = "Receipt.getBetweenDateTime";
-    public static  final String JOIN_SHOPNET_GET_BETWEEN_DATETIME = "Receipt.join.ShopNet.BetweenDateTime";
+    public static final String GET_BETWEEN_DATETIME = "Receipt.getBetweenDateTime";
+    public static final String JOIN_SHOPNET_GET_BETWEEN_DATETIME = "Receipt.join.ShopNet.BetweenDateTime";
     @Id
     @SequenceGenerator(name = "global_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,20 +40,25 @@ public class Receipt {
     private
     LocalDate receiptDate;
     @ManyToOne
-    @JoinColumn(name="shopid")
+    @JoinColumn(name = "shopid")
     private
 
     Shop shop;
-    @Column(name= "active")
+    @Column(name = "active")
     private
     boolean active;
 
-    @JoinColumn(name="purseId")
-    @ManyToOne
+    @JoinColumn(name = "purseId")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private
     Purse purse;
+
     public Purse getPurse() {
         return purse;
+    }
+
+    public void setPurse(Purse purse) {
+        this.purse = purse;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,10 +73,6 @@ public class Receipt {
     public void setUser(User user) {
         this.user = user;
     }
-    public void setPurse(Purse purse) {
-        this.purse = purse;
-    }
-
 
     /*@Column(name="product")
     @OneToMany(mappedBy = "id", fetch=FetchType.EAGER)
@@ -96,7 +97,7 @@ public class Receipt {
 
 
     public Receipt() {
-        this.receiptDate =LocalDateTime.now().toLocalDate();
+        this.receiptDate = LocalDateTime.now().toLocalDate();
     }
 
    /* public List<Product> getProducts() {
@@ -131,25 +132,28 @@ public class Receipt {
         this.receiptDate = receiptDate;
     }
 
-    public Receipt(Long id){this.id=id;}
-
-    public Receipt(Long id, Shop shop, LocalDate receiptDate, Double amount,Purse purse, boolean active)
-    {
-        this.id=id;
-        this.active=active;
-        this.receiptDate=receiptDate;
-        this.amount=amount;
-        this.shop=shop;
-        this.purse=purse;
+    public Receipt(Long id) {
+        this.id = id;
     }
+
+    public Receipt(Long id, Shop shop, LocalDate receiptDate, Double amount, Purse purse, boolean active) {
+        this.id = id;
+        this.active = active;
+        this.receiptDate = receiptDate;
+        this.amount = amount;
+        this.shop = shop;
+        this.purse = purse;
+    }
+
     @Override
     public String toString() {
         return "Receipt{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", receiptDate=" + receiptDate +
-                ", shop=" + shop +
-                ", active=" + active +
+                "id= " + id +
+                ", amount= " + amount +
+                ", receiptDate= " + receiptDate +
+                ", shop= " + shop +
+                ", active= " + active +
+                ", purse= " + purse +
                 '}';
     }
 }

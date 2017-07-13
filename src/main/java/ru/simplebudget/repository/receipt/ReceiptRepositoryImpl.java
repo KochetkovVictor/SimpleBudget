@@ -30,80 +30,39 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     @PersistenceContext
     private EntityManager em;
 
-    private final PurseRepository purseRepository;
-
-    @Autowired
-    public ReceiptRepositoryImpl(PurseRepository purseRepository) {
-        this.purseRepository = purseRepository;
-    }
 
     @Override
-    @Transactional
-    public Receipt save(Receipt receipt, Long userId) {
-        if (receipt.getId() != null && get(receipt.getId(), userId) == null) {
-            return null;
-        }
-        receipt.setUser(em.getReference(User.class, userId));
-        if (receipt.getId() == null) {
-            em.persist(receipt);
-            purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, -receipt.getAmount());
-            return receipt;
-        } else {
-            return em.merge(receipt);
-        }
-    }
-
-    @Override
-    @Transactional
-    public boolean delete(Long id, Long userId) {
-        Receipt receipt = get(id, userId);
-        if (receipt != null && receipt.isActive()) {
-            receipt.setActive(false);
-            purseRepository.addPurseAmount(receipt.getPurse().getId(), userId, receipt.getAmount());
-            //save(receipt, userId);
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaDelete<Receipt> cd = cb.createCriteriaDelete(Receipt.class);
-            Root<Receipt> root = cd.from(Receipt.class);
-            Path<User> user = root.get(Receipt_.user);
-            cd.where(cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), id)));
-            em.createQuery(cd).executeUpdate();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Receipt get(Long id, Long userId) {
+    public Receipt getUserReceiptById(Long id, Long userId) {
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> criteriaQuery = cb.createQuery(Receipt.class);
         Root<Receipt> root = criteriaQuery.from(Receipt.class);
-        Path<User> user=root.get(Receipt_.user);
-        Predicate condition = cb.and(cb.equal(user.get("id"), userId),cb.equal(root.get(Receipt_.id), id));
+        Path<User> user = root.get(Receipt_.user);
+        Predicate condition = cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get(Receipt_.id), id));
         criteriaQuery.where(condition);
-        return  em.createQuery(criteriaQuery).getSingleResult();
+        return em.createQuery(criteriaQuery).getSingleResult();
     }
 
     @Override
-    public List<Receipt> getByPeriod(Long userId, LocalDate startDate, LocalDate endDate) {
+    public List<Receipt> getUserReceiptsByPeriod(Long userId, LocalDate startDate, LocalDate endDate) {
         return em.createNamedQuery(Receipt.GET_BETWEEN_DATETIME, Receipt.class).setParameter("userId", userId)
                 .setParameter("startDateTime", startDate).setParameter("endDateTime", endDate).getResultList();
     }
 
     @Override
-    public List<Receipt> getAllByShop(Long userId, Shop shop) {
-        CriteriaBuilder cb=em.getCriteriaBuilder();
-        CriteriaQuery<Receipt> cq=cb.createQuery(Receipt.class);
-        Root<Receipt> root=cq.from(Receipt.class);
-        Path<Shop> shopPath=root.get(Receipt_.shop);
-        Path<User> user=root.get(Receipt_.user);
-        Predicate condition=cb.and(cb.equal(user.get("id"), userId), cb.equal(shopPath.get("id"), shop.getId()));
+    public List<Receipt> getAllByShopId(Long userId, Long shopId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
+        Root<Receipt> root = cq.from(Receipt.class);
+        Path<Shop> shopPath = root.get(Receipt_.shop);
+        Path<User> user = root.get(Receipt_.user);
+        Predicate condition = cb.and(cb.equal(user.get("id"), userId), cb.equal(shopPath.get("id"), shopId));
         cq.where(condition);
         return em.createQuery(cq).getResultList();
     }
 
     @Override
-    public List<Receipt> getAllByShopNet(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
+    public List<Receipt> getAllByShopNetId(Long userId, Long shopNetId, LocalDate startDate, LocalDate endDate) {
         return em.createNamedQuery(Receipt.JOIN_SHOPNET_GET_BETWEEN_DATETIME, Receipt.class)
                 .setParameter("userId", userId)
                 .setParameter("shopNetId", shopNetId)
@@ -113,13 +72,13 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
     }
 
     @Override
-    public List<Receipt> getAll(Long userId) {
+    public List<Receipt> getAllByUser(Long userId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Receipt> cq = cb.createQuery(Receipt.class);
         Root<Receipt> root = cq.from(Receipt.class);
         Path<LocalDate> date = root.get(Receipt_.receiptDate);
-        Path<User> user =root.get(Receipt_.user);
-        Predicate condition=cb.equal(user.get("id"), userId);
+        Path<User> user = root.get(Receipt_.user);
+        Predicate condition = cb.equal(user.get("id"), userId);
         cq.where(condition);
         cq.orderBy(cb.asc(date));
         TypedQuery<Receipt> query = em.createQuery(cq);
@@ -128,27 +87,33 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
 
     @Override
     @Transactional
-    public Receipt changeReceipt(Receipt changeReceipt, Long userId) {
-        Receipt receipt = get(changeReceipt.getId(), userId);
-        Double oldAmount = receipt.getAmount();
-        Purse oldPurse = receipt.getPurse();
-        if (!receipt.getShop().equals(changeReceipt.getShop())) {
-            receipt.setShop(changeReceipt.getShop());
+    public Receipt saveOrUpdate(Receipt receipt, Long userId, Long purseId) {
+        if (receipt.getId() != null && getUserReceiptById(receipt.getId(), userId) == null) {
+            return null;
         }
-        if (!Objects.equals(oldAmount, changeReceipt.getAmount())) {
-            receipt.setAmount(changeReceipt.getAmount());
-            if (Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount() - oldAmount);
-            } else {
-                purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
-                purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
-                receipt.setPurse(changeReceipt.getPurse());
-            }
-        } else if (!Objects.equals(oldPurse.getId(), changeReceipt.getPurse().getId())) {
-            purseRepository.addPurseAmount(oldPurse.getId(), userId, oldAmount);
-            purseRepository.addPurseAmount(changeReceipt.getPurse().getId(), userId, -changeReceipt.getAmount());
-            receipt.setPurse(changeReceipt.getPurse());
+        receipt.setUser(em.getReference(User.class, userId));
+        receipt.setPurse(em.getReference(Purse.class, purseId));
+        if (receipt.getId() == null) {
+            em.persist(receipt);
+            return receipt;
+        } else {
+            return em.merge(receipt);
         }
-        return em.merge(receipt);
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(Long id, Long userId) {
+        Receipt receipt = getUserReceiptById(id, userId);
+        if (receipt != null && receipt.isActive()) {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaDelete<Receipt> cd = cb.createCriteriaDelete(Receipt.class);
+            Root<Receipt> root = cd.from(Receipt.class);
+            Path<User> user = root.get(Receipt_.user);
+            cd.where(cb.and(cb.equal(user.get("id"), userId), cb.equal(root.get("id"), id)));
+            em.createQuery(cd).executeUpdate();
+            return true;
+        }
+        return false;
     }
 }

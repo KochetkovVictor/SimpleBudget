@@ -1,6 +1,5 @@
 package ru.simplebudget.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +15,7 @@ import ru.simplebudget.service.user.UserService;
 import javax.validation.Valid;
 
 @Controller
-public class UserRootController extends AbstractUserController{
+public class UserRootController extends AbstractUserController {
     public UserRootController(UserService service) {
         super(service);
     }
@@ -25,23 +24,23 @@ public class UserRootController extends AbstractUserController{
     public String profile() {
         return "register";
     }
-/*
+
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
     public String updateProfile(@Valid User user, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
                 user.setId(LoggedUser.id());
+                user.setEmail(user.getEmail().toLowerCase());
                 super.saveOrUpdate(user);
                 LoggedUser.get().update(user);
                 status.setComplete();
-                return "redirect:meals";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("email", "exception.duplicate_email");
             }
         }
-        return "register";
+        return "purses";
     }
-*/
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
         model.addAttribute("user", new User());
@@ -53,6 +52,7 @@ public class UserRootController extends AbstractUserController{
     public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
         if (!result.hasErrors()) {
             try {
+                user.setEmail(user.getEmail().toLowerCase());
                 super.saveOrUpdate(user);
                 status.setComplete();
                 return "redirect:login?message=app.registered";

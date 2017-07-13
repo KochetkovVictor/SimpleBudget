@@ -1,12 +1,12 @@
 package ru.simplebudget.controller.user;
 
-import org.springframework.http.HttpRequest;
+
 import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.user.UserService;
 import org.springframework.http.MediaType;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 
@@ -34,19 +34,19 @@ public class AjaxUserController extends AbstractUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveOrUpdate(User user, HttpServletRequest request) {
-        System.out.println(request.getParameter("nickname"));
+    public void saveOrUpdate(User user) {
         if (user.getId() == 0) {
             user.setId(null);
         }
         super.saveOrUpdate(user);
     }
 
-    @RequestMapping(value="/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByEmail(@RequestParam("email") String email) {
         return super.getByEmail(email);
     }
-    @RequestMapping(value="/byNickName",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "/byNickName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByNickName(@RequestParam("nickName") String nickName) {
         return super.getByNickName(nickName);
     }
