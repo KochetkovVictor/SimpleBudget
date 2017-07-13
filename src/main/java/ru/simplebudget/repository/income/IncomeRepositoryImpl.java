@@ -1,15 +1,15 @@
 package ru.simplebudget.repository.income;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.simplebudget.model.common.Purse;
+
 import ru.simplebudget.model.in.Income;
 import ru.simplebudget.model.in.Income_;
 import ru.simplebudget.model.user.User;
-import ru.simplebudget.repository.purse.PurseRepository;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,11 +17,10 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 
 @Repository("incomeRepository")
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class IncomeRepositoryImpl implements IncomeRepository {
 
     @PersistenceContext

@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
 @Service("purseService")
+@Transactional
 public class PurseServiceImpl implements PurseService {
 
     private final

@@ -3,6 +3,7 @@ package ru.simplebudget.repository.purse;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Purse_;
@@ -15,7 +16,7 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository("purseRepository")
-@Transactional(readOnly = true)
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class PurseRepositoryImpl implements PurseRepository {
 
     @PersistenceContext
