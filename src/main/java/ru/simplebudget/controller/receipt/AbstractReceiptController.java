@@ -20,17 +20,15 @@ public abstract class AbstractReceiptController {
 
     private final ReceiptService receiptService;
     private final PurseService purseService;
-    private final UserService userService;
+
     private final ShopService shopService;
 
     @Autowired
     public AbstractReceiptController(ReceiptService receiptService,
                                      PurseService purseService,
-                                     UserService userService,
                                      ShopService shopService) {
         this.receiptService = receiptService;
         this.purseService = purseService;
-        this.userService = userService;
         this.shopService = shopService;
     }
 
@@ -53,58 +51,30 @@ public abstract class AbstractReceiptController {
     public void deleteReceipt(Long id) {
         Receipt receipt = getById(id);
         Purse purse = receipt.getPurse();
-        purse.getReceipts().remove(receipt);
         purse.setAmount(purse.getAmount() + receipt.getAmount());
         purseService.saveOrUpdate(purse, LoggedUser.id());
+        receiptService.delete(id, LoggedUser.id());
     }
 
     public Receipt saveOrUpdate(Receipt receipt, Long purseId, Long shopId) {
-        User user = userService.getById(LoggedUser.id());
         Purse purse = purseService.getById(purseId, LoggedUser.id());
         Shop shop = shopService.getById(shopId);
-
         if (receipt.getId() == 0) {
             receipt.setId(null);
-            receipt.setUser(user);
-            receipt.setShop(shop);
-            receipt.setPurse(purse);
-            purse.getReceipts().add(receipt);
             purse.setAmount(purse.getAmount() - receipt.getAmount());
-            purseService.saveOrUpdate(purse, LoggedUser.id());
-
         } else {
             Receipt oldReceipt = getById(receipt.getId());
             Purse oldPurse = oldReceipt.getPurse();
             if (!oldPurse.getId().equals(purseId)) {
                 oldPurse.setAmount(oldPurse.getAmount() + oldReceipt.getAmount());
-                purse.setAmount(purse.getAmount() - oldReceipt.getAmount());
-                receipt.setPurse(purse);
-                receipt.setUser(user);
-                receipt.setShop(shop);
-                purse.getReceipts().add(receipt);
-                oldPurse.getReceipts().remove(receipt);
-                System.out.println("*** BEFORE RECEIPT CHANGING");
-                purse.getIncomes().forEach(System.out::println);
-                System.out.println("OLD PURSE");
-                oldPurse.getIncomes().forEach(System.out::println);
-                purseService.saveOrUpdate(purse, LoggedUser.id());
+                purse.setAmount(purse.getAmount() - receipt.getAmount());
                 purseService.saveOrUpdate(oldPurse, LoggedUser.id());
-                System.out.println("*** AFTER RECEIPT CHANGING");
-                purse.getIncomes().forEach(System.out::println);
-                System.out.println("OLD PURSE AFTER");
-                oldPurse.getIncomes().forEach(System.out::println);
             } else {
                 purse.setAmount(purse.getAmount() + oldReceipt.getAmount() - receipt.getAmount());
-                receipt.setPurse(purse);
-                receipt.setUser(user);
-                receipt.setShop(shop);
-                purse.getReceipts().remove(receipt);
-                purse.getReceipts().add(receipt);
-
-                purseService.saveOrUpdate(purse, LoggedUser.id());
-
             }
         }
-        return receipt;
+        purseService.saveOrUpdate(purse, LoggedUser.id());
+        receipt.setShop(shop);
+        return receiptService.saveOrUpdate(receipt, LoggedUser.id(), purseId);
     }
 }

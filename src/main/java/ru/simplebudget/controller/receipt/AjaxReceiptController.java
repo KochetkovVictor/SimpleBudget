@@ -24,8 +24,8 @@ import java.util.List;
 @RequestMapping(value = "/ajax/receipts")
 public class AjaxReceiptController extends AbstractReceiptController {
 
-    public AjaxReceiptController(ReceiptService receiptService, PurseService purseService, UserService userService, ShopService shopService) {
-        super(receiptService, purseService, userService, shopService);
+    public AjaxReceiptController(ReceiptService receiptService, PurseService purseService, ShopService shopService) {
+        super(receiptService, purseService, shopService);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

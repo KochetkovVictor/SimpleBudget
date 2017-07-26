@@ -36,7 +36,7 @@ public class Main {
                 .forEach(System.out::println);*/
         PurseRepository pr = (PurseRepository)configurableApplicationContext.getBean("purseRepository");
         UserRepository ur = (UserRepository)configurableApplicationContext.getBean("userRepository");
-        Purse purse=pr.get(110L,302L);
+        Purse purse=pr.getById(110L,302L);
 
         Income income=new Income();
 
@@ -46,7 +46,7 @@ public class Main {
         purse.setAmount(purse.getAmount()+income.getValue());
         income.setPurse(purse);
         pr.save(purse,302L);
-        ir.addIncome(income,302L,110L);
+        ir.saveOrUpdate(income,302L,110L);
         configurableApplicationContext.close();
 
     }

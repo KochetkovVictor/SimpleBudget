@@ -60,7 +60,7 @@ public class RootController {
 
     @RequestMapping("/amount")
     public String amount() {
-        return "amount";
+        return "oldFiles/amount";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

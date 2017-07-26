@@ -26,8 +26,8 @@ import java.util.List;
 @RequestMapping("/ajax/incomes")
 public class AjaxIncomeController extends AbstractIncomeController {
 
-    public AjaxIncomeController(IncomeService incomeService, PurseService purseService, UserService userService) {
-        super(incomeService, purseService, userService);
+    public AjaxIncomeController(IncomeService incomeService, PurseService purseService) {
+        super(incomeService, purseService);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

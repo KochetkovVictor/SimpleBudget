@@ -98,6 +98,7 @@ public class Receipt {
 
     public Receipt() {
         this.receiptDate = LocalDateTime.now().toLocalDate();
+        this.active=true;
     }
 
    /* public List<Product> getProducts() {
