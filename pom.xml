@@ -4,7 +4,7 @@
     <groupId>ru.simplebudget</groupId>
     <artifactId>SimpleBudget</artifactId>
     <packaging>war</packaging>
-    <version>v.0.0.2</version>
+    <version>v.0.0.3</version>
     <name>SimpleBudget</name>
     <url>http://maven.apache.org</url>
 
