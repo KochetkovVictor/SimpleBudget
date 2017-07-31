@@ -2,6 +2,7 @@ package ru.simplebudget.controller.receipt;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.out.Receipt;
@@ -59,8 +60,11 @@ public abstract class AbstractReceiptController {
     public Receipt saveOrUpdate(Receipt receipt, Long purseId, Long shopId) {
         Purse purse = purseService.getById(purseId, LoggedUser.id());
         Shop shop = shopService.getById(shopId);
-        if (receipt.getId() == 0) {
+        if (purse.getAmount() - receipt.getAmount() < 0)
+            throw new NotEnoughMoneyException(purse + " don't have enough money");
+        else if (receipt.getId() == 0) {
             receipt.setId(null);
+
             purse.setAmount(purse.getAmount() - receipt.getAmount());
         } else {
             Receipt oldReceipt = getById(receipt.getId());

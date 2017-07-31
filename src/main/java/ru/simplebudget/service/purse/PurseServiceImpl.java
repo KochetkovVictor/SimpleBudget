@@ -2,6 +2,7 @@ package ru.simplebudget.service.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
 
@@ -33,10 +34,14 @@ public class PurseServiceImpl implements PurseService {
     public void transferAmount(Long fromPurseId, Long toPurseId, Double transferAmount, Long userId) {
         Purse fromPurse = getById(fromPurseId, userId);
         Purse toPurse = getById(toPurseId, userId);
-        fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
-        toPurse.setAmount(toPurse.getAmount() + transferAmount);
-        saveOrUpdate(fromPurse, userId);
-        saveOrUpdate(toPurse, userId);
+        if ((fromPurse.getAmount() - transferAmount) < 0)
+            throw new NotEnoughMoneyException(fromPurse.toString() + " don't have enough money");
+        else {
+            fromPurse.setAmount(fromPurse.getAmount() - transferAmount);
+            toPurse.setAmount(toPurse.getAmount() + transferAmount);
+            saveOrUpdate(fromPurse, userId);
+            saveOrUpdate(toPurse, userId);
+        }
     }
 
     @Override
