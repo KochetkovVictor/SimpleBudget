@@ -27,14 +27,12 @@ import java.util.Map;
 @RequestMapping("/ajax/purses")
 public class AjaxPurseController extends AbstractPurseController {
 
-
     public AjaxPurseController(PurseService service) {
         super(service);
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Purse> getAll() {
-
         return super.getAll();
     }
 
@@ -60,6 +58,7 @@ public class AjaxPurseController extends AbstractPurseController {
         }
         return "redirect:purses";
     }
+
     @RequestMapping(value = "/transfer", method = RequestMethod.POST)
     public ModelAndView transferAmount(HttpServletRequest request) {
         try {

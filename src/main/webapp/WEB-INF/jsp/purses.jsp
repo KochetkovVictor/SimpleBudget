@@ -8,10 +8,12 @@
 <link rel="stylesheet" href="webjars/datatables/1.10.13/css/jquery.dataTables.min.css">
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
+
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
             <h3><spring:message code="purses.title"/></h3>
+            <a class="btn btn-sm btn-info" onclick="simpleGet()">TEST</a>
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="purses.add"/></a>
@@ -43,12 +45,12 @@
             <div class="col-md-3">
                 <select id="select1" name="fromPurse">
                     <option selected disabled>From Purse</option>
-                    <c:forEach items="${purseList}" var="purse">
+                   <%-- <c:forEach items="${purseList}" var="purse">
                         <jsp:useBean id="purse" class="ru.simplebudget.model.common.Purse" scope="request"/>
                         <option value="${purse.id}">
                                 ${purse.description}
                         </option>
-                    </c:forEach>
+                    </c:forEach>--%>
                 </select>
             </div>
         </div>
@@ -57,11 +59,11 @@
             <div class="col-md-3">
                 <select id="select2" name="toPurse">
                     <option selected disabled>To Purse</option>
-                    <c:forEach items="${purseList}" var="purse">
+                    <%--<c:forEach items="${purseList}" var="purse">
                         <option value="${purse.id}">
                                 ${purse.description}
                         </option>
-                    </c:forEach>
+                    </c:forEach>--%>
                 </select>
             </div>
         </div>
@@ -134,5 +136,11 @@
 <script type="text/javascript" src="webjars/noty/2.4.1/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/pursesDatatables.js"></script>
+<script type="text/javascript" src="resources/js/purseSelect.js"></script>
+<%--<script type="text/javascript">
+    alert($.get('${pageContext.request.contextPath}/ajax/purses', null, function(data){
+        data=JSON.parse(data);
+    }))
+</script>--%>
 
 </html>
