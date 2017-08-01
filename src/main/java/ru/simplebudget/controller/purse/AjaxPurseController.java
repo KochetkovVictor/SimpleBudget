@@ -36,6 +36,11 @@ public class AjaxPurseController extends AbstractPurseController {
         return super.getAll();
     }
 
+    @RequestMapping(value="/filtered", method = RequestMethod.GET, produces = "application/json")
+    public List<Purse> getFiltered() {
+        return super.getFiltered();
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
         super.delete(id);

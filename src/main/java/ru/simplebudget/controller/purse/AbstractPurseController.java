@@ -7,6 +7,7 @@ import ru.simplebudget.model.user.LoggedUser;
 import ru.simplebudget.service.purse.PurseService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public abstract class AbstractPurseController {
@@ -39,5 +40,8 @@ public abstract class AbstractPurseController {
 
     void transferAmount(Long from, Long to, Double amount) {
         service.transferAmount(from, to, amount, LoggedUser.id());
+    }
+    List<Purse> getFiltered(){
+        return getAll().stream().filter(Purse::isActive).collect(Collectors.toList());
     }
 }

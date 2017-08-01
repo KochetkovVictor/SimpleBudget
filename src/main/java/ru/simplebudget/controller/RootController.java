@@ -22,39 +22,24 @@ import java.util.stream.Collectors;
 @Controller
 public class RootController {
 
-    private final
-    PurseService purseService;
-    private final
-    ShopService shopService;
-
-
-    @Autowired
-    public RootController(PurseService purseService, ShopService shopService) {
-        this.purseService = purseService;
-        this.shopService = shopService;
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
         return "purses";
     }
 
     @RequestMapping(value = "/purses", method = RequestMethod.GET)
-    public String purseList(Model model) {
-        model.addAttribute("purseList", purseService.getAll(LoggedUser.id()));
+    public String purseList() {
+
         return "purses";
     }
 
     @RequestMapping(value = "/incomes", method = RequestMethod.GET)
-    public String incomeList(Model model) {
-        model.addAttribute("purseList", purseService.getAll(LoggedUser.id()).stream().filter(Purse::isActive).collect(Collectors.toList()));
+    public String incomeList() {
         return "incomes";
     }
 
     @RequestMapping(value = "/receipts", method = RequestMethod.GET)
-    public String receiptList(Model model) {
-        model.addAttribute("purseList", purseService.getAll(LoggedUser.id()).stream().filter(Purse::isActive).collect(Collectors.toList()));
-        model.addAttribute("shopList", shopService.getAll());
+    public String receiptList() {
         return "receipts";
     }
 

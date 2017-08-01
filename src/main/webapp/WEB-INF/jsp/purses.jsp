@@ -13,7 +13,6 @@
     <div class="container">
         <div class="shadow">
             <h3><spring:message code="purses.title"/></h3>
-            <a class="btn btn-sm btn-info" onclick="simpleGet()">TEST</a>
 
             <div class="view-box">
                 <a class="btn btn-sm btn-info" onclick="add()"><spring:message code="purses.add"/></a>
