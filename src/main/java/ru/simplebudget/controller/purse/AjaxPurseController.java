@@ -75,6 +75,6 @@ public class AjaxPurseController extends AbstractPurseController {
             modelMap.put("exception", neme.getMessage());
             return new ModelAndView("neme", modelMap);
         }
-        return new ModelAndView("redirect:/purses");
+        return new ModelAndView("purses");
     }
 }

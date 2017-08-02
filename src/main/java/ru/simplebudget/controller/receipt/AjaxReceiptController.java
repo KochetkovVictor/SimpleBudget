@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
+import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.out.Receipt;
 
 import ru.simplebudget.service.purse.PurseService;
@@ -17,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -49,16 +53,17 @@ public class AjaxReceiptController extends AbstractReceiptController {
         return super.getById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String saveOrUpdate(@Valid Receipt receipt, BindingResult result, SessionStatus status, HttpServletRequest request) {
-        if (!result.hasErrors()) {
-            try {
-                super.saveOrUpdate(receipt, Long.valueOf(request.getParameter("editedPurse")), Long.valueOf(request.getParameter("editedShop")));
-                status.setComplete();
-            } catch (DataIntegrityViolationException ex) {
-                result.rejectValue("description", "exception.duplicate_description");
-            }
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public ModelAndView  saveOrUpdate(@Valid Receipt receipt, BindingResult result, SessionStatus status, HttpServletRequest request) {
+        try {
+            super.saveOrUpdate(receipt, Long.valueOf(request.getParameter("editedPurse")), Long.valueOf(request.getParameter("editedShop")));
+            status.setComplete();
+
+        } catch (NotEnoughMoneyException neme) {
+            Map<String, Object> modelMap = new HashMap<>();
+            modelMap.put("exception", neme.getMessage());
+            return new ModelAndView("neme", modelMap);
         }
-        return "redirect:receipts";
+        return new ModelAndView("purses");
     }
 }

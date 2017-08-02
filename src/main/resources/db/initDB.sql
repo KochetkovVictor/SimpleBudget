@@ -63,7 +63,6 @@ CREATE TABLE income(
   description VARCHAR(30),
   purseId INTEGER NOT NULL DEFAULT 0,
   user_id BIGINT NOT NULL ,
-  FOREIGN KEY (purseId) REFERENCES purse (id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX income_unique_description_index ON income(description);
@@ -76,8 +75,6 @@ CREATE TABLE receipt(
   shopId INTEGER NOT NULL DEFAULT 0,
   purseId INTEGER NOT NULL DEFAULT 0,
   user_id BIGINT NOT NULL ,
-  FOREIGN KEY (purseId) REFERENCES purse (id) ON DELETE CASCADE,
-  FOREIGN KEY (shopId) REFERENCES shop (id) ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX receipt_unique_id_index ON receipt(id);
