@@ -4,7 +4,6 @@ package ru.simplebudget.repository.purse;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.simplebudget.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Purse_;
 import ru.simplebudget.model.user.User;
@@ -12,7 +11,6 @@ import ru.simplebudget.model.user.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 

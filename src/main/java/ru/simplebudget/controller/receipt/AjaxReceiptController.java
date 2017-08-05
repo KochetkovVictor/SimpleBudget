@@ -1,19 +1,19 @@
 package ru.simplebudget.controller.receipt;
 
 
-import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import ru.simplebudget.exceptions.NotEnoughMoneyException;
+import ru.simplebudget.utils.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.out.Receipt;
 
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
-import ru.simplebudget.service.user.UserService;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -53,7 +53,7 @@ public class AjaxReceiptController extends AbstractReceiptController {
         return super.getById(id);
     }
 
-    @RequestMapping(value="/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ModelAndView  saveOrUpdate(@Valid Receipt receipt, BindingResult result, SessionStatus status, HttpServletRequest request) {
         try {
             super.saveOrUpdate(receipt, Long.valueOf(request.getParameter("editedPurse")), Long.valueOf(request.getParameter("editedShop")));
@@ -64,6 +64,6 @@ public class AjaxReceiptController extends AbstractReceiptController {
             modelMap.put("exception", neme.getMessage());
             return new ModelAndView("neme", modelMap);
         }
-        return new ModelAndView("purses");
+        return new ModelAndView("redirect:purses");
     }
 }

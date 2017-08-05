@@ -2,16 +2,14 @@ package ru.simplebudget.controller.receipt;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.simplebudget.exceptions.NotEnoughMoneyException;
+import ru.simplebudget.utils.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.model.common.Shop;
 import ru.simplebudget.model.out.Receipt;
 import ru.simplebudget.model.user.LoggedUser;
-import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.purse.PurseService;
 import ru.simplebudget.service.receipt.ReceiptService;
 import ru.simplebudget.service.shop.ShopService;
-import ru.simplebudget.service.user.UserService;
 import ru.simplebudget.utils.TimeUtil;
 
 import java.time.LocalDate;

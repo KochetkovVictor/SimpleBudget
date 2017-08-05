@@ -2,7 +2,7 @@ package ru.simplebudget.service.purse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.simplebudget.exceptions.NotEnoughMoneyException;
+import ru.simplebudget.utils.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.repository.purse.PurseRepository;
 

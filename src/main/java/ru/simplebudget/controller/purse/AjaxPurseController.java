@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import ru.simplebudget.exceptions.NotEnoughMoneyException;
+import ru.simplebudget.utils.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 import ru.simplebudget.service.purse.PurseService;
 

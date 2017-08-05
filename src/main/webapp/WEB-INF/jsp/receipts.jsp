@@ -73,11 +73,6 @@
                         <div class="col-xs-9">
                             <select required id="shop" name="editedShop">
                                 <option selected disabled>Choose a shop</option>
-                                <%--<c:forEach items="${shopList}" var="shop">
-                                    <option value="${shop.id}">
-                                            ${shop.name}
-                                    </option>
-                                </c:forEach>--%>
                             </select>
                         </div>
                     </div>
@@ -103,11 +98,6 @@
                         <div class="col-xs-9">
                             <select required id="purse" name="editedPurse">
                                 <option selected disabled>Choose a purse</option>
-                               <%-- <c:forEach items="${purseList}" var="purse">
-                                    <option value="${purse.id}">
-                                            ${purse.description}
-                                    </option>
-                                </c:forEach>--%>
                             </select>
                         </div>
                     </div>

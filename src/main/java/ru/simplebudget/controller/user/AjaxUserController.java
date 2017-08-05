@@ -1,12 +1,18 @@
 package ru.simplebudget.controller.user;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.simplebudget.model.user.User;
 import ru.simplebudget.service.user.UserService;
 import org.springframework.http.MediaType;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -14,8 +20,12 @@ import java.util.List;
 @RequestMapping(value = "/ajax/users")
 public class AjaxUserController extends AbstractUserController {
 
-    public AjaxUserController(UserService service) {
+    private final MessageSource messageSource;
+
+    @Autowired
+    public AjaxUserController(UserService service, MessageSource messageSource) {
         super(service);
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,11 +44,14 @@ public class AjaxUserController extends AbstractUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void saveOrUpdate(User user) {
-        if (user.getId() == 0) {
+    public void saveOrUpdate(@Valid User user) {
+      try{   if (user.getId() == 0) {
             user.setId(null);
         }
-        super.saveOrUpdate(user);
+        super.saveOrUpdate(user);}
+      catch (DataIntegrityViolationException ex) {
+          throw new DataIntegrityViolationException(messageSource.getMessage("exception.duplicate_email", null, LocaleContextHolder.getLocale()));
+      }
     }
 
     @RequestMapping(value = "/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,7 +1,7 @@
 package ru.simplebudget.service.purse;
 
 
-import ru.simplebudget.exceptions.NotEnoughMoneyException;
+import ru.simplebudget.utils.exceptions.NotEnoughMoneyException;
 import ru.simplebudget.model.common.Purse;
 
 import java.util.List;
