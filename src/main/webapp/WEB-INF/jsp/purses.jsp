@@ -136,10 +136,5 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/pursesDatatables.js"></script>
 <script type="text/javascript" src="resources/js/purseSelect.js"></script>
-<%--<script type="text/javascript">
-    alert($.get('${pageContext.request.contextPath}/ajax/purses', null, function(data){
-        data=JSON.parse(data);
-    }))
-</script>--%>
 
 </html>

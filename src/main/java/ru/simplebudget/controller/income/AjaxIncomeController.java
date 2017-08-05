@@ -50,7 +50,7 @@ public class AjaxIncomeController extends AbstractIncomeController {
     public String saveOrUpdate(@Valid Income income, BindingResult result, SessionStatus status, HttpServletRequest request) {
         if (!result.hasErrors()) {
             try {
-                super.saveOrUpdate(income, Long.valueOf(request.getParameter("fromPurse")));
+                super.saveOrUpdate(income, Long.valueOf(request.getParameter("editedPurse")));
                 status.setComplete();
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("description", "exception.duplicate_description");

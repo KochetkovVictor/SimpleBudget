@@ -92,7 +92,7 @@
                     <div class="form-group">
                         <label for="purse" class="control-label col-xs-3">Purse</label>
                         <div class="col-xs-9">
-                            <select required id="purse" name="fromPurse">
+                            <select required id="purse" name="editedPurse">
                                 <option selected disabled>Choose a purse</option>
                             </select>
                         </div>
@@ -114,5 +114,5 @@
 <script type="text/javascript" src="webjars/noty/2.4.1/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/incomesDatatables.js"></script>
-<script type="text/javascript" src="resources/js/purseSelect.js"></script>
+<script type="text/javascript" src="resources/js/singlePurseSelect.js"></script>
 </html>

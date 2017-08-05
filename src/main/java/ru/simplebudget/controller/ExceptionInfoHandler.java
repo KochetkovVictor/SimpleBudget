@@ -18,7 +18,7 @@ import javax.validation.ValidationException;
 
 @ControllerAdvice(annotations = RestController.class)
 public class ExceptionInfoHandler {
-    Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+    private Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
@@ -36,7 +36,7 @@ public class ExceptionInfoHandler {
         return logAndGetErrorInfo(req, e, true);
     }
 
-    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
+    @ResponseStatus(value = HttpStatus.METHOD_NOT_ALLOWED)  // 422
     @ExceptionHandler(BindException.class)
     @ResponseBody
     @Order(Ordered.HIGHEST_PRECEDENCE + 2)
