@@ -54,7 +54,7 @@ public class AjaxReceiptController extends AbstractReceiptController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView  saveOrUpdate(@Valid Receipt receipt, SessionStatus status, HttpServletRequest request) {
+    public ModelAndView  saveOrUpdate(@Valid Receipt receipt, BindingResult result, SessionStatus status, HttpServletRequest request) {
         try {
             super.saveOrUpdate(receipt, Long.valueOf(request.getParameter("editedPurse")), Long.valueOf(request.getParameter("editedShop")));
             status.setComplete();
@@ -64,6 +64,6 @@ public class AjaxReceiptController extends AbstractReceiptController {
             modelMap.put("exception", neme.getMessage());
             return new ModelAndView("neme", modelMap);
         }
-        return new ModelAndView("redirect:/receipts");
+        return new ModelAndView("receipts");
     }
 }

@@ -58,11 +58,11 @@ public abstract class AbstractReceiptController {
     public Receipt saveOrUpdate(Receipt receipt, Long purseId, Long shopId) throws NotEnoughMoneyException {
         Purse purse = purseService.getById(purseId, LoggedUser.id());
         Shop shop = shopService.getById(shopId);
+        if (purse.getAmount() - receipt.getAmount() < 0) {
+            throw new NotEnoughMoneyException(purse + " don't have enough money");
+        }
         if (receipt.getId() == 0) {
             receipt.setId(null);
-            if (purse.getAmount() - receipt.getAmount() < 0) {
-                throw new NotEnoughMoneyException(purse + " don't have enough money");
-            }
             purse.setAmount(purse.getAmount() - receipt.getAmount());
         } else {
             Receipt oldReceipt = getById(receipt.getId());
