@@ -14,10 +14,10 @@ public class Shop {
     @Column(name = "id")
     private
     Long id;
-    @Column(name="adress")
+    @Column(name = "adress")
     private
     String adress;
-    @Column (name = "name")
+    @Column(name = "name")
     private
     String name;
 
@@ -28,9 +28,11 @@ public class Shop {
 
     public Shop() {
     }
-    public Shop(Long id){
-        this.id =id;
+
+    public Shop(Long id) {
+        this.id = id;
     }
+
     public Long getId() {
         return id;
     }
@@ -61,5 +63,20 @@ public class Shop {
 
     public void setNetName(ShopNet netName) {
         this.netName = netName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Shop shop = (Shop) o;
+
+        return getId().equals(shop.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() == null ? 0 : getId().hashCode();
     }
 }
