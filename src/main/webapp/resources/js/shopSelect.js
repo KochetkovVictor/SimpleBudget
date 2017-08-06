@@ -1,4 +1,4 @@
-var ajaxShopUrl = 'ajax/shops/';
+var ajaxShopUrl = 'ajax/shops';
 
 $(document).ready(function(){
     $.get(ajaxShopUrl, function (data) {

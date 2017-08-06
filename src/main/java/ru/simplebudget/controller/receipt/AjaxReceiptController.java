@@ -3,7 +3,6 @@ package ru.simplebudget.controller.receipt;
 
 
 import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +53,7 @@ public class AjaxReceiptController extends AbstractReceiptController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView  saveOrUpdate(@Valid Receipt receipt, BindingResult result, SessionStatus status, HttpServletRequest request) {
+    public ModelAndView  saveOrUpdate(@Valid Receipt receipt, SessionStatus status, HttpServletRequest request) {
         try {
             super.saveOrUpdate(receipt, Long.valueOf(request.getParameter("editedPurse")), Long.valueOf(request.getParameter("editedShop")));
             status.setComplete();
