@@ -14,10 +14,10 @@ public class Shop {
     @Column(name = "id")
     private
     Long id;
-    @Column(name = "adress")
+    @Column(name="adress")
     private
     String adress;
-    @Column(name = "name")
+    @Column (name = "name")
     private
     String name;
 
@@ -28,11 +28,9 @@ public class Shop {
 
     public Shop() {
     }
-
-    public Shop(Long id) {
-        this.id = id;
+    public Shop(Long id){
+        this.id =id;
     }
-
     public Long getId() {
         return id;
     }
@@ -77,6 +75,6 @@ public class Shop {
 
     @Override
     public int hashCode() {
-        return getId() == null ? 0 : getId().hashCode();
+        return getId()==null ? 0:getId().hashCode();
     }
 }

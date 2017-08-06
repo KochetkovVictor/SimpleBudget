@@ -106,11 +106,11 @@ public class Purse {
 
         Purse purse = (Purse) o;
 
-        return id.equals(purse.id);
+        return getId().equals(purse.getId());
     }
 
     @Override
     public int hashCode() {
-        return this.id == null ? 0 : id.hashCode();
+        return getId()==null ? 0:getId().hashCode();
     }
 }
