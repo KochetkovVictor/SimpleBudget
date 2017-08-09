@@ -98,7 +98,7 @@ public class Receipt {
 
     public Receipt() {
         this.receiptDate = LocalDateTime.now().toLocalDate();
-        this.active=true;
+        this.active = true;
     }
 
    /* public List<Product> getProducts() {
@@ -130,7 +130,8 @@ public class Receipt {
     }
 
     public void setReceiptDate(LocalDate receiptDate) {
-        this.receiptDate = receiptDate;
+        if (receiptDate == null) this.receiptDate = LocalDate.now();
+        else this.receiptDate = receiptDate;
     }
 
     public Receipt(Long id) {

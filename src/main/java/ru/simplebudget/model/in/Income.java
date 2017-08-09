@@ -58,9 +58,10 @@ public class Income {
     }
 
     public void setIncomeDate(LocalDate incomeDate) {
-        if (incomeDate==null)
-            incomeDate=LocalDate.now();
-        this.incomeDate = incomeDate;
+        if (incomeDate == null)
+            this.incomeDate = LocalDate.now();
+        else
+            this.incomeDate = incomeDate;
     }
 
     public Double getValue() {
