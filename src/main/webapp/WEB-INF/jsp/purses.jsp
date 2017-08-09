@@ -37,19 +37,13 @@
         </div>
     </div>
 </div>
-<form method="post" action="${pageContext.request.contextPath}/ajax/purses/transfer">
+<form:form method="post" action="${pageContext.request.contextPath}/ajax/purses/transfer">
     <div class="row">
         <div class="col-md-3">
             <label for="select1" class="control-label col-md-3">From purse:</label>
             <div class="col-md-3">
                 <select id="select1" name="fromPurse">
                     <option selected disabled>From Purse</option>
-                   <%-- <c:forEach items="${purseList}" var="purse">
-                        <jsp:useBean id="purse" class="ru.simplebudget.model.common.Purse" scope="request"/>
-                        <option value="${purse.id}">
-                                ${purse.description}
-                        </option>
-                    </c:forEach>--%>
                 </select>
             </div>
         </div>
@@ -58,11 +52,6 @@
             <div class="col-md-3">
                 <select id="select2" name="toPurse">
                     <option selected disabled>To Purse</option>
-                    <%--<c:forEach items="${purseList}" var="purse">
-                        <option value="${purse.id}">
-                                ${purse.description}
-                        </option>
-                    </c:forEach>--%>
                 </select>
             </div>
         </div>
@@ -77,7 +66,7 @@
             <button type="submit">Transfer</button>
         </div>
     </div>
-</form>
+</form:form>
 
 <div>
     <jsp:include page="fragments/footer.jsp"/>

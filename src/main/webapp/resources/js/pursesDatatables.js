@@ -1,10 +1,11 @@
 var ajaxUrl = 'ajax/purses/';
 var datatableApi;
 
-function updateTable() {
-
-    $.get(ajaxUrl, updateTableByData);
-}
+$.ajax({
+    url: ajaxUrl,
+    type: 'POST',
+    success: updateTableByData
+});
 
 $(function () {
     datatableApi = $('#datatable').DataTable({
