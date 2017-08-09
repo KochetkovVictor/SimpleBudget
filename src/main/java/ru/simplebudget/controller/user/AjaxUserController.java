@@ -56,7 +56,7 @@ public class AjaxUserController extends AbstractUserController {
 
     @RequestMapping(value = "/byEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User getByEmail(@RequestParam("email") String email) {
-        return super.getByEmail(email);
+        return super.getByEmail(email.toLowerCase());
     }
 
     @RequestMapping(value = "/byNickName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

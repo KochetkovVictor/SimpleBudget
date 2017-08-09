@@ -21,8 +21,8 @@ INSERT INTO shop (name, adress, shopnetid)  VALUES
   ('Пятерочка Видное Березовая 7','МО, г.Видное, ул. Березовая, д.7',201);
 
 INSERT INTO users (id, nickname, password, email, firstname, lastname, dateofbirth, register, enabled) VALUES
-  (302, 'simpleuser', 'password', 'che18@yandex.ru', 'Victor', 'Kochetkov', '1979-10-23', '2017-05-14', TRUE ),
-  (301, 'adminuser', 'strongpassword', 'secretphiz@gmail.com', 'Arutyun', 'Shelenberg', '2010-10-10', '2017-05-14', TRUE);
+  (302, 'simpleuser', '$2a$10$QgguxfOdbst6z56QR1xHo.w144UVpv/pNSxajym7zODRlt4PpTeM6', 'che18@yandex.ru', 'Victor', 'Kochetkov', '1979-10-23', '2017-05-14', TRUE ),
+  (301, 'adminuser', '$2a$10$2IGdPIH8QNn9.CXLb5FXC.eq3uAOHVvaPhavogusbGX8SfTBS4LQm', 'secretphiz@gmail.com', 'Arutyun', 'Shelenberg', '2010-10-10', '2017-05-14', TRUE);
 
 INSERT INTO user_roles (user_id, role) VALUES
   (301, 'ROLE_ADMIN'),

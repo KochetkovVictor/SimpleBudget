@@ -30,7 +30,7 @@ public class User {
     private String nickName;
     @Column(name = "password", nullable = false)
     @NotEmpty
-    @Length(min = 5)
+    @Length(min = 5, max = 25)
     private String password;
     @Column(name = "dateOfBirth", columnDefinition = "timestamp default now()")
     private LocalDate dateOfBirth;

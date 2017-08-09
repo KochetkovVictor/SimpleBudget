@@ -28,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> user = cq.from(User.class);
-        Predicate condition = cb.equal(user.get("email"), email);
+        Predicate condition = cb.equal(user.get("email"), email.toLowerCase());
         cq.where(condition);
         return em.createQuery(cq).getSingleResult();
     }
