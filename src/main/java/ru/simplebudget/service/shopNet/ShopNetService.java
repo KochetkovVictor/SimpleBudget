@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ShopNetService {
     List<ShopNet> getAll();
+
+    List<ShopNet> getByTemplate(String template);
 }

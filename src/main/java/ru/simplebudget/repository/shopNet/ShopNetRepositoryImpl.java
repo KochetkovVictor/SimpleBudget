@@ -3,7 +3,7 @@ package ru.simplebudget.repository.shopNet;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.simplebudget.model.common.ShopNet;
-
+import ru.simplebudget.model.common.ShopNet_;
 
 
 import javax.persistence.EntityManager;
@@ -58,5 +58,20 @@ public class ShopNetRepositoryImpl implements ShopNetRepository {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<ShopNet> getByTemplate(String template) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ShopNet> cq = entityManager.getCriteriaBuilder().createQuery(ShopNet.class);
+
+        Root<ShopNet> root = cq.from(ShopNet.class);
+        cq.where(
+                cb.like(root.get(ShopNet_.name),
+                        template.substring(0, 1).toUpperCase() + template.substring(1, template.length()) + "%")
+
+        );
+        cq.orderBy(cb.asc(root.get(ShopNet_.name)));
+        return entityManager.createQuery(cq).getResultList();
     }
 }

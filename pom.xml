@@ -229,12 +229,16 @@
         </dependency>
 
         <!-- jQuery-Autocomplete -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jQuery-Autocomplete</artifactId>
             <version>${webjars-jQA.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>devbridge-autocomplete</artifactId>
+            <version>1.4.1</version>
         </dependency>
-
 
         <!--End of WebJars-->
 

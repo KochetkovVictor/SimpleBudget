@@ -22,4 +22,9 @@ public class ShopNetServiceImpl implements ShopNetService{
     public List<ShopNet> getAll() {
         return repository.getAll();
     }
+
+    @Override
+    public List<ShopNet> getByTemplate(String template) {
+        return repository.getByTemplate(template);
+    }
 }

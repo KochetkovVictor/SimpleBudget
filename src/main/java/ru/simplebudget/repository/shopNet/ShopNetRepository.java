@@ -11,4 +11,6 @@ public interface ShopNetRepository {
 
     ShopNet saveOrUpdate(ShopNet shopNet);
     boolean delete(Long id);
+
+    List<ShopNet> getByTemplate(String template);
 }

@@ -19,4 +19,8 @@ public abstract class AbstractShopNetController {
     List<ShopNet> getAll(){
         return service.getAll();
     }
+
+    public List<ShopNet> getByTemplate(String template) {
+        return service.getByTemplate(template);
+    }
 }
