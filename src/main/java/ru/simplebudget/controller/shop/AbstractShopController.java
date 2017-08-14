@@ -17,7 +17,11 @@ public abstract class AbstractShopController {
         this.service = service;
     }
 
-    List<Shop> getAll(){
+    List<Shop> getAll() {
         return service.getAll();
+    }
+
+    List<Shop> getByTemplate(String template, Long shopNetId) {
+        return service.getByTemplate(template, shopNetId);
     }
 }

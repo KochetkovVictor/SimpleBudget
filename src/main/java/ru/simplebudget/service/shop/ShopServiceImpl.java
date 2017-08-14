@@ -10,20 +10,25 @@ import java.util.List;
 @Service
 public class ShopServiceImpl implements ShopService {
 
-    private final ShopRepository shopRepository;
+    private final ShopRepository repository;
 
     @Autowired
-    public ShopServiceImpl(ShopRepository shopRepository) {
-        this.shopRepository = shopRepository;
+    public ShopServiceImpl(ShopRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Shop> getAll() {
-        return shopRepository.getAll();
+        return repository.getAll();
     }
 
     @Override
     public Shop getById(Long id) {
-        return shopRepository.getById(id);
+        return repository.getById(id);
+    }
+
+    @Override
+    public List<Shop> getByTemplate(String template, Long shopNetId) {
+        return repository.getByTemplate(template, shopNetId);
     }
 }

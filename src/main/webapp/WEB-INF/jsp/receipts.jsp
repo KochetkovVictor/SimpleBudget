@@ -68,6 +68,13 @@
                 <form:form class="form-horizontal" method="post" id="detailsForm">
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
+                        <label for="shopNet" class="control-label col-xs-3">ShopNet</label>
+
+                        <div class="col-xs-9">
+                            <input class="form-control" id="shopNet" name="shopNet" placeholder="ShopNet">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="shop" class="control-label col-xs-3">Shop</label>
 
                         <div class="col-xs-9">
@@ -112,6 +119,7 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="webjars/jQuery-Autocomplete/1.2.7/jquery.autocomplete.min.js"></script>
 <script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.4.1/js/noty/packaged/jquery.noty.packaged.min.js"></script>
@@ -119,4 +127,5 @@
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/singlePurseSelect.js"></script>
 <script type="text/javascript" src="resources/js/shopSelect.js"></script>
+<script type="text/javascript" src="resources/js/autoCompleteShopNet.js"></script>
 </html>
