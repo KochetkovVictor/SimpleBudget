@@ -17,14 +17,13 @@ public class AjaxShopNetController extends AbstractShopNetController {
     public AjaxShopNetController(ShopNetService service) {
         super(service);
     }
-
-    /*@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<ShopNet> getAll() {
         return super.getAll();
-    }*/
+    }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ShopNet> getByTemplate(@RequestParam(value = "query") String template){
+    @RequestMapping(value="/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ShopNet> getByTemplate(@RequestParam(value = "query", required = false) String template){
         if (template.isEmpty()) return super.getAll();
         return super.getByTemplate(template);
     }

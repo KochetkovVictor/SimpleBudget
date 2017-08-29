@@ -11,6 +11,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Entity
 @Table(name = "shopnet")
+@JsonRootName("suggestions")
 @StaticMetamodel(ShopNet.class)
 public class ShopNet {
     public Long getId() {
@@ -38,7 +39,7 @@ public class ShopNet {
     }
 
     @Id
-    @JsonProperty("label")
+    @JsonProperty("data")
     private
     Long id;
     @JsonProperty("value")

@@ -119,7 +119,7 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="webjars/jQuery-Autocomplete/1.2.7/jquery.autocomplete.min.js"></script>
+<script type="text/javascript" src="webjars/devbridge-autocomplete/1.4.1/src/jquery.autocomplete.js"></script>
 <script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.4.1/js/noty/packaged/jquery.noty.packaged.min.js"></script>

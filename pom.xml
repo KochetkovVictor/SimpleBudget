@@ -229,7 +229,7 @@
         </dependency>
 
         <!-- jQuery-Autocomplete -->
-        <!--<dependency>
+       <!-- <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jQuery-Autocomplete</artifactId>
             <version>${webjars-jQA.version}</version>

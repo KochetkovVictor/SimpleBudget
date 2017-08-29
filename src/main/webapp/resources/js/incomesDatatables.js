@@ -26,6 +26,9 @@ $(function () {
             {
                 "data": "incomeDate",
                 "render": function (date, type, row) {
+                    if (type == 'display') {
+                        return date.replace(',', '-').substr(0, 16);
+                    }
                     return date;
                 }
             },
