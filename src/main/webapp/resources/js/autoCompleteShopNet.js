@@ -1,21 +1,17 @@
-var ajaxUrlShopNet='ajax/shopNet';
-
+var ajaxUrlShopNet = 'ajax/shopNet';
 
 $('#shopNet').autocomplete({
-    lookup: function (query, done) {
-        // Do Ajax call or lookup locally, when done,
-        // call the callback and pass your results:
-        var result = $.get(ajaxUrlShopNet);
-        done(result);
+    serviceUrl: ajaxUrlShopNet+'/filter',
+    transformResult: function (response) {
+        response=JSON.parse(response);
+        return {
+            suggestions: $.map(response, function (dataItem) {
+                return {value: dataItem.name, data: dataItem.id};
+            })
+        };
     },
     onSelect: function (suggestion) {
         alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
     }
 });
-/*
-$('#shopNet').autocomplete({
-    serviceUrl:ajaxUrlShopNet+'/filter',
-    onSelect: function (suggestion) {
-        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    }
-});*/
+

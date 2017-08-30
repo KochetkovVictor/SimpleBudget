@@ -1,19 +1,18 @@
 package ru.simplebudget.model.common;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.metamodel.StaticMetamodel;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "shopnet")
-@JsonRootName("suggestions")
 @StaticMetamodel(ShopNet.class)
-public class ShopNet {
+public class ShopNet implements Serializable {
     public Long getId() {
         return id;
     }
@@ -39,9 +38,9 @@ public class ShopNet {
     }
 
     @Id
-    @JsonProperty("data")
+    //@JsonProperty("data")
     private
     Long id;
-    @JsonProperty("value")
+    //@JsonProperty("value")
     private String name;
 }
