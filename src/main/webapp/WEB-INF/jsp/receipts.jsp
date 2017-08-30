@@ -69,7 +69,7 @@
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
                         <label for="shopNet" class="control-label col-xs-3">ShopNet</label>
-
+                        <input type="hidden" name="shopNetId" id="shopNetId">
                         <div class="col-xs-9">
                             <input class="form-control" id="shopNet" name="shopNet" placeholder="ShopNet">
                         </div>

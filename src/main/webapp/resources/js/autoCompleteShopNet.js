@@ -11,7 +11,7 @@ $('#shopNet').autocomplete({
         };
     },
     onSelect: function (suggestion) {
-        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        $('#shopNetId').val(suggestion.data);
     }
 });
 
